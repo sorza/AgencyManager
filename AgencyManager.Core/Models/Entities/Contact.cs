@@ -55,6 +55,22 @@ namespace AgencyManager.Core.Models.Entities
         {
             string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$";
             return new Regex(pattern).IsMatch(Description);
-        }        
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is null) return false;
+
+            var contact = (Contact)obj;
+
+            return ContactType == contact.ContactType &&
+                    Description == contact.Description &&
+                    Departament == contact.Departament;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ContactType, Description, Departament);
+        }
     }
 }
