@@ -1,6 +1,4 @@
-using AgencyManager.Core.Models.Entities;
-
-namespace AgencyManager.Core.Models
+namespace AgencyManager.Core.Models.Entities
 {
     public class Position
     {
@@ -8,7 +6,7 @@ namespace AgencyManager.Core.Models
         private const int MaxDescriptionLenght = 100;
         private const int MinResposabilitiesLenght = 10;
         private const int MaxResponsabilitiesLenght = 500;
-        private const int MinSalaryValue = 500;
+        private const int MinSalaryValue = 0;
         private const int MaxSalaryValue = 50000;
         
         public Position(string description, string responsabilities, decimal salary, Agency agency)

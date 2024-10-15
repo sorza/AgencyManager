@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
@@ -29,6 +30,16 @@ namespace AgencyManager.Core.Models.Entities
         public void Activate() => Active = true;
         public void Deactivate() => Active = false;
 
+        public void AddPosition(Position position)
+        {
+            if(position.Validate()) _positions.Add(position); 
+        }
+
+        public void RemovePosition(Position position)
+        {
+            _positions.Remove(position);
+        }
+
         public void AddContact(Contact contact)
         {
             if(contact.Validate()) _contacts.Add(contact);
@@ -39,11 +50,22 @@ namespace AgencyManager.Core.Models.Entities
             _contacts.Remove(contact);
         }
 
-        public void UpdateContact(int index, Contact newContact)
+        public void UpdatePosition(Position positionUpdated)
         {
-            if(newContact.Validate())            
-                if(index < _contacts.Count)                
-                    _contacts[index] = newContact;
+            if(positionUpdated.Validate())
+            { 
+                int index = ((List<Position>)_positions).FindIndex(x => x.Id == positionUpdated.Id);
+                _positions[index] = positionUpdated;
+            }
+        }
+
+        public void UpdateContact(Contact contactUpdated)
+        {
+            if(contactUpdated.Validate()) 
+            {
+                int index = ((List<Position>)_contacts).FindIndex(x => x.Id == contactUpdated.Id);
+                 _contacts[index] = contactUpdated;
+            }
         }
     }
 }

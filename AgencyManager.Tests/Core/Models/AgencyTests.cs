@@ -49,7 +49,7 @@ namespace AgencyManager.Tests.Core.Models
             var contact2 = new Contact(EContactType.Email, "teste2@teste.com", "profissional");
             var contact3 = new Contact(EContactType.Email, "teste2@teste.com", "profissional");
             
-            agency.UpdateContact(0, contact2);
+            agency.UpdateContact(contact2);
             Assert.AreEqual(contact3, agency.Contacts?.First());
         }
     }
