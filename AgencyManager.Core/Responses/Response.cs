@@ -4,7 +4,7 @@ namespace AgencyManager.Core.Responses
 {
     public class Response<TData>
     {
-         private readonly int _code;
+        private readonly int _code;
 
         [JsonConstructor]
         public Response() => _code = Configuration.DefaultStatusCode;
