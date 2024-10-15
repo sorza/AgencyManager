@@ -1,4 +1,3 @@
-using System.Reflection.PortableExecutable;
 using AgencyManager.Core.Enums;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.Entities.ValueObjects;
@@ -12,7 +11,7 @@ namespace AgencyManager.Tests.Core.Models
         Agency agency = new Agency("Agencia 01",
                                    "31521273000105", 
                                     new Address("13477696", "Rua Um", "12345", "Centro", "Araras", "SP", "Apto 32"),
-                                    [],"" );
+                                    [],[],"" );
 
         [TestMethod]
         public void ReturnErrorWhenAddAnInvalidContact()

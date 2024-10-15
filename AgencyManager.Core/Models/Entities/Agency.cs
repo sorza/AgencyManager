@@ -5,15 +5,17 @@ namespace AgencyManager.Core.Models.Entities
     public class Agency
     {
         private readonly IList<Contact> _contacts;
+        private readonly IList<Position> _positions;
 
-        public Agency(string description, string cnpj, Address address, IList<Contact> contacts, string photo)
+        public Agency(string description, string cnpj, Address address, IList<Contact> contacts, IList<Position> positions, string photo)
         {
             Description = description;
             Cnpj = cnpj;
             Address = address;
-            _contacts = contacts;
+            _contacts = contacts ?? [];
             Photo = photo;
             Active = true;
+            _positions = positions ?? [];
         }
         public int Id { get; set; }
         public string Description { get; private set; }
@@ -21,6 +23,7 @@ namespace AgencyManager.Core.Models.Entities
         public bool Active { get; private set; }
         public Address Address { get; private set; }
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
+        public IReadOnlyCollection<Position>? Positions { get { return _positions.ToArray(); }}
         public string? Photo { get; private set; }
 
         public void Activate() => Active = true;
