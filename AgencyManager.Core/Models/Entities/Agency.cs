@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Text;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
@@ -61,10 +62,10 @@ namespace AgencyManager.Core.Models.Entities
 
         public void UpdateContact(Contact contactUpdated)
         {
-            if(contactUpdated.Validate()) 
+            if(contactUpdated is not null) 
             {
-                int index = ((List<Position>)_contacts).FindIndex(x => x.Id == contactUpdated.Id);
-                 _contacts[index] = contactUpdated;
+                var contact = _contacts.FirstOrDefault(x => x.Id == contactUpdated.Id)!;
+                contact.UpdateContact(contactUpdated); 
             }
         }
     }

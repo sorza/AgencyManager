@@ -45,12 +45,24 @@ namespace AgencyManager.Tests.Core.Models
         public void ReturnSuccesWhenUpdateAContact()
         {
             var contact = new Contact(EContactType.Email, "teste@teste.com", "pessoal");
-            agency.AddContact(contact);
-            var contact2 = new Contact(EContactType.Email, "teste2@teste.com", "profissional");
-            var contact3 = new Contact(EContactType.Email, "teste2@teste.com", "profissional");
+            contact.Id = 1;
+
+            var contact2 = new Contact(EContactType.Phone, "1933527436", "pessoal");
+            contact2.Id = 2;
+
+            var contact3 = new Contact(EContactType.WhatsApp, "1933527436", "pessoal");
+            contact3.Id = 3;
             
-            agency.UpdateContact(contact2);
-            Assert.AreEqual(contact3, agency.Contacts?.First());
+            agency.AddContact(contact);
+            agency.AddContact(contact2);
+            agency.AddContact(contact3);
+
+            var contactUpdate = new Contact(EContactType.Email, "EMAIL-ALTERADO2@teste.com", "ALTERADO");
+            contactUpdate.Id = 3;
+
+            agency.UpdateContact(contactUpdate);
+            
+            Assert.AreEqual(true, agency.Contacts?.FirstOrDefault(x=>x.Id == 3)!.Equals(contactUpdate));
         }
     }
 }

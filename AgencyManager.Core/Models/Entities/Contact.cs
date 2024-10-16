@@ -17,18 +17,7 @@ namespace AgencyManager.Core.Models.Entities
         public string Description { get; private set; }
         public string Departament { get; private set; }
 
-        public bool Validate()
-        {
-           switch (ContactType)
-           {
-            case EContactType.Phone: return PhoneValidate();
-            case EContactType.CellPhone: return CellPhoneValidate();
-            case EContactType.Email: return EmailValidate();
-            case EContactType.WhatsApp: return WhatsAppValidate();
-            default: return false;
-           }
-        }
-
+        #region Private Methods
         private bool WhatsAppValidate()
         {
             var phone = PhoneValidate();
@@ -56,7 +45,33 @@ namespace AgencyManager.Core.Models.Entities
             string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$";
             return new Regex(pattern).IsMatch(Description);
         }
+        #endregion
+        
+        #region Public Methods
+        public bool Validate()
+        {
+           switch (ContactType)
+           {
+            case EContactType.Phone: return PhoneValidate();
+            case EContactType.CellPhone: return CellPhoneValidate();
+            case EContactType.Email: return EmailValidate();
+            case EContactType.WhatsApp: return WhatsAppValidate();
+            default: return false;
+           }
+        }        
+        public void UpdateContact(Contact contact)
+        {
+            if(contact.Validate())
+            {
+                ContactType = contact.ContactType;
+                Description = contact.Description;
+                Departament = contact.Departament;
+            }
+        }
+        
+        #endregion
 
+        #region Overrides
         public override bool Equals(object? obj)
         {
             if(obj is null) return false;
@@ -72,5 +87,6 @@ namespace AgencyManager.Core.Models.Entities
         {
             return HashCode.Combine(ContactType, Description, Departament);
         }
+        #endregion
     }
 }
