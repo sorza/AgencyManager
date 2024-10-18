@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using AgencyManager.Core.Enums;
+using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -7,12 +8,22 @@ namespace AgencyManager.Core.Models.Entities
     {
         public Contact(EContactType contactType, string description, string departament)
         {
+            AddNotifications(new Contract<Contact>().Requires()
+                .IsNotNull(contactType,"ContactType","O tipo é obrigatório.")
+
+                .IsNotNullOrEmpty(description,"Description","Bairro inválido.")
+                .IsGreaterThan(description, 7, "Description","O contato deve ter no mínimo 7 caracteres")
+                .IsLowerThan(description, 70, "Description","O contato deve ter no máximo 70 caracteres") 
+
+                .IsNotNullOrEmpty(departament,"Description","Departamento inválido.")
+                .IsGreaterThan(departament, 2, "Description","O departamento deve ter no mínimo 2 caracteres")
+                .IsLowerThan(departament, 70, "Description","O departamento deve ter no máximo 70 caracteres")      
+            );
+
             ContactType = contactType;
             Description = description;
             Departament = departament;
         }
-
-        public int Id { get; set; }
         public EContactType ContactType { get; private set; }
         public string Description { get; private set; }
         public string Departament { get; private set; }

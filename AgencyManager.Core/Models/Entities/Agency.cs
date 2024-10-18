@@ -1,4 +1,5 @@
-using AgencyManager.Core.Models.Entities.ValueObjects;
+using AgencyManager.Core.Models.ValueObjects;
+using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -7,17 +8,28 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Contact> _contacts;
         private readonly IList<Position> _positions;
 
-        public Agency(string description, string cnpj, Address address, IList<Contact> contacts, IList<Position> positions, string photo)
+        public Agency(string description, string cnpj, Address address, IList<Contact>? contacts, IList<Position>? positions, string? photo)
         {
+            AddNotifications(new Contract<Agency>().Requires()
+                .IsNotNullOrEmpty(description,"Description","O nome/descrição inválido.")
+                .IsLowerThan(Description,60,"Description", "O nome/descrição deve conter no máximo 60 caracteres.")
+
+                .Matches(cnpj, @"^\d{8}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
+
+                .IsNotNull(address,"Address","Informe um endereço")
+            );
+
             Description = description;
             Cnpj = cnpj;
-            Address = address;
-            _contacts = contacts ?? [];
-            Photo = photo;
+            Address = address;    
+
             Active = true;
+
+            Photo = photo ?? "";
             _positions = positions ?? [];
+            _contacts = contacts ?? [];
         }
-        public int Id { get; set; }
+
         public string Description { get; private set; }
         public string Cnpj { get; private set; }
         public bool Active { get; private set; }
@@ -31,13 +43,23 @@ namespace AgencyManager.Core.Models.Entities
 
         public void AddPosition(Position position)
         {
-            if(position.Validate()) _positions.Add(position); 
+            if(position.IsValid) _positions.Add(position); 
         }
 
         public void RemovePosition(Position position)
         {
             _positions.Remove(position);
         }
+
+        public void UpdatePosition(Position positionUpdated)
+        {
+            if(positionUpdated.IsValid)
+            { 
+                int index = ((List<Position>)_positions).FindIndex(x => x.Id == positionUpdated.Id);
+                _positions[index] = positionUpdated;
+            }
+        }
+
 
         public void AddContact(Contact contact)
         {
@@ -48,16 +70,7 @@ namespace AgencyManager.Core.Models.Entities
         {
             _contacts.Remove(contact);
         }
-
-        public void UpdatePosition(Position positionUpdated)
-        {
-            if(positionUpdated.Validate())
-            { 
-                int index = ((List<Position>)_positions).FindIndex(x => x.Id == positionUpdated.Id);
-                _positions[index] = positionUpdated;
-            }
-        }
-
+   
         public void UpdateContact(Contact contactUpdated)
         {
             if(contactUpdated is not null) 
