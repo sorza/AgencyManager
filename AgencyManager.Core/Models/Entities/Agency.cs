@@ -1,10 +1,8 @@
-using System.Runtime.CompilerServices;
-using System.Text;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
 {
-    public class Agency
+    public class Agency : Entity
     {
         private readonly IList<Contact> _contacts;
         private readonly IList<Position> _positions;

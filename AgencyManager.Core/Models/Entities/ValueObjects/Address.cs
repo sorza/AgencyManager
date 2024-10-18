@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Models.Entities.ValueObjects
 {
-    public class Address
+    public class Address : ValueObject
     {
         public Address(string zipCode, string street, string number, string neighborhood, string city, string state, string? complement)
         {

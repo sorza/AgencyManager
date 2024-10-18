@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Models.Entities
 {
-    public class Position
+    public class Position : Entity
     {
         private const int MinDescriptionLenght = 2;
         private const int MaxDescriptionLenght = 100;

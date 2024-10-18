@@ -3,7 +3,7 @@ using AgencyManager.Core.Enums;
 
 namespace AgencyManager.Core.Models.Entities
 {
-    public class Contact
+    public class Contact : Entity
     {
         public Contact(EContactType contactType, string description, string departament)
         {
