@@ -14,9 +14,8 @@ namespace AgencyManager.Core.Models.Entities
 
                 .IsNotNullOrEmpty(responsabilities,"Responsabilities","Responsabilidades do cargo inválidas.")
                 .IsGreaterThan(responsabilities, 10, "Responsabilities","As responsabilidades devem conter no mínimo 10 caracteres")
-                .IsLowerThan(responsabilities, 500, "Responsabilities","As responsabilidades devem conter no mínimo 500 caracteres")
-
-                .IsNotNull(salary,"Salary","Responsabilidades do cargo inválidas.")
+                .IsLowerThan(responsabilities, 500, "Responsabilities","As responsabilidades devem conter no máximo 500 caracteres")
+                
                 .IsGreaterThan(salary, 0, "Salary","O salário deve ser maior que zero")
                 .IsLowerThan(salary, 20000, "Salary","O salário deve ser menor que vinte mil reais")
 
@@ -28,7 +27,7 @@ namespace AgencyManager.Core.Models.Entities
             Responsabilities = responsabilities;
             Salary = salary;            
             Agency = agency;
-            AgencyId = agency.Id;
+            if(agency is not null) AgencyId = agency.Id;
         }
 
         public string Description { get; private set; }
@@ -60,7 +59,6 @@ namespace AgencyManager.Core.Models.Entities
                    Responsabilities == position.Responsabilities &&
                    Salary == position.Salary &&
                    Agency == position.Agency;
-
         }
 
         public override int GetHashCode()
