@@ -11,14 +11,14 @@ namespace AgencyManager.Core.Models.Entities
         {
             AddNotifications(new Contract<Agency>().Requires()
                 .IsNotNullOrEmpty(name,"Name","Razão Social Inválida.")
-                .IsLowerThan(name, 60,"Name", "A Razão Social deve conter no máximo 60 caracteres.")
+                .IsLowerOrEqualsThan(name, 60,"Name", "A Razão Social deve conter no máximo 60 caracteres.")
 
                 .IsNotNullOrEmpty(tradingName,"TradingName","Nome Fantasia Inválido.")
-                .IsLowerThan(tradingName, 60,"TradingName", "O Nome Fantasia deve conter no máximo 60 caracteres.")
+                .IsLowerOrEqualsThan(tradingName, 60,"TradingName", "O Nome Fantasia deve conter no máximo 60 caracteres.")
 
                 .Matches(cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
 
-                .IsNotNull(address,"Address","Informe um endereço")            
+                .IsNotNull(address,"Address","Endereço Inválido")            
             );
 
             Name = name;
@@ -34,6 +34,26 @@ namespace AgencyManager.Core.Models.Entities
         public string Cnpj { get; private set; }
         public Address Address { get; private set; }   
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}    
-        public string? Logo { get; private set; }       
+        public string? Logo { get; private set; }    
+
+        public void AddContact(Contact contact)
+        {
+            if(contact.Validate()) _contacts.Add(contact);
+        }
+
+        public void RemoveContact(Contact contact)
+        {
+            if(contact is not null) _contacts.Remove(contact);            
+        }
+   
+        public void UpdateContact(Contact newContact, Guid id)
+        {
+            if(newContact is not null)
+            {
+                var contact = _contacts.FirstOrDefault(x => x.Id == id);
+
+                if(contact is not null) contact.Update(newContact);                 
+            }
+        }   
     }
 }

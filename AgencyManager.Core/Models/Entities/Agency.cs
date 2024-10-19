@@ -69,7 +69,7 @@ namespace AgencyManager.Core.Models.Entities
 
         public void RemoveContact(Contact contact)
         {
-            _contacts.Remove(contact);
+            if(contact is not null) _contacts.Remove(contact);
         }
    
         public void UpdateContact(Contact newContact, Guid id)
