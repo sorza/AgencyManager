@@ -11,7 +11,7 @@ namespace AgencyManager.Core.Models.Entities
             AddNotifications(new Contract<Contact>().Requires()
                 .IsNotNull(contactType,"ContactType","O tipo é obrigatório.")
 
-                .IsNotNullOrEmpty(description,"Description","Bairro inválido.")
+                .IsNotNullOrEmpty(description,"Description","Contato inválido.")
                 .IsGreaterThan(description, 7, "Description","O contato deve ter no mínimo 7 caracteres")
                 .IsLowerThan(description, 70, "Description","O contato deve ter no máximo 70 caracteres") 
 
@@ -70,7 +70,7 @@ namespace AgencyManager.Core.Models.Entities
             default: return false;
            }
         }        
-        public void UpdateContact(Contact contact)
+        public void Update(Contact contact)
         {
             if(contact.Validate())
             {

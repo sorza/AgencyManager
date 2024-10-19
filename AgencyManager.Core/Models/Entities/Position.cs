@@ -37,5 +37,36 @@ namespace AgencyManager.Core.Models.Entities
         public Guid AgencyId { get; private set; }
         public virtual Agency Agency { get; set; }
 
+        public void Update(Position position)
+        {
+            if(position.IsValid)
+            {
+                Description = position.Description;
+                Responsabilities = position.Responsabilities;
+                Salary = position.Salary;            
+                Agency = position.Agency;
+                AgencyId = position.Agency.Id;
+            }
+        }
+
+        #region Overrides
+        public override bool Equals(object? obj)
+        {
+            if(obj is null) return false;
+
+            var position = (Position)obj;
+
+            return Description == position.Description &&
+                   Responsabilities == position.Responsabilities &&
+                   Salary == position.Salary &&
+                   Agency == position.Agency;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Description, Responsabilities, Salary, Agency);
+        }
+        #endregion
     }
 }

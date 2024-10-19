@@ -12,9 +12,10 @@ namespace AgencyManager.Core.Models.Entities
         {
             AddNotifications(new Contract<Agency>().Requires()
                 .IsNotNullOrEmpty(description,"Description","O nome/descrição inválido.")
-                .IsLowerThan(Description,60,"Description", "O nome/descrição deve conter no máximo 60 caracteres.")
+                .IsLowerThan(description, 60,"Description", "O nome/descrição deve conter no máximo 60 caracteres.")
+                .IsGreaterThan(description, 2,"Description", "O nome/descrição deve conter no mínimo 2 caracteres.")
 
-                .Matches(cnpj, @"^\d{8}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
+                .Matches(cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
 
                 .IsNotNull(address,"Address","Informe um endereço")
             );
@@ -51,15 +52,15 @@ namespace AgencyManager.Core.Models.Entities
             _positions.Remove(position);
         }
 
-        public void UpdatePosition(Position positionUpdated)
+        public void UpdatePosition(Position newPosition, Guid id)
         {
-            if(positionUpdated.IsValid)
+            if(newPosition.IsValid)
             { 
-                int index = ((List<Position>)_positions).FindIndex(x => x.Id == positionUpdated.Id);
-                _positions[index] = positionUpdated;
+                var position = _positions.FirstOrDefault(x => x.Id == id);
+
+                if(position is not null) position.Update(newPosition);
             }
         }
-
 
         public void AddContact(Contact contact)
         {
@@ -71,12 +72,13 @@ namespace AgencyManager.Core.Models.Entities
             _contacts.Remove(contact);
         }
    
-        public void UpdateContact(Contact contactUpdated)
+        public void UpdateContact(Contact newContact, Guid id)
         {
-            if(contactUpdated is not null) 
+            if(newContact is not null)
             {
-                var contact = _contacts.FirstOrDefault(x => x.Id == contactUpdated.Id)!;
-                contact.UpdateContact(contactUpdated); 
+                var contact = _contacts.FirstOrDefault(x => x.Id == id);
+
+                if(contact is not null) contact.Update(newContact);                 
             }
         }
     }
