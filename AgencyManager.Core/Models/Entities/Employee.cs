@@ -65,5 +65,25 @@ namespace AgencyManager.Core.Models.Entities
 
         public void Activate() => Active = true;
         public void Deactivate() => Active = false;
+
+         public void AddContact(Contact contact)
+        {
+            if(contact.Validate()) _contacts.Add(contact);
+        }
+
+        public void RemoveContact(Contact contact)
+        {
+            if(contact is not null) _contacts.Remove(contact);
+        }
+   
+        public void UpdateContact(Contact newContact, Guid id)
+        {
+            if(newContact is not null)
+            {
+                var contact = _contacts.FirstOrDefault(x => x.Id == id);
+
+                if(contact is not null) contact.Update(newContact);                 
+            }
+        }
     }
 }
