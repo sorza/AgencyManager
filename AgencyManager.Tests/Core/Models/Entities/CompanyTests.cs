@@ -1,4 +1,3 @@
-using AgencyManager.Core.Enums;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.ValueObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -113,58 +112,6 @@ namespace AgencyManager.Tests.Core.Models.Entities
                                      "EMPRESA GONTIJO",
                                      "31521273000105", null!,[],null);
            Assert.IsFalse(company.IsValid);
-        }
-
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnErrorWhenAddAnInvalidContact()
-        {          
-           var contact = new Contact(EContactType.Email, "teste@teste", "pessoal");
-           var company = new Company("EMPRESA GONTIJO DE TRANSPORTES S/A", "GONTIJO", "31521273000105", _address,[],null);
-
-           company.AddContact(contact);
-
-           Assert.AreEqual(0, company.Contacts?.Count);
-        }
-        
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnSuccessWhenAddAValidContact()
-        {           
-           var contact = new Contact(EContactType.Email, "teste@teste.com", "pessoal");
-           var company = new Company("EMPRESA GONTIJO DE TRANSPORTES S/A", "GONTIJO", "31521273000105", _address,[],null);
-           company.AddContact(contact);
-
-           Assert.AreEqual(1,company.Contacts?.Count);
-        }
-        
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ReturnSuccessWhenRemoveAContact()
-        {          
-           var company = new Company("EMPRESA GONTIJO DE TRANSPORTES S/A", "GONTIJO", "31521273000105", _address,[],null);
-           var contact = new Contact(EContactType.Email, "teste@teste.com", "pessoal");
-
-           company.AddContact(contact);
-           company.RemoveContact(contact);
-
-           Assert.AreEqual(0, company.Contacts?.Count);
-        }
-
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ReturnSuccesWhenUpdateAContact()
-        {
-            var company = new Company("EMPRESA GONTIJO DE TRANSPORTES S/A", "GONTIJO", "31521273000105", _address,[],null);         
-            var contact2 = new Contact(EContactType.Phone, "1933527436", "pessoal");
-           
-            company.AddContact(contact2);          
-
-            var newContact = new Contact(EContactType.Phone, "7777777777", "ATUALIZADO");
-            
-            company.UpdateContact(newContact, contact2.Id);
-
-            Assert.AreEqual(company.Contacts!.FirstOrDefault(x => x.Id == contact2.Id), newContact);
-        }
+        }       
     }
 }

@@ -1,4 +1,3 @@
-using AgencyManager.Core.Enums;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.ValueObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,59 +8,10 @@ namespace AgencyManager.Tests.Core.Models.Entities
     public class EmployeeTests
     {
         private static readonly Address _address = new("13477696", "Rua Um", "12345", "Centro", "Araras", "SP", "Apto 32");
-        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address, [],[],[], "");
+        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address);
         private static readonly Position _position = new("VENDEDOR", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
         private readonly Employee _employee = new("Alexandre Zordan","45057894897","409830318", new DateTime(1995,09,23), _address, _agency,_position);
-               
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnErrorWhenAddAnInvalidContact()
-        {          
-           var contact = new Contact(EContactType.Email, "teste@teste", "pessoal");
-           Employee employee = new("Alexandre Zordan","45057894897","409830318", new DateTime(1995,09,23), _address, _agency,_position);
-
-           _employee.AddContact(contact);
-
-           Assert.AreEqual(0, _employee.Contacts?.Count);
-        }
-        
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnSuccessWhenAddAValidContact()
-        {               
-           var contact = new Contact(EContactType.Email, "teste@teste.com", "pessoal");
-           _employee.AddContact(contact);
-
-           Assert.AreEqual(1,_employee.Contacts?.Count);
-        }
-        
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnSuccessWhenRemoveAContact()
-        {                     
-           var contact = new Contact(EContactType.Email, "teste@teste.com", "pessoal");        
-
-           _employee.AddContact(contact);
-           _employee.RemoveContact(contact);
-
-           Assert.AreEqual(0, _employee.Contacts?.Count);
-        }
-
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnSuccesWhenUpdateAContact()
-        {                           
-            var contact2 = new Contact(EContactType.Phone, "1933527436", "pessoal");
-           
-            _employee.AddContact(contact2);          
-
-            var newContact = new Contact(EContactType.Phone, "7777777777", "ATUALIZADO");
-            
-            _employee.UpdateContact(newContact, contact2.Id);
-
-            Assert.AreEqual(_employee.Contacts!.FirstOrDefault(x => x.Id == contact2.Id), newContact);
-        }        
-
+                     
         [TestMethod]
         [TestCategory("Domain")]
         public void ShouldReturnSuccesWhenEmplooyIsValid()

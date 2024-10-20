@@ -25,7 +25,6 @@ namespace AgencyManager.Core.Models.Entities
 
                 .IsNotNull(address,"Address", "Endereço inválido")
                 .IsNotNull(agency,"Agency", "Agência inválida")
-
             );
 
             Active = true;
@@ -63,59 +62,7 @@ namespace AgencyManager.Core.Models.Entities
         public DateTime DateDismiss { get; private set; }        
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
         public User? User { get; private set; }
-      
-        private void Deactivate() => Active = false;
-
-         public void AddContact(Contact contact)
-        {
-            if(contact.Validate()) _contacts.Add(contact);
-        }
-
-        public void RemoveContact(Contact contact)
-        {
-            if(contact is not null) _contacts.Remove(contact);
-        }
-   
-        public void UpdateContact(Contact newContact, Guid id)
-        {
-            if(newContact is not null)
-            {
-                var contact = _contacts.FirstOrDefault(x => x.Id == id);
-
-                if(contact is not null) contact.Update(newContact);                 
-            }
-        }
-
-        public void Dismiss(DateTime? dateDismiss = null)
-        {
-            DateDismiss = dateDismiss ?? DateTime.Now;
-            Deactivate();
-        }
-
-        public void Update(Employee employee)
-        {
-            if(employee.IsValid)
-            {
-                Active = employee.Active;
-                Name = employee.Name;
-                Cpf = employee.Cpf;
-                Rg = employee.Rg;
-                BirthDay = employee.BirthDay;   
-
-                Agency = employee.Agency;
-                AgencyId = employee.AgencyId;
-
-                Position = employee.Position;
-                PositionId = employee.PositionId;
-
-                DateHire = employee.DateHire;
-                DateDismiss = employee.DateDismiss;
-
-                Address = employee.Address;
-                User = employee.User;   
-            }             
-        }
-
+       
         #region Overrides
         public override bool Equals(object? obj)
         {

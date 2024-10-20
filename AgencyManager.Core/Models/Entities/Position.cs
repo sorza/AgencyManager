@@ -35,19 +35,7 @@ namespace AgencyManager.Core.Models.Entities
         public decimal Salary { get; private set; }
         public Guid AgencyId { get; private set; }
         public virtual Agency Agency { get; set; }
-
-        public void Update(Position position)
-        {
-            if(position.IsValid)
-            {
-                Description = position.Description;
-                Responsabilities = position.Responsabilities;
-                Salary = position.Salary;            
-                Agency = position.Agency;
-                AgencyId = position.Agency.Id;
-            }
-        }
-
+      
         #region Overrides
         public override bool Equals(object? obj)
         {
