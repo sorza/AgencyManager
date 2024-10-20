@@ -6,11 +6,11 @@ namespace AgencyManager.Core.Models.Entities
     public class Agency : Entity
     {
         private readonly IList<Contact> _contacts;
-        private readonly IList<Position> _positions;
-        private readonly IList<Employee> _emplooyes;
-        private readonly IList<ServiceContract> _contracts;
+        private readonly IList<Position> _positions = [];
+        private readonly IList<Employee> _emplooyes = [];
+        private readonly IList<ServiceContract> _contracts = [];
 
-        public Agency(string description, string cnpj, Address address, IList<Contact>? contacts = null, IList<Position>? positions = null, IList<Employee>? employees = null, IList<ServiceContract>? contracts = null, string? photo = null)
+        public Agency(string description, string cnpj, Address address, IList<Contact>? contacts = null, string? photo = null)
         {
             AddNotifications(new Contract<Agency>().Requires()
                 .IsNotNullOrEmpty(description,"Description","O nome/descrição inválido.")
@@ -29,10 +29,7 @@ namespace AgencyManager.Core.Models.Entities
             Active = true;
 
             Photo = photo ?? "";
-            _positions = positions ?? [];
             _contacts = contacts ?? [];
-            _emplooyes = employees ?? [];
-            _contracts = contracts ?? [];
         }
 
         public string Description { get; private set; }

@@ -5,12 +5,12 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class ServiceContract : Entity
     {
-        public ServiceContract(Agency agency, Company company, EServiceType serviceType, decimal comission, DateTime? startDate)
+        public ServiceContract(int agencyId, int companyId, EServiceType serviceType, decimal comission, DateTime? startDate)
         {            
             
             AddNotifications(new Contract<ServiceContract>().Requires()
-                .IsTrue(agency.IsValid,"Agency","Agencia inválida")
-                .IsTrue(company.IsValid,"Company","Empresa inválida")
+                //.IsTrue(agency.IsValid,"Agency","Agencia inválida")
+                //.IsTrue(company.IsValid,"Company","Empresa inválida")
 
                 .IsLowerOrEqualsThan(comission, 50, "Comission", "A comissão não pode ser maior que 50%" )
                 .IsGreaterOrEqualsThan(comission, 1, "Comission", "A comissão não pode ser menor que 1%" )
@@ -19,11 +19,8 @@ namespace AgencyManager.Core.Models.Entities
             if(Enum.IsDefined(typeof(EServiceType), serviceType)) ServiceType = serviceType;
             else AddNotification("ServiceType", "Serviço Inválido");            
 
-            Agency = agency;
-            if(agency is not null) AgencyId = agency.Id;
-           
-            Company = company;
-            if(company is not null) CompanyId = company.Id;
+            AgencyId = agencyId;           
+            CompanyId = companyId;
             
             Comission = comission;
             StartDate = startDate ?? DateTime.Now;
@@ -31,9 +28,9 @@ namespace AgencyManager.Core.Models.Entities
 
         public bool Active { get; private set; }
         public int AgencyId { get; private set; }
-        public virtual Agency Agency { get; private set; }
+        public virtual Agency? Agency { get; private set; }
         public int CompanyId { get; private set; }
-        public virtual Company Company { get; private set; }
+        public virtual Company? Company { get; private set; }
         public EServiceType ServiceType { get; private set; }
         public decimal Comission { get; private set; }
         public DateTime StartDate { get; private set; }

@@ -7,7 +7,7 @@ namespace AgencyManager.Core.Models.Entities
     public class Employee : Entity
     {      
         private readonly IList<Contact> _contacts;
-        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, Agency agency, Position position, DateTime? dataHire = null,IList<Contact>? contacts = null, User? user = null)
+        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, int agencyId, int positionId, string userId , DateTime? dataHire = null,IList<Contact>? contacts = null)
         {   
             AddNotifications(new Contract<Employee>().Requires()
                 .IsNotNullOrEmpty(name, "Name", "Nome inválido.")
@@ -24,7 +24,9 @@ namespace AgencyManager.Core.Models.Entities
                 .IsGreaterOrEqualsThan(birthDay,DateTime.Now.AddYears(-60),"Birthday","A idade máxima é de 60 anos")
 
                 .IsNotNull(address,"Address", "Endereço inválido")
-                .IsNotNull(agency,"Agency", "Agência inválida")
+                //.IsNotNull(agency,"Agency", "Agência inválida")
+                // Position validation
+                //Email
             );
 
             Active = true;
@@ -34,18 +36,15 @@ namespace AgencyManager.Core.Models.Entities
             Rg = rg;
             BirthDay = birthDay;   
 
-            Agency = agency;
-            if(agency is not null) AgencyId = agency.Id;
-
-            Position = position;
-            if(position is not null) PositionId = position.Id;
+            AgencyId = agencyId;
+            PositionId = positionId;
 
             DateHire = dataHire ?? DateTime.Now;
 
             Address = address;
             _contacts = contacts ?? [];
 
-            User = user ?? null;           
+            UserId = userId;         
         }
 
         public bool Active { get; private set; }
@@ -55,12 +54,13 @@ namespace AgencyManager.Core.Models.Entities
         public DateTime BirthDay { get; private set; }
         public Address Address { get; private set; }
         public int AgencyId { get; private set; }
-        public virtual Agency Agency { get; private set; }
+        public virtual Agency? Agency { get; private set; }
         public int PositionId { get; private set; }
-        public virtual Position Position { get; private set; }
+        public virtual Position? Position { get; private set; }
         public DateTime DateHire { get; private set; }
         public DateTime DateDismiss { get; private set; }        
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
+        public string UserId { get; private set; }
         public User? User { get; private set; }
        
         #region Overrides

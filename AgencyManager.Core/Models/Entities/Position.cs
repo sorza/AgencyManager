@@ -4,7 +4,7 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class Position : Entity
     {        
-        public Position(string description, string responsabilities, decimal salary, Agency agency)
+        public Position(string description, string responsabilities, decimal salary, int agencyId)
         {
 
             AddNotifications(new Contract<Position>().Requires()
@@ -19,22 +19,21 @@ namespace AgencyManager.Core.Models.Entities
                 .IsGreaterThan(salary, 0, "Salary","O salário deve ser maior que zero")
                 .IsLowerThan(salary, 20000, "Salary","O salário deve ser menor que vinte mil reais")
 
-                .IsNotNull(agency,"Agency","Agencia inválida.")
+                //.IsNotNull(agency,"Agency","Agencia inválida.")
 
             );
 
             Description = description;
             Responsabilities = responsabilities;
-            Salary = salary;            
-            Agency = agency;
-            if(agency is not null) AgencyId = agency.Id;
+            Salary = salary;  
+            AgencyId = agencyId;
         }
 
         public string Description { get; private set; }
         public string Responsabilities { get; private set; }
         public decimal Salary { get; private set; }
         public int AgencyId { get; private set; }
-        public virtual Agency Agency { get; set; }
+        public virtual Agency? Agency { get; set; }
       
         #region Overrides
         public override bool Equals(object? obj)
