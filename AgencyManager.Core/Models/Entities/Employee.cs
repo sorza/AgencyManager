@@ -7,8 +7,7 @@ namespace AgencyManager.Core.Models.Entities
     public class Employee : Entity
     {      
         private readonly IList<Contact> _contacts;
-
-        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, Agency agency, Position position, IList<Contact>? contacts, User? user)
+        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, Agency agency, Position position, DateTime? dataHire = null,IList<Contact>? contacts = null, User? user = null)
         {   
             AddNotifications(new Contract<Employee>().Requires()
                 .IsNotNullOrEmpty(name, "Name", "Nome inválido.")
@@ -42,6 +41,8 @@ namespace AgencyManager.Core.Models.Entities
             Position = position;
             if(position is not null) PositionId = position.Id;
 
+            DateHire = dataHire ?? DateTime.Now;
+
             Address = address;
             _contacts = contacts ?? [];
 
@@ -58,13 +59,12 @@ namespace AgencyManager.Core.Models.Entities
         public virtual Agency Agency { get; private set; }
         public Guid PositionId { get; private set; }
         public virtual Position Position { get; private set; }
-        public DateTime DataAdmissao { get; private set; }
-        public DateTime DataDemissao { get; private set; }        
+        public DateTime DateHire { get; private set; }
+        public DateTime DateDismiss { get; private set; }        
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
         public User? User { get; private set; }
-
-        public void Activate() => Active = true;
-        public void Deactivate() => Active = false;
+      
+        private void Deactivate() => Active = false;
 
          public void AddContact(Contact contact)
         {
@@ -85,5 +85,61 @@ namespace AgencyManager.Core.Models.Entities
                 if(contact is not null) contact.Update(newContact);                 
             }
         }
+
+        public void Dismiss(DateTime? dateDismiss = null)
+        {
+            DateDismiss = dateDismiss ?? DateTime.Now;
+            Deactivate();
+        }
+
+        public void Update(Employee employee)
+        {
+            if(employee.IsValid)
+            {
+                Active = employee.Active;
+                Name = employee.Name;
+                Cpf = employee.Cpf;
+                Rg = employee.Rg;
+                BirthDay = employee.BirthDay;   
+
+                Agency = employee.Agency;
+                AgencyId = employee.AgencyId;
+
+                Position = employee.Position;
+                PositionId = employee.PositionId;
+
+                DateHire = employee.DateHire;
+                DateDismiss = employee.DateDismiss;
+
+                Address = employee.Address;
+                User = employee.User;   
+            }             
+        }
+
+        #region Overrides
+        public override bool Equals(object? obj)
+        {
+            if(obj is null) return false;
+
+            var employee = (Employee)obj;
+
+            return employee.Active == Active &&
+                    employee.Address == Address &&
+                    employee.AgencyId == AgencyId &&
+                    employee.BirthDay == BirthDay &&
+                    employee.Rg == Rg &&
+                    employee.Cpf == Cpf &&
+                    employee.Name == Name &&
+                    employee.User == User &&
+                    employee.Id == Id &&
+                    employee.Position == Position &&
+                    employee.User == User;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Rg, Cpf, Active, Id);
+        }
+        #endregion
     }
 }

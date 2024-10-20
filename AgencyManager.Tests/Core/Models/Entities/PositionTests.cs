@@ -8,7 +8,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
     public class PositionTests
     {
         private static readonly Address _address = new("13477696", "Rua Um", "12345", "Centro", "Araras", "SP", "Apto 32");
-        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address, [],[], "");
+        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address);
 
         [TestMethod]
         [TestCategory("Domain")]
