@@ -18,7 +18,7 @@ namespace AgencyManager.Core.Models.Entities
 
                 .Matches(cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
 
-                .IsNotNull(address,"Address","Endereço Inválido")            
+                .IsNotNull(address,"Address","Endereço Inválido")                         
             );
 
             Name = name;

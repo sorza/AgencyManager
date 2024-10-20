@@ -7,7 +7,7 @@ namespace AgencyManager.Core.Models.Entities
     public class Employee : Entity
     {      
         private readonly IList<Contact> _contacts;
-        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, int agencyId, int positionId, string userId , DateTime? dataHire = null,IList<Contact>? contacts = null)
+        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, int agencyId, int positionId, string? userId = null , DateTime? dataHire = null,IList<Contact>? contacts = null)
         {   
             AddNotifications(new Contract<Employee>().Requires()
                 .IsNotNullOrEmpty(name, "Name", "Nome inválido.")
@@ -24,9 +24,6 @@ namespace AgencyManager.Core.Models.Entities
                 .IsGreaterOrEqualsThan(birthDay,DateTime.Now.AddYears(-60),"Birthday","A idade máxima é de 60 anos")
 
                 .IsNotNull(address,"Address", "Endereço inválido")
-                //.IsNotNull(agency,"Agency", "Agência inválida")
-                // Position validation
-                //Email
             );
 
             Active = true;
@@ -44,7 +41,7 @@ namespace AgencyManager.Core.Models.Entities
             Address = address;
             _contacts = contacts ?? [];
 
-            UserId = userId;         
+            UserId = userId ?? string.Empty;         
         }
 
         public bool Active { get; private set; }

@@ -8,10 +8,7 @@ namespace AgencyManager.Core.Models.Entities
         public ServiceContract(int agencyId, int companyId, EServiceType serviceType, decimal comission, DateTime? startDate)
         {            
             
-            AddNotifications(new Contract<ServiceContract>().Requires()
-                //.IsTrue(agency.IsValid,"Agency","Agencia inválida")
-                //.IsTrue(company.IsValid,"Company","Empresa inválida")
-
+            AddNotifications(new Contract<ServiceContract>().Requires()   
                 .IsLowerOrEqualsThan(comission, 50, "Comission", "A comissão não pode ser maior que 50%" )
                 .IsGreaterOrEqualsThan(comission, 1, "Comission", "A comissão não pode ser menor que 1%" )
             );

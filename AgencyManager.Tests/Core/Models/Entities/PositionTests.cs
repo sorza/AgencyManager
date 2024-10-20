@@ -14,7 +14,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnSuccessWhenPositionIsValid()
         {
-            var position = new Position("VENDEDOR", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
+            var position = new Position("VENDEDOR", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);
             Assert.IsTrue(position.IsValid);
         }
 
@@ -23,7 +23,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenDescriptionIsEmpty()
         {
-            var position = new Position(string.Empty, "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
+            var position = new Position(string.Empty, "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -31,7 +31,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenDescriptionIsNull()
         {
-            var position = new Position(null!, "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
+            var position = new Position(null!, "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -39,7 +39,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenDescriptionIsLowerThanThreeCharacteres()
         {
-            var position = new Position("AB", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
+            var position = new Position("AB", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -48,7 +48,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         public void ShouldReturnErrorWhenDescriptionIsGreaterThan70Characteres()
         {
             var position = new Position("DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM ",
-                                 "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency);
+                                 "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -56,7 +56,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenResponsabilitiesIsEmpty()
         {
-            var position = new Position("VENDEDOR", string.Empty, 1000, _agency);
+            var position = new Position("VENDEDOR", string.Empty, 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -64,7 +64,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenResponsabilitiesIsNull()
         {
-            var position = new Position("VENDEDOR", null!, 1000, _agency);
+            var position = new Position("VENDEDOR", null!, 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -72,7 +72,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenResponsabilitiesIsLowerThan10Characteres()
         {
-            var position = new Position("VENDEDOR", "VENDER", 1000, _agency);
+            var position = new Position("VENDEDOR", "VENDER", 1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -82,7 +82,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         {
             var position = new Position("VENDEDOR",
                                  "Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres",
-                                  1000, _agency);
+                                  1000, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -92,7 +92,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         {
             var position = new Position("VENDEDOR",
                                  "VENDER PASSAGENS, HOTEIS, PACOTES E ENCOMENDAS",
-                                 0, _agency);
+                                 0, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
 
@@ -102,17 +102,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
         {
             var position = new Position("VENDEDOR",
                                  "VENDER PASSAGENS, HOTEIS, PACOTES E ENCOMENDAS",
-                                 20001, _agency);
-            Assert.IsFalse(position.IsValid);
-        }
-
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnErrorWhenAgencyIsNull()
-        {
-            var position = new Position("VENDEDOR",
-                                 "VENDER PASSAGENS, HOTEIS, PACOTES E ENCOMENDAS",
-                                 2000, null!);
+                                 20001, _agency.Id);
             Assert.IsFalse(position.IsValid);
         }
     }
