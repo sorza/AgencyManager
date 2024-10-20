@@ -30,9 +30,9 @@ namespace AgencyManager.Core.Models.Entities
         }
 
         public bool Active { get; private set; }
-        public Guid AgencyId { get; private set; }
+        public int AgencyId { get; private set; }
         public virtual Agency Agency { get; private set; }
-        public Guid CompanyId { get; private set; }
+        public int CompanyId { get; private set; }
         public virtual Company Company { get; private set; }
         public EServiceType ServiceType { get; private set; }
         public decimal Comission { get; private set; }

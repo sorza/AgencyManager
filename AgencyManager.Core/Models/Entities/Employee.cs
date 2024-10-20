@@ -54,9 +54,9 @@ namespace AgencyManager.Core.Models.Entities
         public string Rg { get; private set; }
         public DateTime BirthDay { get; private set; }
         public Address Address { get; private set; }
-        public Guid AgencyId { get; private set; }
+        public int AgencyId { get; private set; }
         public virtual Agency Agency { get; private set; }
-        public Guid PositionId { get; private set; }
+        public int PositionId { get; private set; }
         public virtual Position Position { get; private set; }
         public DateTime DateHire { get; private set; }
         public DateTime DateDismiss { get; private set; }        

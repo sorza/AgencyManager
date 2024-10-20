@@ -33,7 +33,7 @@ namespace AgencyManager.Core.Models.Entities
         public string Description { get; private set; }
         public string Responsabilities { get; private set; }
         public decimal Salary { get; private set; }
-        public Guid AgencyId { get; private set; }
+        public int AgencyId { get; private set; }
         public virtual Agency Agency { get; set; }
       
         #region Overrides

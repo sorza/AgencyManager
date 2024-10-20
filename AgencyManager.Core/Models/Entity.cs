@@ -6,9 +6,9 @@ namespace AgencyManager.Core.Models
     {
         public Entity()
         {
-            Id = Guid.NewGuid();
+          
         }
 
-        public Guid Id { get; private set; }
+        public int Id { get; private set; }
     }
 }
