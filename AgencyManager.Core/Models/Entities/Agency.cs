@@ -81,5 +81,6 @@ namespace AgencyManager.Core.Models.Entities
                 if(contact is not null) contact.Update(newContact);                 
             }
         }
+    
     }
 }

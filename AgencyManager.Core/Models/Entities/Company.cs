@@ -33,7 +33,7 @@ namespace AgencyManager.Core.Models.Entities
         public string TradingName { get; private set; }
         public string Cnpj { get; private set; }
         public Address Address { get; private set; }   
-        public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}    
+        public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
         public string? Logo { get; private set; }    
 
         public void AddContact(Contact contact)
