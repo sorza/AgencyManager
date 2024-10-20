@@ -10,6 +10,8 @@ namespace AgencyManager.Tests.Core.Models.Entities
     {    
         private static readonly Address _address = new("13477696", "Rua Um", "12345", "Centro", "Araras", "SP", "Apto 32");        
         private readonly Agency _agency = new("Agencia 01", "31521273000105", _address); 
+        private static readonly Position _position = new("VENDEDOR", "VENDER PASSAGENS E ENCOMENDAS", 1000, new("Agencia 01", "31521273000105", _address));
+        private readonly Employee _employee = new("Alexandre Zordan","45057894897","409830318", new DateTime(1995,09,23), _address, new("Agencia 01", "31521273000105", _address),_position);
 
 
         [TestMethod]
@@ -210,5 +212,51 @@ namespace AgencyManager.Tests.Core.Models.Entities
             _agency.Deactivate();
             Assert.AreEqual(false, _agency.Active);
         }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldReturnSuccesWhenHireAnEmployee()
+        {
+            _agency.HireAnEmployee(_employee);
+            Assert.AreEqual(1, _agency.Employees!.Count);
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldReturnSuccesWhenDismissAnEmployee()
+        {
+             _agency.HireAnEmployee(_employee);
+             _agency.DismissAnEmployee(_employee);
+             
+            Assert.AreEqual(false, _employee.Active);
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldReturnSuccesWhenUpdateAnEmployee()
+        {
+            _agency.HireAnEmployee(_employee);
+            var employee = _agency.Employees!.FirstOrDefault(x=>x.Id == _employee.Id);
+
+            var updateEmployee = new Employee("EMPLOY ATUALIZADO","12345678910","12301238", new DateTime(1995,09,23), _address, new("Agencia 01", "31521273000105", _address),_position);
+
+            _agency.UpdateAnEmployee(updateEmployee, employee!.Id);
+
+            bool isEqual = updateEmployee.Equals(_employee);
+
+            Assert.AreEqual(employee, updateEmployee);
+        
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldReturnSuccesWhenRenmoveAnEmployee()
+        {
+            _agency.HireAnEmployee(_employee);
+            _agency.RemoveAnEmployee(_employee);
+
+            Assert.IsFalse(_agency.Employees!.Contains(_employee));
+        }
     }
 }
+

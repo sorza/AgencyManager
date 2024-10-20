@@ -130,15 +130,12 @@ namespace AgencyManager.Core.Models.Entities
                     employee.Rg == Rg &&
                     employee.Cpf == Cpf &&
                     employee.Name == Name &&
-                    employee.User == User &&
-                    employee.Id == Id &&
-                    employee.Position == Position &&
-                    employee.User == User;
+                    employee.Position == Position;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Rg, Cpf, Active, Id);
+            return HashCode.Combine(Active, Rg, Cpf, Name, Id);
         }
         #endregion
     }
