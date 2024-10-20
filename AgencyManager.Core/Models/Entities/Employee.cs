@@ -15,14 +15,14 @@ namespace AgencyManager.Core.Models.Entities
                 .IsLowerOrEqualsThan(name, 100, "Name", "O nome deve conter no máximo 100 letras.")
                 .IsGreaterOrEqualsThan(name, 5, "Name", "O nome deve conter no mínimo 5 letras.")
 
-                .Matches(cpf, @"^\d{14}$", "Cpf", "O CPF deve conter 11 dígitos númericos.")
+                .Matches(cpf, @"^\d{11}$", "Cpf", "O CPF deve conter 11 dígitos númericos.")
 
-                .Matches(rg, @"^\d$", "Rg", "O RG deve conter apenas dígitos númericos.")
+                .Matches(rg, @"^\d+$", "Rg", "O RG deve conter apenas dígitos númericos.")
                 .IsGreaterOrEqualsThan(rg, 4,"Rg", "O RG deve conter no mínimo 4 dígitos.")
                 .IsLowerOrEqualsThan(rg, 14, "Rg", "O RG pode conter no máximo 14 dígitos.")
 
-                .IsLowerOrEqualsThan(birthDay,DateTime.Now.AddYears(-16),"Birthday","A idade deve ser igual ou superior a 16 anos")
-                .IsGreaterOrEqualsThan(birthDay,DateTime.Now.AddYears(-60),"Birthday","A idade deve ser igual ou inferior a 60 anos")
+                .IsLowerOrEqualsThan(birthDay,DateTime.Now.AddYears(-16),"Birthday","A idade mínima é de 16 anos")
+                .IsGreaterOrEqualsThan(birthDay,DateTime.Now.AddYears(-60),"Birthday","A idade máxima é de 60 anos")
 
                 .IsNotNull(address,"Address", "Endereço inválido")
                 .IsNotNull(agency,"Agency", "Agência inválida")
