@@ -20,8 +20,8 @@ namespace AgencyManager.Core.Models.ValueObjects
                 .IsLowerThan(neighborhood, 70, "Neighborhood","O Bairro deve ter no máximo 70 caracteres")
 
                 .IsNotNullOrEmpty(city,"City","Cidade inválida.")
-                .IsLowerThan(city, 100, "City","A cidade deve ter no máximo 70 caracteres")
-                .IsGreaterThan(city, 3, "City","A cidade deve ter no mínimo 3 caracteres")
+                .IsLowerOrEqualsThan(city, 100, "City","A cidade deve ter no máximo 70 caracteres")
+                .IsGreaterOrEqualsThan(city, 3, "City","A cidade deve ter no mínimo 3 caracteres")
                 
                 .Matches(state, "^[a-zA-Z]{2}$", "State", "O Estado deve conter 2 dígitos alfabéticos.")
 
