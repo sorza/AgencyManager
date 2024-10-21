@@ -5,7 +5,7 @@ namespace AgencyManager.Core.Models.Entities
     public class Transaction : Entity
     {
         public Transaction(int cashId, ETransactionType type, decimal amount, string? description)
-        {           
+        {   
            CashId = cashId;
            Type = type;
            Amount = amount;
