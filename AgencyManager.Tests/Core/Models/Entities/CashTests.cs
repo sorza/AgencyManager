@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AgencyManager.Core.Models.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -49,6 +45,5 @@ namespace AgencyManager.Tests.Core.Models.Entities
            var cash = new Cash("teste@teste.com", DateTime.Now, 100, -150); 
             Assert.IsFalse(cash.IsValid);
         }
-
     }
 }
