@@ -13,12 +13,9 @@ namespace AgencyManager.Core.Models.Entities
                 .IsGreaterOrEqualsThan(comission, 1, "Comission", "A comissão não pode ser menor que 1%" )
             );
 
-            if(Enum.IsDefined(typeof(EServiceType), serviceType)) ServiceType = serviceType;
-            else AddNotification("ServiceType", "Serviço Inválido");            
-
             AgencyId = agencyId;           
             CompanyId = companyId;
-            
+            ServiceType = serviceType;            
             Comission = comission;
             StartDate = startDate ?? DateTime.Now;
         }

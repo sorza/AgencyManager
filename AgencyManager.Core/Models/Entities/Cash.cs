@@ -1,6 +1,7 @@
 
 using AgencyManager.Core.Enums;
 using AgencyManager.Core.Models.Account;
+using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -10,14 +11,19 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Sale> _sales = [];
         private readonly IList<VirtualSale> _virtuaSales =[];
 
-        public Cash(string userId, User? user, DateTime date, decimal startValue, decimal endValue, bool status)
+        public Cash(string userId, DateTime date, decimal startValue, decimal endValue)
         {
+            AddNotifications(new Contract<Cash>().Requires()
+                .IsEmail(userId, "UserId", "Email inválido.")
+                .IsLowerOrEqualsThan(date, DateTime.Now, "A data não pode ser futura")
+                .IsGreaterOrEqualsThan(startValue, 0, "StartValue", "O troco inicial deve ser positivo")
+                .IsGreaterOrEqualsThan(endValue, 0, "EndValue", "O troco final deve ser positivo")
+            );
+
             UserId = userId;
-            User = user;
             Date = date;
             StartValue = startValue;
             EndValue = endValue;
-            Status = status;
         }
 
         public string UserId { get; private set; }
@@ -25,7 +31,7 @@ namespace AgencyManager.Core.Models.Entities
         public DateTime Date { get; private set; }
         public decimal StartValue { get; private set; }
         public decimal EndValue { get; private set; }
-        public bool Status { get; private set; }
+        public bool Status { get; private set; } = true;
         public decimal Entries => _transactions.Where(t => t.Type == ETransactionType.Entry).Sum(x=> x.Amount);
         public decimal Outputs => _transactions.Where(t => t.Type == ETransactionType.Output).Sum(x=> x.Amount);
         public decimal TotalSales => _sales.Sum(x => x.Total);
