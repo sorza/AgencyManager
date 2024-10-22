@@ -6,14 +6,12 @@ namespace AgencyManager.Core.Requests.Address
     {
         public int Id { get; set; }
         
-        public bool Validate()
+        public void Validate()
         {
             AddNotifications(new Contract<DeleteAddressRequest>()
                 .Requires()
                 .IsGreaterThan(Id, 0, "Id", "O ID deve ser maior que zero.")
             );
-
-            return !Notifications.Any();
         }
     }
 }

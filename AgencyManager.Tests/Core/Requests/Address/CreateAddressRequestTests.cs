@@ -21,7 +21,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"               
             };
 
-            Assert.IsTrue(request.Validate());
+            request.Validate();
+
+            Assert.IsTrue(request.IsValid);
         }
         
         [TestMethod]
@@ -39,7 +41,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"               
             };
 
-            Assert.IsFalse(request.Validate());
+            request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -57,7 +61,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };          
 
-            Assert.IsFalse(request.Validate());
+            request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -75,7 +81,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };          
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         
@@ -94,7 +102,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };          
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -112,7 +122,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };          
 
-            Assert.IsFalse(request.Validate());
+            request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -130,7 +142,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };          
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -148,7 +162,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             }; 
 
-            Assert.IsFalse(request.Validate());
+           request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }       
 
         [TestMethod]
@@ -166,7 +182,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+            Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -184,7 +202,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -202,7 +222,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -220,7 +242,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-            Assert.IsFalse(request.Validate());
+            request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -238,7 +262,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -256,7 +282,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-            Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
 
@@ -275,7 +303,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -293,7 +323,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-            Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -311,7 +343,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-           Assert.IsFalse(request.Validate());
+           request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -329,7 +363,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32"
             };  
 
-            Assert.IsFalse(request.Validate());
+            request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
 
         [TestMethod]
@@ -347,7 +383,9 @@ namespace AgencyManager.Tests.Core.Requests.Address
                 Complement = "Apto 32 dois Tres Quatro Apto 32 dois Tres Quatro Apto 32 dois Tres Quatro Apto 32 dois Tres Quatro"
             };  
 
-           Assert.IsFalse(request.Validate());     
+            request.Validate();
+
+           Assert.IsFalse(request.IsValid);
         }
     }
 }

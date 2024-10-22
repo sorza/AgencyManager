@@ -12,7 +12,7 @@ namespace AgencyManager.Core.Requests.Address
         public string State { get;  set; } = string.Empty;
         public string? Complement { get;  set; } = string.Empty;
 
-        public bool Validate()
+        public void Validate()
         {
             AddNotifications(new Contract<CreateAddressRequest>()
                 .Requires()
@@ -30,8 +30,6 @@ namespace AgencyManager.Core.Requests.Address
                 .Matches(State, "^[a-zA-Z]{2}$", "State", "O Estado deve conter 2 dígitos alfabéticos.")
                 .IsLowerThan(Complement, 50, "Complement", "O complemento deve ter no máximo 50 caracteres")
             );
-
-            return !Notifications.Any();
         }
     }
 }
