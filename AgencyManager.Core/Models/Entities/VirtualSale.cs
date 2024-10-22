@@ -1,7 +1,6 @@
-using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Enums;
 
-namespace AgencyManager.Core.Models
+namespace AgencyManager.Core.Models.Entities
 {
     public class VirtualSale : Entity
     {
