@@ -1,9 +1,8 @@
-using Flunt.Notifications;
 using Flunt.Validations;
 
 namespace AgencyManager.Core.Requests.Address
 {
-    public class CreateAddressRequest : Notifiable<Notification>
+    public class CreateAddressRequest : Request
     {       
         public string ZipCode { get;  set; } = string.Empty;
         public string Street { get;  set; } = string.Empty;
