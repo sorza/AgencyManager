@@ -8,7 +8,7 @@ namespace AgencyManager.Tests.Core.Models.Entities
     public class EmployeeTests
     {
         private static readonly Address _address = new("13477696", "Rua Um", "12345", "Centro", "Araras", "SP", "Apto 32");
-        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address);
+        private static readonly Agency _agency = new("AGENCIA","31521273000105", _address, []);
         private static readonly Position _position = new("VENDEDOR", "VENDER PASSAGENS E ENCOMENDAS", 1000, _agency.Id);       
                      
         [TestMethod]

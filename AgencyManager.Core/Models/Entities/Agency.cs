@@ -4,12 +4,12 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class Agency : Entity
     {
-        private readonly IList<Contact> _contacts;
+        private readonly IList<Contact> _contacts = [];
         private readonly IList<Position> _positions = [];
         private readonly IList<Employee> _emplooyes = [];
         private readonly IList<ServiceContract> _contracts = [];
 
-        public Agency(string description, string cnpj, Address address, IList<Contact>? contacts = null, string? photo = null)
+        public Agency(string description, string cnpj, Address address, IList<Contact> contacts, string? photo = null)
         {           
             Description = description;
             Cnpj = cnpj;
@@ -18,7 +18,7 @@ namespace AgencyManager.Core.Models.Entities
             Active = true;
 
             Photo = photo ?? "";
-            _contacts = contacts ?? [];
+            _contacts = contacts;
         }
 
         public string Description { get; private set; }
