@@ -4,7 +4,6 @@ namespace AgencyManager.Core.Requests.Address
 {
     public class UpdateAddressRequest : Request
     {
-        public int Id { get; set; }
         public string ZipCode { get;  set; } = string.Empty;
         public string Street { get;  set; } = string.Empty;
         public string Number { get;  set; } = string.Empty;
@@ -16,8 +15,7 @@ namespace AgencyManager.Core.Requests.Address
         public void Validate()
         {
             AddNotifications(new Contract<UpdateAddressRequest>()
-                .Requires()
-                .IsGreaterThan(Id, 0, "Id", "O ID deve ser maior que zero.")
+                .Requires()                
                 .Matches(ZipCode, @"^\d{8}$", "ZipCode", "O CEP deve conter 8 dígitos numéricos.")
                 .IsNotNullOrEmpty(Street, "Street", "Logradouro inválido.")
                 .IsLowerThan(Street, 100, "Street", "O Logradouro deve ter no máximo 100 caracteres")

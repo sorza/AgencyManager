@@ -1,5 +1,4 @@
 using AgencyManager.Core.Models.ValueObjects;
-using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -11,17 +10,7 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<ServiceContract> _contracts = [];
 
         public Agency(string description, string cnpj, Address address, IList<Contact>? contacts = null, string? photo = null)
-        {
-            AddNotifications(new Contract<Agency>().Requires()
-                .IsNotNullOrEmpty(description,"Description","O nome/descrição inválido.")
-                .IsLowerThan(description, 60,"Description", "O nome/descrição deve conter no máximo 60 caracteres.")
-                .IsGreaterThan(description, 2,"Description", "O nome/descrição deve conter no mínimo 2 caracteres.")
-
-                .Matches(cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
-
-                .IsNotNull(address,"Address","Endereço Inválido")
-            );
-
+        {           
             Description = description;
             Cnpj = cnpj;
             Address = address;    

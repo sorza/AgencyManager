@@ -11,8 +11,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnSuccessWhenAddressIsValid()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {            
                 ZipCode = "13477696",
                 Street = "Rua Um",
                 Neighborhood = "Centro",
@@ -25,36 +24,14 @@ namespace AgencyManager.Tests.Core.Requests.Address
             request.Validate();
 
             Assert.IsTrue(request.IsValid);
-        }
-
-        [TestMethod]
-        [TestCategory("Domain")]
-        public void ShouldReturnErrorWhenIdIsZeroOrLess()
-        {
-            var request = new UpdateAddressRequest
-            {
-                Id = -1,
-                ZipCode = "13477696",
-                Street = "Rua Um",
-                Neighborhood = "Centro",
-                Number = "85",
-                City = "Araras",
-                State = "SP",
-                Complement = "Apto 32"               
-            };
-
-            request.Validate();
-
-            Assert.IsFalse(request.IsValid);
-        }
+        }        
         
         [TestMethod]
         [TestCategory("Domain")]
         public void ShouldReturnErrorWhenZipCodeCharacteresIsLowerThanEightCaracteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {              
                 ZipCode = "1347769",
                 Street = "Rua Um",
                 Neighborhood = "Centro",
@@ -74,8 +51,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenZipCodeCharacteresIsGreaterThanEightCaracteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "134776920",
                 Street = "Rua Um",
                 Number = "815",
@@ -95,8 +71,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenZipCodeIsNotNumeric()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Neighborhood = "Centro",
@@ -117,8 +92,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStreetIsGreaterThan100Characteres()
         {
              var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {                
                 ZipCode = "F347A6920",
                 Street = "Rua Um Dois Tres Quatro Rua Um Dois Tres Quatro Rua Um Dois Tres Quatro Rua Um Dois Tres Quatro Rua Um Dois Tres Quatro Cinco",
                 Neighborhood = "Centro",
@@ -138,8 +112,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStreetIsEmpty()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = string.Empty,
                 Neighborhood = "Centro",
@@ -159,8 +132,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenNumberIsNotNumeric()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -180,8 +152,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenNumberIsGreaterThanSeven()
         {
            var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "12345678",
@@ -201,8 +172,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenNeighborhoodtIsGreaterThanSeventhCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {                
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -222,8 +192,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenNeighborhoodtIsLowerThanThreeCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -243,8 +212,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenNeighborhoodIsEmpty()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {                
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -264,8 +232,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenCityIsGreaterThanSeventhCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -285,8 +252,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenCityIsLowerThanThreeCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -306,8 +272,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenCityIsEmpty()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -328,8 +293,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStateIsEmpty()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {              
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -349,8 +313,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStateIsLowerThanTwoCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -370,8 +333,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStateIsGreaterThanTwoCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {              
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -391,8 +353,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenStateIsNotAlfabetic()
         {
            var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
@@ -412,8 +373,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnErrorWhenComplementIsGreaterThanFifithCharacteres()
         {
             var request = new UpdateAddressRequest
-            {
-                Id = 1,
+            {               
                 ZipCode = "F347A6920",
                 Street = "Rua Um",
                 Number = "Dois",
