@@ -1,7 +1,6 @@
 
 using AgencyManager.Core.Enums;
 using AgencyManager.Core.Models.Account;
-using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -12,14 +11,7 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<VirtualSale> _virtuaSales =[];
 
         public Cash(string userId, DateTime date, decimal startValue, decimal endValue)
-        {
-            AddNotifications(new Contract<Cash>().Requires()
-                .IsEmail(userId, "UserId", "Email inválido.")
-                .IsLowerOrEqualsThan(date, DateTime.Now, "A data não pode ser futura")
-                .IsGreaterOrEqualsThan(startValue, 0, "StartValue", "O troco inicial deve ser positivo")
-                .IsGreaterOrEqualsThan(endValue, 0, "EndValue", "O troco final deve ser positivo")
-            );
-
+        {            
             UserId = userId;
             Date = date;
             StartValue = startValue;
