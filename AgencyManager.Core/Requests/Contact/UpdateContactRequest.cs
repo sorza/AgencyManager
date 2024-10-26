@@ -1,4 +1,3 @@
-
 using System.Text.RegularExpressions;
 using AgencyManager.Core.Enums;
 using Flunt.Validations;
@@ -14,8 +13,9 @@ namespace AgencyManager.Core.Requests.Contact
         
         public void Validate()
         {            
-            AddNotifications(new Contract<UpdateContactRequest>().Requires()
+            AddNotifications(new Contract<UpdateContactRequest>().Requires()            
                 .IsNotNull(ContactType,"ContactType","O tipo é obrigatório.")
+                .AreNotEquals(Id, Guid.Empty, "Identificador de contato inválido.")
 
                 .IsNotNullOrEmpty(Description,"Description","Contato inválido.")
                 .IsGreaterThan(Description, 7, "Description","O contato deve ter no mínimo 7 caracteres")

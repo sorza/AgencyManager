@@ -25,7 +25,8 @@ namespace AgencyManager.Tests.Core.Requests.Agency
             {
                 ContactType = EContactType.Phone,
                 Description = "1933527436",
-                Departament = "Guichê"
+                Departament = "Guichê",
+                Id = Guid.NewGuid(),
             }
         };
 
@@ -35,6 +36,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "31521273000105",
                 Address = _address,      
@@ -48,10 +50,28 @@ namespace AgencyManager.Tests.Core.Requests.Agency
 
         [TestMethod]
         [TestCategory("Domain")]
+        public void ShouldReturnErrorWhenIdIsEmpty()
+        {
+            var request = new UpdateAgencyRequest
+            {
+                Description = string.Empty,
+                Cnpj = "31521273000105",
+                Address = _address,      
+                Contacts = _contacts 
+            };            
+
+            request.Validate();
+
+            Assert.IsFalse(request.IsValid);
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
         public void ShouldReturnErrorWhenDescriptionIsEmpty()
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = string.Empty,
                 Cnpj = "31521273000105",
                 Address = _address,      
@@ -69,6 +89,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "ABCDEFGHIJABCDEFGHIJABCDEFGHIJABCDEFGHIJABCDEFGHIJABCDEFGHIJKL",
                 Cnpj = "31521273000105",
                 Address = _address,      
@@ -86,6 +107,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "A",
                 Cnpj = "31521273000105",
                 Address = _address,      
@@ -103,6 +125,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "ASD98710DSA651",
                 Address = _address,      
@@ -120,6 +143,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "0123456789101",
                 Address = _address,      
@@ -137,6 +161,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = string.Empty,
                 Address = _address,      
@@ -154,6 +179,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "31521273000105",
                 Address = null!,      
@@ -182,6 +208,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
 
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "31521273000105",
                 Address = address,      
@@ -199,6 +226,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "31521273000105",
                 Address = null!,      
@@ -216,6 +244,7 @@ namespace AgencyManager.Tests.Core.Requests.Agency
         {
             var request = new UpdateAgencyRequest
             {
+                Id = Guid.NewGuid(),
                 Description = "AGENCIA",
                 Cnpj = "31521273000105",
                 Address = _address,      
