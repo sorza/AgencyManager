@@ -1,4 +1,3 @@
-using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Address;
 using AgencyManager.Core.Requests.Contact;
 using Flunt.Validations;
