@@ -1,6 +1,4 @@
-using AgencyManager.Core.Requests;
-
-namespace AgencyManager.Tests.Core.Requests.Contact
+namespace AgencyManager.Core.Requests.Contact
 {
     public class DeleteConctactRequest : Request
     {
