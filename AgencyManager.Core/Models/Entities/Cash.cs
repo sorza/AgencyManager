@@ -8,7 +8,7 @@ namespace AgencyManager.Core.Models.Entities
     {
         private readonly IList<Transaction> _transactions = [];
         private readonly IList<Sale> _sales = [];
-        private readonly IList<VirtualSale> _virtuaSales =[];
+        private readonly IList<VirtualSale> _virtualSales =[];
 
         public Cash(string userId, DateTime date, decimal startValue, decimal endValue)
         {            
@@ -26,16 +26,16 @@ namespace AgencyManager.Core.Models.Entities
         public bool Status { get; private set; } = true;
         public decimal Entries => _transactions.Where(t => t.Type == ETransactionType.Entry).Sum(x=> x.Amount);
         public decimal Outputs => _transactions.Where(t => t.Type == ETransactionType.Output).Sum(x=> x.Amount);
-        public decimal TotalSales => _sales.Sum(x => x.Total);
-        public decimal VirtualSales => _virtuaSales.Sum(x => x.Amount);
+        public decimal TotalSalesAmount => _sales.Sum(x => x.Total);
+        public decimal VirtualSalesAmount => _virtualSales.Sum(x => x.Amount);
         public decimal Balance => GetBalance();
 
         public IReadOnlyCollection<Transaction>? Transactions { get { return _transactions.ToArray(); }}
         public IReadOnlyCollection<Sale>? Sales { get { return _sales.ToArray(); }}
-        public IReadOnlyCollection<VirtualSale>? _virtualSales { get { return _virtuaSales.ToArray(); }}
+        public IReadOnlyCollection<VirtualSale>? VirtualSales { get { return _virtualSales.ToArray(); }}
 
         private decimal GetBalance() =>        
-            StartValue + _transactions.Sum(x => x.Amount) + _sales.Sum(x => x.Money) - VirtualSales - EndValue;
+            StartValue + _transactions.Sum(x => x.Amount) + _sales.Sum(x => x.Money) - VirtualSalesAmount - EndValue;
         
     }
 }
