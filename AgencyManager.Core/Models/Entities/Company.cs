@@ -9,18 +9,6 @@ namespace AgencyManager.Core.Models.Entities
 
         public Company(string name, string tradingName, string cnpj, Address address, IList<Contact>? contacts, string? logo)
         {
-            AddNotifications(new Contract<Agency>().Requires()
-                .IsNotNullOrEmpty(name,"Name","Razão Social Inválida.")
-                .IsLowerOrEqualsThan(name, 60,"Name", "A Razão Social deve conter no máximo 60 caracteres.")
-
-                .IsNotNullOrEmpty(tradingName,"TradingName","Nome Fantasia Inválido.")
-                .IsLowerOrEqualsThan(tradingName, 60,"TradingName", "O Nome Fantasia deve conter no máximo 60 caracteres.")
-
-                .Matches(cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
-
-                .IsNotNull(address,"Address","Endereço Inválido")                         
-            );
-
             Name = name;
             TradingName = tradingName;
             Cnpj = cnpj;
