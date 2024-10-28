@@ -7,7 +7,7 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Contact> _contacts = [];
         private readonly IList<Position> _positions = [];
         private readonly IList<Employee> _emplooyes = [];
-        private readonly IList<ServiceContract> _contracts = [];
+        private readonly IList<ContractService> _contracts = [];
 
         public Agency(string description, string cnpj, Address address, IList<Contact> contacts, string? photo = null)
         {           
@@ -28,7 +28,7 @@ namespace AgencyManager.Core.Models.Entities
         public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
         public IReadOnlyCollection<Position>? Positions { get { return _positions.ToArray(); }}
         public IReadOnlyCollection<Employee>? Employees { get { return _emplooyes.ToArray(); }}
-        public IReadOnlyCollection<ServiceContract>? Contracts { get { return _contracts.ToArray(); }}
+        public IReadOnlyCollection<ContractService>? Contracts { get { return _contracts.ToArray(); }}
         public string? Photo { get; private set; }
     }
 }
