@@ -4,7 +4,7 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class Transaction : Entity
     {
-        public Transaction(Guid cashId, ETransactionType type, decimal amount, string? description)
+        public Transaction(int cashId, ETransactionType type, decimal amount, string? description)
         {   
            CashId = cashId;
            Type = type;
@@ -12,7 +12,7 @@ namespace AgencyManager.Core.Models.Entities
            Description = description;
         }
 
-        public Guid CashId { get; private set; }
+        public int CashId { get; private set; }
         public virtual Cash? Cash { get; private set; }
         public ETransactionType Type { get; private set; } = ETransactionType.Output;
         public decimal Amount { get; private set; }

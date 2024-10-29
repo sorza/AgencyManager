@@ -6,7 +6,7 @@ namespace AgencyManager.Core.Requests.Agency
 {
     public class UpdateAgencyRequest : Request
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Description { get;  set; } = string.Empty;
         public string Cnpj { get;  set; } = string.Empty;
         public UpdateAddressRequest Address { get; set; } = new();
@@ -17,7 +17,7 @@ namespace AgencyManager.Core.Requests.Agency
         {
             AddNotifications(new Contract<UpdateAgencyRequest>().Requires()
                 .IsNotNullOrEmpty(Description,"Description","A descrição é obrigatória.")
-                .AreNotEquals(Id, Guid.Empty, "Identificador de agência inválido.")
+                .IsGreaterThan(Id, 0, "Identificador de agência inválido.")
                 .IsLowerThan(Description, 60,"Description", "A descrição deve conter no máximo 60 caracteres.")
                 .IsGreaterThan(Description, 2,"Description", "A descrição deve conter no mínimo 2 caracteres.")
 

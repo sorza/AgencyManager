@@ -5,7 +5,7 @@ namespace AgencyManager.Core.Requests.Transaction
 {
     public class UpdateTransactionRequest : Request
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public ETransactionType Type { get; set; } = ETransactionType.Output;
         public decimal Amount { get; set; }
         public string? Description { get; set; }
@@ -16,7 +16,7 @@ namespace AgencyManager.Core.Requests.Transaction
 
             AddNotifications(contract.Requires()                
                 .AreNotEquals(0, Amount, "A transação deve ter um valor diferente de zero.")  
-                .AreNotEquals(Id, Guid.Empty, "O identificador da transação é inválido")
+                .IsGreaterThan(Id, 0, "O identificador da transação é inválido")
             );
 
             if(Description is not null)

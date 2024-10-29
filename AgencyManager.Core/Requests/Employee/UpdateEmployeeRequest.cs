@@ -6,14 +6,14 @@ namespace AgencyManager.Core.Requests.Employee
 {
     public class UpdateEmployeeRequest : Request
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get;  set; } = string.Empty;
         public string Cpf { get; set; } = string.Empty;
         public string Rg { get; set; } = string.Empty;
         public DateTime BirthDay { get; set; }
         public UpdateAddressRequest Address { get; set; } = null!;
-        public Guid AgencyId { get; set; }
-        public Guid PositionId { get; set; }
+        public int AgencyId { get; set; }
+        public int PositionId { get; set; }
         public DateTime DateHire { get; set; }
         public DateTime DateDismiss { get; set; }        
         public ICollection<CreateContactRequest>? Contacts { get; set; }
@@ -21,7 +21,7 @@ namespace AgencyManager.Core.Requests.Employee
          public void Validate()
         {
             AddNotifications(new Contract<UpdateEmployeeRequest>().Requires()
-                .AreNotEquals(Id, Guid.Empty, "Identificador de colaborador inválido.")
+                .AreNotEquals(Id, 0, "Identificador de colaborador inválido.")
                 .IsNotNullOrEmpty(Name, "Name", "Nome inválido.")
                 .IsLowerOrEqualsThan(Name, 100, "Name", "O nome deve conter no máximo 100 letras.")
                 .IsGreaterOrEqualsThan(Name, 5, "Name", "O nome deve conter no mínimo 5 letras.")

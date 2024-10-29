@@ -1,5 +1,4 @@
 using AgencyManager.Core.Models.ValueObjects;
-using Flunt.Validations;
 
 namespace AgencyManager.Core.Models.Entities
 {

@@ -12,10 +12,10 @@ namespace AgencyManager.Tests.Core.Requests.Sale
         {
            var request = new UpdateSaleRequest
            {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste.com",
-                CashId = Guid.NewGuid(),                
-                CompanyId = Guid.NewGuid(),
+                CashId = 1,                
+                CompanyId = 1,
                 Money = 100,
                 Digital = 500
            };
@@ -32,8 +32,8 @@ namespace AgencyManager.Tests.Core.Requests.Sale
            var request = new UpdateSaleRequest
            {                
                 UserId = "teste@teste",
-                CashId = Guid.NewGuid(),                
-                CompanyId = Guid.NewGuid(),
+                CashId = 1,                
+                CompanyId = 1,
                 Money = 100,
                 Digital = 500
            };
@@ -49,10 +49,10 @@ namespace AgencyManager.Tests.Core.Requests.Sale
         {
            var request = new UpdateSaleRequest
            {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste",
-                CashId = Guid.NewGuid(),                
-                CompanyId = Guid.NewGuid(),
+                CashId = 1,                
+                CompanyId = 1,
                 Money = 100,
                 Digital = 500
            };
@@ -68,10 +68,10 @@ namespace AgencyManager.Tests.Core.Requests.Sale
         {
            var request = new UpdateSaleRequest
            {    
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste",
-                CashId = Guid.Empty,              
-                CompanyId = Guid.NewGuid(),
+                CashId = 0,              
+                CompanyId = 1,
                 Money = 100,
                 Digital = 500
            };
@@ -87,10 +87,10 @@ namespace AgencyManager.Tests.Core.Requests.Sale
         {
            var request = new UpdateSaleRequest
            {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste",
-                CashId =  Guid.NewGuid(),       
-                CompanyId = Guid.Empty,
+                CashId =  1,       
+                CompanyId = 0,
                 Money = 100,
                 Digital = 500
            };

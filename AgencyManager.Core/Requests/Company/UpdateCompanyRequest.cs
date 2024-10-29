@@ -6,7 +6,7 @@ namespace AgencyManager.Core.Requests.Company
 {
     public class UpdateCompanyRequest : Request
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string TradingName { get; set; } = string.Empty;
         public string Cnpj { get; set; } = string.Empty;
@@ -17,7 +17,7 @@ namespace AgencyManager.Core.Requests.Company
         public void Validate()
         {
             AddNotifications(new Contract<CreateCompanyRequest>().Requires()
-                .AreNotEquals(Id, Guid.Empty, "Identificador de empresa inválido")
+                .IsGreaterThan(Id, 0, "Identificador de empresa inválido")
                 .IsNotNullOrEmpty(Name,"Name","Razão Social Inválida.")
                 .IsLowerOrEqualsThan(Name, 60,"Name", "A Razão Social deve conter no máximo 60 caracteres.")
 

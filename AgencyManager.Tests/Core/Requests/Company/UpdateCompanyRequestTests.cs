@@ -18,7 +18,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {                
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "GONTIJO",
                 Cnpj = "31521273000105",
@@ -55,7 +55,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {                
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = null!,
                 TradingName = "GONTIJO",
                 Cnpj = "31521273000105",
@@ -74,7 +74,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
            var request = new UpdateCompanyRequest
             {          
-                Id = Guid.NewGuid(),      
+                Id = 1,      
                 Name = "",
                 TradingName = "GONTIJO",
                 Cnpj = "31521273000105",
@@ -93,7 +93,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {       
-                Id = Guid.NewGuid(),         
+                Id = 1,         
                 Name = "EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO",
                 TradingName = "GONTIJO",
                 Cnpj = "31521273000105",
@@ -112,7 +112,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {       
-                Id = Guid.NewGuid(),         
+                Id = 1,         
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = null!,
                 Cnpj = "31521273000105",
@@ -131,7 +131,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {       
-                Id = Guid.NewGuid(),         
+                Id = 1,         
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = string.Empty,
                 Cnpj = "31521273000105",
@@ -150,7 +150,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {      
-                Id = Guid.NewGuid(),          
+                Id = 1,          
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO EMPRESA GONTIJO",
                 Cnpj = "31521273000105",
@@ -169,7 +169,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {      
-                Id = Guid.NewGuid(),          
+                Id = 1,          
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "EMPRESA GONTIJO",
                 Cnpj = "3152127300010",
@@ -188,7 +188,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {       
-                Id = Guid.NewGuid(),         
+                Id = 1,         
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "EMPRESA GONTIJO",
                 Cnpj = "315212730001050",
@@ -207,7 +207,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
             var request = new UpdateCompanyRequest
             {       
-                Id = Guid.NewGuid(),         
+                Id = 1,         
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "EMPRESA GONTIJO",
                 Cnpj = "31521273000A",
@@ -226,7 +226,7 @@ namespace AgencyManager.Tests.Core.Requests.Company
         {
              var request = new UpdateCompanyRequest
             {        
-                Id = Guid.NewGuid(),        
+                Id = 1,        
                 Name = "EMPRESA GONTIJO DE TRANSPORTES S/A",
                 TradingName = "EMPRESA GONTIJO",
                 Cnpj = "3152127300010",

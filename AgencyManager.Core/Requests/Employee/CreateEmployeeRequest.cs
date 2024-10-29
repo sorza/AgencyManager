@@ -12,8 +12,8 @@ namespace AgencyManager.Core.Requests.Employee
         public string Rg { get; set; } = string.Empty;
         public DateTime BirthDay { get; set; }
         public CreateAddressRequest Address { get; set; } = null!;
-        public Guid AgencyId { get; set; }
-        public Guid PositionId { get; set; }
+        public int AgencyId { get; set; }
+        public int PositionId { get; set; }
         public DateTime DateHire { get; set; }
         public DateTime DateDismiss { get; set; }        
         public IList<CreateContactRequest>? Contacts { get; set; }

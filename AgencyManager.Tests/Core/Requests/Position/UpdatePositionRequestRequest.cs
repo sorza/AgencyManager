@@ -23,11 +23,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -44,7 +44,7 @@ namespace AgencyManager.Tests.Core.Requests.Position
                 Description = "",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -58,11 +58,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
            var request = new UpdatePositionRequest
             {                
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -76,11 +76,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = null!,
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -94,11 +94,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "CX",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -112,11 +112,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "",
                 Responsabilities = "DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM DESCRICAO DE TESTE UM ",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -130,11 +130,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -148,11 +148,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = null!,
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -166,11 +166,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "RESPONSE",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -184,11 +184,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres Estas são as responsabilidades de um vendedor com mais de 500 caracteres",
                 Salary = 2000,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -202,11 +202,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 0,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();
@@ -220,11 +220,11 @@ namespace AgencyManager.Tests.Core.Requests.Position
         {
             var request = new UpdatePositionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Description = "VENDEDOR",
                 Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
                 Salary = 20001,
-                AgencyId = Guid.NewGuid()
+                AgencyId = 1
             };
 
             request.Validate();

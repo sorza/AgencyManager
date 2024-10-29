@@ -11,7 +11,7 @@ namespace AgencyManager.Tests.Core.Requests.Address
         public void ShouldReturnSuccessWhenAddressIsValid()
         {
             var request = new CreateAddressRequest
-            {
+            {                
                 ZipCode = "13477696",
                 Street = "Rua Um",
                 Neighborhood = "Centro",

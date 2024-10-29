@@ -13,8 +13,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
             var request = new CreateContractServiceRequest
             {
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 15,
                 StartDate = DateTime.Now
@@ -30,8 +30,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
             var request = new CreateContractServiceRequest
             {
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 0,
                 StartDate = DateTime.Now
@@ -47,8 +47,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new CreateContractServiceRequest
             {
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 51,
                 StartDate = DateTime.Now
@@ -64,7 +64,7 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new CreateContractServiceRequest
             {              
-                CompanyId = Guid.NewGuid(),
+                CompanyId = 1,
                 Comission = 15,
                 StartDate = DateTime.Now,
                  ServiceType = EServiceType.Ticket,
@@ -81,7 +81,7 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new CreateContractServiceRequest
             {              
-                AgencyId = Guid.NewGuid(),
+                AgencyId = 1,
                 Comission = 15,
                 StartDate = DateTime.Now,
                 ServiceType = EServiceType.Ticket,

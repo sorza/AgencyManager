@@ -12,7 +12,7 @@ namespace AgencyManager.Tests.Core.Requests.Cash
         {
             var request = new UpdateCashRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste.com",
                 Date =  DateTime.Now,
                 StartValue = 100,
@@ -47,7 +47,7 @@ namespace AgencyManager.Tests.Core.Requests.Cash
         {
             var request = new UpdateCashRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste",
                 Date =  DateTime.Now,
                 StartValue = 100,
@@ -65,7 +65,7 @@ namespace AgencyManager.Tests.Core.Requests.Cash
         {
             var request = new UpdateCashRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste.com",
                 Date =  DateTime.Now.AddDays(1),
                 StartValue = 100,
@@ -83,7 +83,7 @@ namespace AgencyManager.Tests.Core.Requests.Cash
         {
             var request = new UpdateCashRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste.com",
                 Date =  DateTime.Now,
                 StartValue = -50,
@@ -101,7 +101,7 @@ namespace AgencyManager.Tests.Core.Requests.Cash
         {
            var request = new UpdateCashRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 UserId = "teste@teste.com",
                 Date =  DateTime.Now,
                 StartValue = 50,

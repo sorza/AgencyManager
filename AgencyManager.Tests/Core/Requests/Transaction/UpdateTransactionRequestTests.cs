@@ -13,7 +13,7 @@ namespace AgencyManager.Tests.Core.Requests.Transaction
         {
             var request = new UpdateTransactionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Type = ETransactionType.Entry,
                 Description = "Entrada de valores",
                 Amount = 100,
@@ -30,7 +30,7 @@ namespace AgencyManager.Tests.Core.Requests.Transaction
         {
             var request = new UpdateTransactionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Type = ETransactionType.Output,
                 Amount = 100,
                 UserId = "teste@teste.com"
@@ -47,7 +47,7 @@ namespace AgencyManager.Tests.Core.Requests.Transaction
         {
             var request = new UpdateTransactionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Amount = 100,
                 UserId = "teste@teste.com"
             };
@@ -78,7 +78,7 @@ namespace AgencyManager.Tests.Core.Requests.Transaction
         {
             var request = new UpdateTransactionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Amount = 0,
                 UserId = "teste@teste.com"
             };
@@ -94,7 +94,7 @@ namespace AgencyManager.Tests.Core.Requests.Transaction
         {
             var request = new UpdateTransactionRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Amount = 100,
                 Description = "Esta é uma descrição que com certeza possuirá mais de 100 caracteres, sem sobra de dúvidas, realmente é maior que 100",
                 UserId = "teste@teste.com"

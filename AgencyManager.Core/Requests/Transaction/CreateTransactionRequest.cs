@@ -5,7 +5,7 @@ namespace AgencyManager.Core.Requests.Transaction
 {
     public class CreateTransactionRequest : Request
     {
-        public Guid CashId { get; set; }       
+        public int CashId { get; set; }       
         public ETransactionType Type { get; set; } = ETransactionType.Output;
         public decimal Amount { get; set; }
         public string? Description { get; set; }
@@ -15,7 +15,7 @@ namespace AgencyManager.Core.Requests.Transaction
             var contract = new Contract<CreateTransactionRequest>();
 
             AddNotifications(contract.Requires()
-                .AreNotEquals(CashId, Guid.Empty, "Identidicador de caixa inválido.")
+                .IsGreaterThan(CashId, 0, "Identidicador de caixa inválido.")
                 .IsEmail(UserId, "UserId", "Usuário inválido")
                 .AreNotEquals(0, Amount, "A transação deve ter um valor diferente de zero.")  
             );

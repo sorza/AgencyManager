@@ -7,7 +7,7 @@ namespace AgencyManager.Core.Requests.Position
         public string Description { get; set; } = string.Empty;
         public string Responsabilities { get; set; } = string.Empty;
         public decimal Salary { get; set; }
-        public Guid AgencyId { get; set; }
+        public int AgencyId { get; set; }
         public void Validate()
         {
             AddNotifications(new Contract<CreatePositionRequest>().Requires()

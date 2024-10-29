@@ -2,6 +2,6 @@ namespace AgencyManager.Core.Requests.Sale
 {
     public class GetSalesByCashRequest : PagedRequest
     {
-        public Guid CashId { get; set; }
+        public int CashId { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace AgencyManager.Tests.Core.Requests.Employee
             Description = "VENDEDOR",
             Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
             Salary = 2000,
-            AgencyId = Guid.NewGuid()
+            AgencyId = 1
         }; 
                      
         [TestMethod]
@@ -44,8 +44,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -64,8 +64,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -84,8 +84,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -104,8 +104,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -124,8 +124,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -144,8 +144,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -164,8 +164,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -184,8 +184,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -204,8 +204,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -224,8 +224,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -244,8 +244,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(2009,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -264,8 +264,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1960,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();

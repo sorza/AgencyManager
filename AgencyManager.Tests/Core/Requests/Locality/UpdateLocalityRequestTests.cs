@@ -12,7 +12,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "Araras",
                 State = "SP"
             };
@@ -41,7 +41,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = null!,
                 State = "SP"
             };
@@ -56,7 +56,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = string.Empty,
                 State = "SP"
             };
@@ -71,7 +71,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "AB",
                 State = "SP"
             };
@@ -86,7 +86,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "ALPINOPOLIS MIRIM DAS CRUZ DO PARDO BRANCO DO SUDOESTE PAULISTA E MINEIRO DAS TERRAS SELVAGENS DE MARACATU",
                 State = "SP"
             };
@@ -101,7 +101,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "Araras",
                 State = null!
             };
@@ -116,7 +116,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "Araras",
                 State = string.Empty
             };
@@ -131,7 +131,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
             var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "Araras",
                 State = "A"
             };
@@ -146,7 +146,7 @@ namespace AgencyManager.Tests.Core.Requests.Locality
         {
            var request = new UpdateLocalityRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 City = "Araras",
                 State = "JAU"
             };

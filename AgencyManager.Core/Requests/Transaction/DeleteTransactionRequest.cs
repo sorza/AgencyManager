@@ -2,6 +2,6 @@ namespace AgencyManager.Core.Requests.Transaction
 {
     public class DeleteTransactionRequest
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

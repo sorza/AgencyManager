@@ -13,7 +13,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.Phone,
                 Description = "1933527436",
                 Departament = "Guichê"                
@@ -44,7 +44,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.Phone,
                 Description = "19335274360",
                 Departament = "Guichê"                
@@ -60,7 +60,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.CellPhone,
                 Description = "1933527436",
                 Departament = "Guichê"                
@@ -76,7 +76,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.CellPhone,
                 Description = "19997737436",
                 Departament = "Alexandre Pessoal"                
@@ -93,7 +93,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.Email,
                 Description = "teste@teste",
                 Departament = "Guichê"                
@@ -109,7 +109,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
            var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.Email,
                 Description = "teste@teste.com.br",
                 Departament = "Guichê"                
@@ -125,7 +125,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "teste@teste",
                 Departament = "Guichê Whats"                
@@ -141,7 +141,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "1997737436",
                 Departament = "Guichê"                
@@ -157,7 +157,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = string.Empty,
                 Departament = "Guichê"                
@@ -173,7 +173,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "123456",
                 Departament = "Guichê"                
@@ -189,7 +189,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.Email,
                 Description = "12345678901234567890123456789012345678901234567890123456789012345678901",
                 Departament = "Guichê"                
@@ -205,7 +205,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "19998852083",
                 Departament = string.Empty            
@@ -221,7 +221,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "19998852083",
                 Departament = "A"            
@@ -237,7 +237,7 @@ namespace AgencyManager.Tests.Core.Requests.Contact
         {
             var request = new UpdateContactRequest
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 ContactType = EContactType.WhatsApp,
                 Description = "19998852083",
                 Departament = "12345678901234567890123456789012345678901234567890123456789012345678901"            

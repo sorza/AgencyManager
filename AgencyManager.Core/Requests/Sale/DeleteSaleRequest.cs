@@ -2,6 +2,6 @@ namespace AgencyManager.Core.Requests.Sale
 {
     public class DeleteSaleRequest : Request
     {
-        public Guid Id { get; set; }        
+        public int Id { get; set; }        
     }
 }

@@ -2,6 +2,6 @@ namespace AgencyManager.Core.Requests.Agency
 {
     public class GetAgencyByIdRequest : Request
     {
-         public Guid Id { get; set; }
+         public int Id { get; set; }
     }
 }

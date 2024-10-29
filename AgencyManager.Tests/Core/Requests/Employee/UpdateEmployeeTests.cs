@@ -34,7 +34,7 @@ namespace AgencyManager.Tests.Core.Requests.Employee
             Description = "VENDEDOR",
             Responsabilities = "VENDER PASSAGENS E ENCOMENDAS",
             Salary = 2000,
-            AgencyId = Guid.NewGuid()
+            AgencyId = 1
         }; 
                      
         [TestMethod]
@@ -43,14 +43,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {            
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "Alexandre Zordan",
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
+                PositionId = 1,
+                AgencyId = 1,
             };
 
             _request.Validate();
@@ -69,8 +69,8 @@ namespace AgencyManager.Tests.Core.Requests.Employee
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
+                PositionId = 1,
+                AgencyId = 1,
             };
 
             _request.Validate();
@@ -84,14 +84,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = null!,
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
+                PositionId = 1,
+                AgencyId = 1,
             };
 
             _request.Validate();
@@ -105,14 +105,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
            UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = string.Empty,
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -126,14 +126,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
            UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "Caio"!,
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId =Guid.NewGuid()
+                PositionId = 1,
+                AgencyId =1
             };
 
             _request.Validate();
@@ -147,14 +147,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE LUIS RAMOS DA SILVA JUNIOR JORDANO CAMARGO SOARES BENTO SOARES OLIVEIRA DE PADUA ARANTES DO NASCIMENTO RUFINO",
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -168,14 +168,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -189,14 +189,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = null!,
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -210,14 +210,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "4505789489",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -231,14 +231,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
            UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "450578948977",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -252,14 +252,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "4505789489A",
                 Rg = "409830318",
                 BirthDay = new DateTime(1995,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -273,14 +273,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
             UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(2009,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();
@@ -294,14 +294,14 @@ namespace AgencyManager.Tests.Core.Requests.Employee
         {
            UpdateEmployeeRequest _request = new()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "ALEXANDRE ZORDAN DURAES"!,
                 Cpf = "45057894897",
                 Rg = "409830318",
                 BirthDay = new DateTime(1960,09,23),
                 Address = _address,
-                PositionId = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid()
+                PositionId = 1,
+                AgencyId = 1
             };
 
             _request.Validate();

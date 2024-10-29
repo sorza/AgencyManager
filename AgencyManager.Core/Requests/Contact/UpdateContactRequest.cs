@@ -6,7 +6,7 @@ namespace AgencyManager.Core.Requests.Contact
 {
     public class UpdateContactRequest : Request
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public EContactType ContactType { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Departament { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ namespace AgencyManager.Core.Requests.Contact
         {            
             AddNotifications(new Contract<UpdateContactRequest>().Requires()            
                 .IsNotNull(ContactType,"ContactType","O tipo é obrigatório.")
-                .AreNotEquals(Id, Guid.Empty, "Identificador de contato inválido.")
+                .IsGreaterThan(Id, 0, "Identificador de contato inválido.")
 
                 .IsNotNullOrEmpty(Description,"Description","Contato inválido.")
                 .IsGreaterThan(Description, 7, "Description","O contato deve ter no mínimo 7 caracteres")

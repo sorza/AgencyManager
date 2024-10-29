@@ -13,9 +13,9 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
             var request = new UpdateContractServiceRequest
             {
-                Id = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                Id = 1,
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 15,
                 StartDate = DateTime.Now
@@ -31,8 +31,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
             var request = new UpdateContractServiceRequest
             {              
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 15,
                 StartDate = DateTime.Now
@@ -48,9 +48,9 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
             var request = new UpdateContractServiceRequest
             {
-                Id = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                Id = 1,
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 0,
                 StartDate = DateTime.Now
@@ -66,9 +66,9 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new UpdateContractServiceRequest
             {
-                Id = Guid.NewGuid(),
-                AgencyId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
+                Id = 1,
+                AgencyId = 1,
+                CompanyId = 1,
                 ServiceType = EServiceType.Ticket,
                 Comission = 51,
                 StartDate = DateTime.Now
@@ -84,8 +84,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new UpdateContractServiceRequest
             {           
-                Id = Guid.NewGuid(),   
-                CompanyId = Guid.NewGuid(),
+                Id = 1,   
+                CompanyId = 1,
                 Comission = 15,
                 StartDate = DateTime.Now,
                  ServiceType = EServiceType.Ticket,
@@ -102,8 +102,8 @@ namespace AgencyManager.Tests.Core.Requests.ContractService
         {
            var request = new UpdateContractServiceRequest
             {             
-                Id = Guid.NewGuid(), 
-                AgencyId = Guid.NewGuid(),
+                Id = 1, 
+                AgencyId = 1,
                 Comission = 15,
                 StartDate = DateTime.Now,
                 ServiceType = EServiceType.Ticket,
