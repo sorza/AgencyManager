@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Contact
 {
-    public class GetContactsByCompany : PagedRequest
+    public class GetContactsByCompanyId : PagedRequest
     {
         public int ComapanyId { get; set; }
     }

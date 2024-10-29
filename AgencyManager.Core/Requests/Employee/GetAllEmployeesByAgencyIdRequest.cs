@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Employee
 {
-    public class GetAllEmployeesByAgencyId : Request
+    public class GetAllEmployeesByAgencyIdRequest : Request
     {
         public int AgencyId { get; set; }
     }

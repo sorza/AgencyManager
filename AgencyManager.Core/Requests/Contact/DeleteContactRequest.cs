@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Contact
 {
-    public class DeleteConctactRequest : Request
+    public class DeleteContactRequest : Request
     {
         public int Id { get; set; }
     }
