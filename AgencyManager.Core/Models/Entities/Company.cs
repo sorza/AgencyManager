@@ -6,6 +6,10 @@ namespace AgencyManager.Core.Models.Entities
     {
         private readonly IList<Contact> _contacts;
 
+        public Company()
+        {
+            
+        }
         public Company(string name, string tradingName, string cnpj, Address address, IList<Contact>? contacts, string? logo)
         {
             Name = name;

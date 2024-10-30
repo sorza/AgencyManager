@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AgencyManager.Data.Mappings
+namespace AgencyManager.Api.Data.Mappings
 {
     internal class SaleMapping : IEntityTypeConfiguration<Sale>
     {
@@ -27,14 +27,6 @@ namespace AgencyManager.Data.Mappings
             builder.Property(x => x.Digital)
                 .IsRequired(true)
                 .HasColumnType("MONEY");
-
-            builder.HasOne(s => s.Cash)
-                .WithMany()
-                .HasForeignKey(s => s.CashId);
-
-            builder.HasOne(s => s.Company)
-                .WithMany()
-                .HasForeignKey(s => s.CashId);
         }
     }
 }

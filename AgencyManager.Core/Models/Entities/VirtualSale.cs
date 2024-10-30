@@ -4,6 +4,10 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class VirtualSale : Entity
     {
+        public VirtualSale()
+        {
+            
+        }
         public VirtualSale(int cashId, int companyId,int orignId, int destinationId, decimal amount, EPaymentType paymentType, bool paid, string? observation)
         {            
             CashId = cashId;

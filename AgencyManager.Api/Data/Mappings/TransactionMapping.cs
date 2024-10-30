@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AgencyManager.Data.Mappings
+namespace AgencyManager.Api.Data.Mappings
 {
     internal class TransactionMapping : IEntityTypeConfiguration<Transaction>
     {
@@ -28,10 +28,6 @@ namespace AgencyManager.Data.Mappings
                 .IsRequired(false)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(100);
-
-            builder.HasOne(t => t.Cash)
-                .WithMany()
-                .HasForeignKey(t => t.CashId);
         }
     }
 }

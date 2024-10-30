@@ -9,12 +9,17 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Employee> _emplooyes = [];
         private readonly IList<ContractService> _contracts = [];
 
+        public Agency()
+        {
+            
+        }
+
         public Agency(string description, string cnpj, Address address, IList<Contact> contacts, string? photo = null)
         {           
             Description = description;
             Cnpj = cnpj;
             Address = address;    
-
+            
             Active = true;
 
             Photo = photo ?? "";

@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AgencyManager.Data.Mappings
+namespace AgencyManager.Api.Data.Mappings
 {
     internal class PositionMapping : IEntityTypeConfiguration<Position>
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {
-            builder.ToTable("Locality");
+            builder.ToTable("Positions");
 
             builder.HasKey(x => x.Id);
 

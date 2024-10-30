@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AgencyManager.Data.Mappings
+namespace AgencyManager.Api.Data.Mappings
 {
     internal class CashMappint : IEntityTypeConfiguration<Cash>
     {
@@ -32,10 +32,6 @@ namespace AgencyManager.Data.Mappings
             builder.Property(x => x.Status)
                .IsRequired(true)
                .HasColumnType("BIT");
-
-            builder.HasOne(c => c.User)
-                .WithMany()
-                .HasForeignKey(c => c.UserId);
 
             builder.HasMany(c => c.Transactions)
                 .WithOne(c => c.Cash)

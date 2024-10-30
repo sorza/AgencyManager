@@ -14,5 +14,6 @@ namespace AgencyManager.Core.Models.Entities
         public string Responsabilities { get; private set; }
         public decimal Salary { get; private set; }
         public int AgencyId { get; private set; }
+        public virtual Agency? Agency { get; private set; }
     }
 }

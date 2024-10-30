@@ -1,6 +1,5 @@
 
 using AgencyManager.Core.Enums;
-using AgencyManager.Core.Models.Account;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -19,7 +18,6 @@ namespace AgencyManager.Core.Models.Entities
         }
 
         public string UserId { get; private set; }
-        public virtual User? User { get; private set; }
         public DateTime Date { get; private set; }
         public decimal StartValue { get; private set; }
         public decimal EndValue { get; private set; }

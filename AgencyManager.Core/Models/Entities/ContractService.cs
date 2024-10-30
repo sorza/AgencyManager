@@ -4,6 +4,10 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class ContractService : Entity
     {
+        public ContractService()
+        {
+            
+        }
         public ContractService(int agencyId, int companyId, EServiceType serviceType, decimal comission, DateTime? startDate)
         {       
             AgencyId = agencyId;           

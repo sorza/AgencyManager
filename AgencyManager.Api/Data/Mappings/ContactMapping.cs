@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AgencyManager.Data.Mappings
+namespace AgencyManager.Api.Data.Mappings
 {
     internal class ContactMapping : IEntityTypeConfiguration<Contact>
     {
@@ -21,7 +21,7 @@ namespace AgencyManager.Data.Mappings
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(70);
 
-            builder.Property(x=> x.Departament)
+            builder.Property(x => x.Departament)
                 .IsRequired(true)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(70);
