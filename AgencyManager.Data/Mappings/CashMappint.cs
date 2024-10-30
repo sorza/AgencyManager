@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Data.Mappings
 {
-    public class CashMappint : IEntityTypeConfiguration<Cash>
+    internal class CashMappint : IEntityTypeConfiguration<Cash>
     {
         public void Configure(EntityTypeBuilder<Cash> builder)
         {

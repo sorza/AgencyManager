@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Data.Mappings
 {
-    public class ContactMapping : IEntityTypeConfiguration<Contact>
+    internal class ContactMapping : IEntityTypeConfiguration<Contact>
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {

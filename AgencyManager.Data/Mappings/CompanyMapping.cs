@@ -4,15 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Data.Mappings
 {
-    internal class AgencyMapping : IEntityTypeConfiguration<Agency>
+    internal class CompanyMapping : IEntityTypeConfiguration<Company>
     {
-        public void Configure(EntityTypeBuilder<Agency> builder)
+        public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.ToTable("Agency");
+            builder.ToTable("Comapany");
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Description)
+            builder.Property(x => x.Name)
+                .IsRequired(true)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(60);
+
+            builder.Property(x => x.TradingName)
                 .IsRequired(true)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(60);
@@ -22,9 +27,10 @@ namespace AgencyManager.Data.Mappings
                 .HasColumnType("CHAR")
                 .HasMaxLength(14);
 
-            builder.Property(x => x.Active)
-                .IsRequired(true)
-                .HasColumnType("BIT");
+            builder.Property(x => x.Logo)
+                .IsRequired(false)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(255);
 
             builder.OwnsOne(x => x.Address, address =>
             {
@@ -64,26 +70,9 @@ namespace AgencyManager.Data.Mappings
                     .HasMaxLength(50);
             });
 
-            builder.Property(x => x.Photo)
-                .IsRequired(false)
-                .HasColumnType("NVARCHAR")
-                .HasMaxLength(255);
-
-            builder.HasMany(x => x.Contacts)
-                .WithOne(c => c.Agency)
-                .HasForeignKey(c => c.AgencyId);
-
-            builder.HasMany(x => x.Positions)
-                .WithOne(c => c.Agency)
-                .HasForeignKey(c => c.AgencyId);
-
-            builder.HasMany(x => x.Employees)
-                .WithOne(c => c.Agency)
-                .HasForeignKey(c => c.AgencyId);
-
-            builder.HasMany(x => x.Contracts)
-                .WithOne(c => c.Agency)
-                .HasForeignKey(c => c.AgencyId);
+            builder.HasMany(c => c.Contacts)
+                .WithOne(x => x.Company)
+                .HasForeignKey(x => x.CompanyId);
 
         }
     }
