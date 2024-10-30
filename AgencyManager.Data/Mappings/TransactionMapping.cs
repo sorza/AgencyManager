@@ -32,7 +32,6 @@ namespace AgencyManager.Data.Mappings
             builder.HasOne(t => t.Cash)
                 .WithMany()
                 .HasForeignKey(t => t.CashId);
-
         }
     }
 }
