@@ -48,11 +48,6 @@ namespace AgencyManager.Data.Mappings
                 .IsRequired(false)
                 .HasColumnType("DATETIME2");
 
-            builder.Property(x => x.UserId)
-                .IsRequired(false)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength("60");
-
             builder.OwnsOne(x => x.Address, address =>
             {
                 address.Property(address => address.ZipCode)
@@ -94,11 +89,6 @@ namespace AgencyManager.Data.Mappings
             builder.HasMany(x => x.Contacts)
                 .WithOne(c => c.Employee)
                 .HasForeignKey(c => c.EmployeeId);
-
-            builder.HasOne(c => c.User)
-                .WithOne()
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.Position)
                 .WithMany()

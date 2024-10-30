@@ -39,6 +39,14 @@ namespace AgencyManager.Data.Mappings
             builder.Property(x => x.EndDate)
                 .IsRequired(false)
                 .HasColumnType("DATETIME2");
+
+            builder.HasOne(c => c.Agency)
+                .WithMany()
+                .HasForeignKey(c => c.AgencyId);
+
+            builder.HasOne(c => c.Company)
+                .WithMany()
+                .HasForeignKey(c => c.CompanyId);
         }
     }
 }

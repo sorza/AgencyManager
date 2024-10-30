@@ -33,6 +33,10 @@ namespace AgencyManager.Data.Mappings
                .IsRequired(true)
                .HasColumnType("BIT");
 
+            builder.HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
+
             builder.HasMany(c => c.Transactions)
                 .WithOne(c => c.Cash)
                 .HasForeignKey(c => c.CashId);
