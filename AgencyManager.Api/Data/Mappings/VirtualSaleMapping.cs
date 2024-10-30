@@ -6,7 +6,7 @@ public class VirtualSaleMapping : IEntityTypeConfiguration<VirtualSale>
 {
     public void Configure(EntityTypeBuilder<VirtualSale> builder)
     {
-        builder.ToTable("VirtualSales");
+        builder.ToTable("VirtualSale");
 
         builder.HasKey(vs => vs.Id);
 

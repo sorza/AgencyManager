@@ -60,6 +60,9 @@ namespace AgencyManager.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("DATETIME2");
 
@@ -78,6 +81,8 @@ namespace AgencyManager.Api.Migrations
                         .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AgencyId");
 
                     b.ToTable("Cash", (string)null);
                 });
@@ -263,7 +268,7 @@ namespace AgencyManager.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Localities", (string)null);
+                    b.ToTable("Locality", (string)null);
                 });
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Position", b =>
@@ -294,7 +299,7 @@ namespace AgencyManager.Api.Migrations
 
                     b.HasIndex("AgencyId");
 
-                    b.ToTable("Positions", (string)null);
+                    b.ToTable("Position", (string)null);
                 });
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Sale", b =>
@@ -396,7 +401,7 @@ namespace AgencyManager.Api.Migrations
 
                     b.HasIndex("OrignId");
 
-                    b.ToTable("VirtualSales", (string)null);
+                    b.ToTable("VirtualSale", (string)null);
                 });
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Agency", b =>
@@ -457,6 +462,17 @@ namespace AgencyManager.Api.Migrations
 
                     b.Navigation("Address")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AgencyManager.Core.Models.Entities.Cash", b =>
+                {
+                    b.HasOne("AgencyManager.Core.Models.Entities.Agency", "Agency")
+                        .WithMany("Cash")
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agency");
                 });
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Company", b =>
@@ -713,6 +729,8 @@ namespace AgencyManager.Api.Migrations
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Agency", b =>
                 {
+                    b.Navigation("Cash");
+
                     b.Navigation("Contacts");
 
                     b.Navigation("Contracts");

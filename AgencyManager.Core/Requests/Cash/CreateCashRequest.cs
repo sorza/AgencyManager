@@ -1,12 +1,15 @@
 using Flunt.Validations;
+using System.Numerics;
 
 namespace AgencyManager.Core.Requests.Cash
 {
     public class CreateCashRequest : Request
-    {               
+    {
+        public int AgencyId { get; set; }
         public DateTime Date { get; set; }
         public decimal StartValue { get; set; }
         public decimal EndValue { get; set; }
+
 
         public void Validate()
         {

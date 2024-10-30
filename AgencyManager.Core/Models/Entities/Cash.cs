@@ -9,15 +9,18 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Sale> _sales = [];
         private readonly IList<VirtualSale> _virtualSales =[];
 
-        public Cash(string userId, DateTime date, decimal startValue, decimal endValue)
+        public Cash(string userId, DateTime date, decimal startValue, decimal endValue, int agencyId)
         {            
             UserId = userId;
             Date = date;
             StartValue = startValue;
             EndValue = endValue;
+            AgencyId = agencyId;
         }
 
         public string UserId { get; private set; }
+        public virtual Agency? Agency { get; private set; }
+        public int AgencyId { get; private set; }
         public DateTime Date { get; private set; }
         public decimal StartValue { get; private set; }
         public decimal EndValue { get; private set; }

@@ -35,23 +35,6 @@ namespace AgencyManager.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cash",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "VARCHAR(70)", maxLength: 70, nullable: false),
-                    Date = table.Column<DateTime>(type: "DATETIME2", nullable: false),
-                    StartValue = table.Column<decimal>(type: "MONEY", nullable: false),
-                    EndValue = table.Column<decimal>(type: "MONEY", nullable: false),
-                    Status = table.Column<bool>(type: "BIT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cash", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Company",
                 columns: table => new
                 {
@@ -75,7 +58,7 @@ namespace AgencyManager.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Localities",
+                name: "Locality",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,11 +68,35 @@ namespace AgencyManager.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Localities", x => x.Id);
+                    table.PrimaryKey("PK_Locality", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Positions",
+                name: "Cash",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "VARCHAR(70)", maxLength: 70, nullable: false),
+                    AgencyId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "DATETIME2", nullable: false),
+                    StartValue = table.Column<decimal>(type: "MONEY", nullable: false),
+                    EndValue = table.Column<decimal>(type: "MONEY", nullable: false),
+                    Status = table.Column<bool>(type: "BIT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cash", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cash_Agency_AgencyId",
+                        column: x => x.AgencyId,
+                        principalTable: "Agency",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Position",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -101,33 +108,11 @@ namespace AgencyManager.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Positions", x => x.Id);
+                    table.PrimaryKey("PK_Position", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Positions_Agency_AgencyId",
+                        name: "FK_Position_Agency_AgencyId",
                         column: x => x.AgencyId,
                         principalTable: "Agency",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Transaction",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CashId = table.Column<int>(type: "INT", nullable: false),
-                    Type = table.Column<short>(type: "SMALLINT", nullable: false),
-                    Amount = table.Column<decimal>(type: "DECIMAL(18,0)", nullable: false),
-                    Description = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Transaction", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Transaction_Cash_CashId",
-                        column: x => x.CashId,
-                        principalTable: "Cash",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,7 +177,29 @@ namespace AgencyManager.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VirtualSales",
+                name: "Transaction",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CashId = table.Column<int>(type: "INT", nullable: false),
+                    Type = table.Column<short>(type: "SMALLINT", nullable: false),
+                    Amount = table.Column<decimal>(type: "DECIMAL(18,0)", nullable: false),
+                    Description = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transaction", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transaction_Cash_CashId",
+                        column: x => x.CashId,
+                        principalTable: "Cash",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VirtualSale",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -208,28 +215,28 @@ namespace AgencyManager.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VirtualSales", x => x.Id);
+                    table.PrimaryKey("PK_VirtualSale", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VirtualSales_Cash_CashId",
+                        name: "FK_VirtualSale_Cash_CashId",
                         column: x => x.CashId,
                         principalTable: "Cash",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VirtualSales_Company_CompanyId",
+                        name: "FK_VirtualSale_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VirtualSales_Localities_DestinationId",
+                        name: "FK_VirtualSale_Locality_DestinationId",
                         column: x => x.DestinationId,
-                        principalTable: "Localities",
+                        principalTable: "Locality",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_VirtualSales_Localities_OrignId",
+                        name: "FK_VirtualSale_Locality_OrignId",
                         column: x => x.OrignId,
-                        principalTable: "Localities",
+                        principalTable: "Locality",
                         principalColumn: "Id");
                 });
 
@@ -266,9 +273,9 @@ namespace AgencyManager.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employee_Positions_PositionId",
+                        name: "FK_Employee_Position_PositionId",
                         column: x => x.PositionId,
-                        principalTable: "Positions",
+                        principalTable: "Position",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -307,6 +314,11 @@ namespace AgencyManager.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cash_AgencyId",
+                table: "Cash",
+                column: "AgencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contact_AgencyId",
                 table: "Contact",
                 column: "AgencyId");
@@ -342,8 +354,8 @@ namespace AgencyManager.Api.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Positions_AgencyId",
-                table: "Positions",
+                name: "IX_Position_AgencyId",
+                table: "Position",
                 column: "AgencyId");
 
             migrationBuilder.CreateIndex(
@@ -362,23 +374,23 @@ namespace AgencyManager.Api.Migrations
                 column: "CashId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VirtualSales_CashId",
-                table: "VirtualSales",
+                name: "IX_VirtualSale_CashId",
+                table: "VirtualSale",
                 column: "CashId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VirtualSales_CompanyId",
-                table: "VirtualSales",
+                name: "IX_VirtualSale_CompanyId",
+                table: "VirtualSale",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VirtualSales_DestinationId",
-                table: "VirtualSales",
+                name: "IX_VirtualSale_DestinationId",
+                table: "VirtualSale",
                 column: "DestinationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VirtualSales_OrignId",
-                table: "VirtualSales",
+                name: "IX_VirtualSale_OrignId",
+                table: "VirtualSale",
                 column: "OrignId");
         }
 
@@ -398,7 +410,7 @@ namespace AgencyManager.Api.Migrations
                 name: "Transaction");
 
             migrationBuilder.DropTable(
-                name: "VirtualSales");
+                name: "VirtualSale");
 
             migrationBuilder.DropTable(
                 name: "Employee");
@@ -410,10 +422,10 @@ namespace AgencyManager.Api.Migrations
                 name: "Company");
 
             migrationBuilder.DropTable(
-                name: "Localities");
+                name: "Locality");
 
             migrationBuilder.DropTable(
-                name: "Positions");
+                name: "Position");
 
             migrationBuilder.DropTable(
                 name: "Agency");

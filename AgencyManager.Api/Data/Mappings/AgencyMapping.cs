@@ -91,5 +91,9 @@ public class AgencyMapping : IEntityTypeConfiguration<Agency>
         builder.HasMany(x => x.Contracts)
                .WithOne(c => c.Agency)
                .HasForeignKey(c => c.AgencyId);
+
+        builder.HasMany(x => x.Cash)
+               .WithOne(c => c.Agency)
+               .HasForeignKey(c => c.AgencyId);
     }
 }

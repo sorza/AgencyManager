@@ -8,7 +8,7 @@ namespace AgencyManager.Api.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Locality> builder)
         {
-            builder.ToTable("Localities");
+            builder.ToTable("Locality");
 
             builder.HasKey(x => x.Id);
 

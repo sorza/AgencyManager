@@ -8,6 +8,7 @@ namespace AgencyManager.Core.Models.Entities
         private readonly IList<Position> _positions = [];
         private readonly IList<Employee> _emplooyes = [];
         private readonly IList<ContractService> _contracts = [];
+        private readonly IList<Cash> _cash = [];
 
         public Agency()
         {
@@ -34,6 +35,7 @@ namespace AgencyManager.Core.Models.Entities
         public IReadOnlyCollection<Position>? Positions { get { return _positions.ToArray(); }}
         public IReadOnlyCollection<Employee>? Employees { get { return _emplooyes.ToArray(); }}
         public IReadOnlyCollection<ContractService>? Contracts { get { return _contracts.ToArray(); }}
+        public IReadOnlyCollection<Cash>? Cash { get { return _cash.ToArray(); } }
         public string? Photo { get; private set; }
     }
 }
