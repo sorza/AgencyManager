@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-public class AgencyMapping : IEntityTypeConfiguration<Agency>
+public class AgencyMap : IEntityTypeConfiguration<Agency>
 {
     public void Configure(EntityTypeBuilder<Agency> builder)
     {

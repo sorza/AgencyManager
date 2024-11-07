@@ -1,9 +1,9 @@
-namespace AgencyManager.Core.Models.ValueObjects
+namespace AgencyManager.Core.Models.Entities.ValueObjects
 {
     public class Address : ValueObject
     {
         public Address(string zipCode, string street, string number, string neighborhood, string city, string state, string? complement)
-        {          
+        {
             ZipCode = zipCode;
             Street = street;
             Number = number;

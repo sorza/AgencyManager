@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Api.Data.Mappings
 {
-    internal class LocalityMapping : IEntityTypeConfiguration<Locality>
+    internal class LocalityMap : IEntityTypeConfiguration<Locality>
     {
         public void Configure(EntityTypeBuilder<Locality> builder)
         {

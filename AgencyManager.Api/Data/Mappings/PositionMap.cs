@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Api.Data.Mappings
 {
-    internal class PositionMapping : IEntityTypeConfiguration<Position>
+    internal class PositionMap : IEntityTypeConfiguration<Position>
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {

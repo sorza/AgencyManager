@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using AgencyManager.Core.Models.Entities;
-using System.Reflection;
-using System;
+﻿using AgencyManager.Core.Models.Entities;
 using Flunt.Notifications;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
-namespace AgencyManager.Api.Data.Context
+namespace AgencyManager.Api.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options): DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
         public DbSet<Agency> Agencies { get; set; } = null!;
         public DbSet<Cash> Cash { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;

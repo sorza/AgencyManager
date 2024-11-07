@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-public class VirtualSaleMapping : IEntityTypeConfiguration<VirtualSale>
+public class VirtualSaleMap : IEntityTypeConfiguration<VirtualSale>
 {
     public void Configure(EntityTypeBuilder<VirtualSale> builder)
     {

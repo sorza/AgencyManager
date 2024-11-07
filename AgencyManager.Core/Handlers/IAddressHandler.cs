@@ -1,4 +1,4 @@
-using AgencyManager.Core.Models.ValueObjects;
+using AgencyManager.Core.Models.Entities.ValueObjects;
 using AgencyManager.Core.Requests.Address;
 using AgencyManager.Core.Responses;
 

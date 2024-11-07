@@ -8,7 +8,6 @@ namespace AgencyManager.Core.Models
         {
           
         }
-
         public int Id { get; private set; }
     }
 }

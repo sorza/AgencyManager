@@ -1,29 +1,26 @@
-using AgencyManager.Api.Data.Context;
-using Microsoft.AspNetCore.Identity;
+using AgencyManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicione serviços ao contêiner
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var cnnString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
 
-builder.Services.AddAuthentication()
-    .AddIdentityCookies();
+builder.Services.AddDbContext<AppDbContext>(x =>
+{
+    x.UseSqlServer(cnnString);
+});
 
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(x =>
+{
+    x.CustomSchemaIds(n=>n.FullName);
+});
 
 var app = builder.Build();
 
-// Configure o pipeline de requisições HTTP
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
+app.MapGet("/", () => "Hello World!");
 
 app.Run();

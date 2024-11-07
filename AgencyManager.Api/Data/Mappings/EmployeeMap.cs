@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Api.Data.Mappings
 {
-    internal class EmployeeMapping : IEntityTypeConfiguration<Employee>
+    internal class EmployeeMap : IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {

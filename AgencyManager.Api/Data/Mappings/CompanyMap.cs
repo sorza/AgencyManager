@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Api.Data.Mappings
 {
-    internal class CompanyMapping : IEntityTypeConfiguration<Company>
+    internal class CompanyMap : IEntityTypeConfiguration<Company>
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {

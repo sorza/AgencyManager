@@ -1,5 +1,4 @@
-using AgencyManager.Core.Models.Account;
-using AgencyManager.Core.Models.ValueObjects;
+using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
 {

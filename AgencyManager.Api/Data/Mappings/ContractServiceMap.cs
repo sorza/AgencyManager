@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyManager.Api.Data.Mappings
 {
-    internal class ContractServiceMapping : IEntityTypeConfiguration<ContractService>
+    internal class ContractServiceMap : IEntityTypeConfiguration<ContractService>
     {
         public void Configure(EntityTypeBuilder<ContractService> builder)
         {
