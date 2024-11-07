@@ -14,6 +14,7 @@ namespace AgencyManager.Core.Responses
             Data = data;
             Message = message;
         }
+
         public TData? Data { get; set; }
         public string? Message { get; set; }
 
