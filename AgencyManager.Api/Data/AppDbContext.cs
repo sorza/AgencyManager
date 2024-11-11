@@ -1,7 +1,6 @@
 ﻿using AgencyManager.Core.Models.Entities;
 using Flunt.Notifications;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace AgencyManager.Api.Data

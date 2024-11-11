@@ -9,6 +9,8 @@ namespace AgencyManager.Core.Profiles
         public ContactProfile()
         {
             CreateMap<CreateContactRequest, Contact>();
+            CreateMap<Contact, UpdateContactRequest>();
+            CreateMap<UpdateContactRequest, Contact>();
         }
     }
 }

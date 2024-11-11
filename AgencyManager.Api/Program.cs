@@ -8,6 +8,7 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Responses;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,10 +40,45 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapPost("/v1/agencies",
-    (CreateAgencyRequest request,
-    IAgencyHandler handler) => handler.CreateAsync(request))
+    async (CreateAgencyRequest request,
+    IAgencyHandler handler) => await handler.CreateAsync(request))
     .WithName("Agencies: Create")
     .WithSummary("Cria uma nova agência")
-    .Produces<Response<Agency>>();
+    .Produces<Response<Agency?>>();
+
+
+app.MapGet("/v1/agencies/{id}",
+    async (int id, IAgencyHandler handler) =>
+    {
+        var request = new GetAgencyByIdRequest { Id = id };
+        return await handler.GetByIdAsync(request);
+    })
+    .WithName("Agencies: GetById")
+    .WithSummary("Busca uma agência por Id")
+    .Produces<Response<Agency?>>();
+
+
+app.MapPut("/v1/agencies/{id}",
+    async (int id, UpdateAgencyRequest request, IAgencyHandler handler) =>
+    {
+        request.Id = id;
+        return await handler.UpdateAsync(request);
+    })
+    .WithName("Agencies: Update")
+    .WithSummary("Atualiza dados de uma agência")
+    .Produces<Response<Agency?>>();
+
+app.MapDelete("/v1/agencies/{id}",
+    async (int id, IAgencyHandler handler) =>
+    {
+        var request = new DeleteAgencyRequest
+        {
+            Id = id
+        };        
+        return await handler.DeleteAsync(request);
+    })
+    .WithName("Agencies: Delete")
+    .WithSummary("Exlcui uma agência")
+    .Produces<Response<Agency?>>();
 
 app.Run();

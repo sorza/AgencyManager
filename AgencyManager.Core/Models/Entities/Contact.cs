@@ -22,6 +22,26 @@ namespace AgencyManager.Core.Models.Entities
         public virtual Company? Company { get; private set; }
         public int? EmployeeId { get; private set; }
         public virtual Employee? Employee { get; private set; }
+       
+        public override bool Equals(object? obj)
+        {           
+            if (obj is null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            var contact = (Contact)obj;
+
+            return ContactType == contact.ContactType &&
+                    Description == contact.Description &&
+                    Departament == contact.Departament &&
+                    AgencyId == contact.AgencyId &&
+                    CompanyId == contact.CompanyId &&
+                    EmployeeId == contact.EmployeeId;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ContactType, Description, Departament);
+        }
 
     }
 }

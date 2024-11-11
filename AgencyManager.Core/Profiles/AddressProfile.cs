@@ -9,6 +9,8 @@ namespace AgencyManager.Core.Profiles
         public AddressProfile()
         {
             CreateMap<CreateAddressRequest, Address>();
+            CreateMap<UpdateAddressRequest, Address>();
+            CreateMap<Address, UpdateAddressRequest>();
         }        
     }
 }

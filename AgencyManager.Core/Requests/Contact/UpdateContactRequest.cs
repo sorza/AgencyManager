@@ -15,7 +15,6 @@ namespace AgencyManager.Core.Requests.Contact
         {            
             AddNotifications(new Contract<UpdateContactRequest>().Requires()            
                 .IsNotNull(ContactType,"ContactType","O tipo é obrigatório.")
-                .IsGreaterThan(Id, 0, "Identificador de contato inválido.")
 
                 .IsNotNullOrEmpty(Description,"Description","Contato inválido.")
                 .IsGreaterThan(Description, 7, "Description","O contato deve ter no mínimo 7 caracteres")
