@@ -26,7 +26,7 @@ namespace AgencyManager.Api.Migrations
                     Neighborhood = table.Column<string>(type: "VARCHAR(70)", maxLength: 70, nullable: false),
                     City = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
                     State = table.Column<string>(type: "CHAR(2)", maxLength: 2, nullable: false),
-                    Complement = table.Column<string>(type: "CHAR(50)", maxLength: 50, nullable: true),
+                    Complement = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: true),
                     Photo = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>

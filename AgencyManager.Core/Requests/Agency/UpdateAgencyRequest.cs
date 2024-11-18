@@ -9,8 +9,7 @@ namespace AgencyManager.Core.Requests.Agency
         public int Id { get; set; }
         public string Description { get;  set; } = string.Empty;
         public string Cnpj { get;  set; } = string.Empty;
-        public UpdateAddressRequest Address { get; set; } = new();
-        public IList<UpdateContactRequest> Contacts { get; set; } = [];
+        public UpdateAddressRequest Address { get; set; } = new();       
         public string? Photo { get; private set; }
 
         public void Validate()
@@ -23,19 +22,13 @@ namespace AgencyManager.Core.Requests.Agency
 
                 .Matches(Cnpj, @"^\d{14}$", "Cnpj", "O CNPJ deve conter 14 dígitos númericos.")
                 .IsNotNull(Address, "Address", "O Endereço é obrigatório.")                
-                .IsGreaterOrEqualsThan(Contacts.Count, 1, "É necessário cadastrar pelo menos um contato")
             );
 
             if(Address is not null)
             {
                 Address.Validate();
                 AddNotifications(Address.Notifications);
-            }
-            foreach(var contact in Contacts)
-            {
-                contact.Validate();
-                AddNotifications(contact.Notifications);
-            }
+            }           
         }
     }
 }

@@ -67,7 +67,7 @@ public class AgencyMap : IEntityTypeConfiguration<Agency>
             address.Property(address => address.Complement)
                    .IsRequired(false)
                    .HasColumnName("Complement")
-                   .HasColumnType("CHAR")
+                   .HasColumnType("VARCHAR")
                    .HasMaxLength(50);
         });
 

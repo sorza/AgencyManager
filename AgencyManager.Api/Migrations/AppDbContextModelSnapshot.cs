@@ -419,7 +419,7 @@ namespace AgencyManager.Api.Migrations
 
                             b1.Property<string>("Complement")
                                 .HasMaxLength(50)
-                                .HasColumnType("CHAR")
+                                .HasColumnType("VARCHAR")
                                 .HasColumnName("Complement");
 
                             b1.Property<string>("Neighborhood")

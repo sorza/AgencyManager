@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgencyManager.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241105021229_v1")]
+    [Migration("20241118010029_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -422,7 +422,7 @@ namespace AgencyManager.Api.Migrations
 
                             b1.Property<string>("Complement")
                                 .HasMaxLength(50)
-                                .HasColumnType("CHAR")
+                                .HasColumnType("VARCHAR")
                                 .HasColumnName("Complement");
 
                             b1.Property<string>("Neighborhood")

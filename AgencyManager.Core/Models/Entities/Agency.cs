@@ -15,16 +15,13 @@ namespace AgencyManager.Core.Models.Entities
             
         }
 
-        public Agency(string description, string cnpj, Address address, IList<Contact> contacts, string? photo = null)
+        public Agency(string description, string cnpj, Address address, string? photo = null)
         {           
             Description = description;
             Cnpj = cnpj;
-            Address = address;    
-            
+            Address = address;                
             Active = true;
-
-            Photo = photo ?? "";
-            _contacts = contacts;
+            Photo = photo ?? "";           
         }
 
         public string Description { get; private set; }

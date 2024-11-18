@@ -3,11 +3,9 @@ using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 using AgencyManager.Core.Requests.Agency;
-using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace AgencyManager.Api.Handler
 {
@@ -25,15 +23,11 @@ namespace AgencyManager.Api.Handler
             #region 02. Mapear propriedades e criar agencia
             try
             {
-                var address = mapper.Map<Address>(request.Address);
-                var contacts = new List<Contact>();
+                var address = mapper.Map<Address>(request.Address);  
 
-                foreach (var contact in request.Contacts)                    
-                    contacts.Add(mapper.Map<Contact>(contact));                    
-
-                var agency = new Agency(request.Description, request.Cnpj, address, contacts, request.Photo);
-
+                var agency = new Agency(request.Description, request.Cnpj, address, request.Photo);
                 await context.Agencies.AddAsync(agency);
+
                 await context.SaveChangesAsync();
 
                 return new Response<Agency?>(agency, 201, "Agência criada com sucesso.");
@@ -91,10 +85,10 @@ namespace AgencyManager.Api.Handler
             try
             {
                 var query = context
-                .Agencies
+                .Agencies                
                 .Include(a => a.Address)
                 .Include(a => a.Contacts)
-                .AsNoTracking()               
+                .AsNoTracking()
                 .OrderBy(x => x.Description);
 
                 var agencies = await query

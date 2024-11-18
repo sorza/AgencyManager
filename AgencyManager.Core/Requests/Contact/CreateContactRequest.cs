@@ -9,7 +9,10 @@ namespace AgencyManager.Core.Requests.Contact
         public EContactType ContactType { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Departament { get; set; } = string.Empty;
-        
+        public int? AgencyId { get; set; }
+        public int? CompanyId { get; set; }
+        public int? EmplooyeId { get; set; }      
+
         public void Validate()
         {            
             AddNotifications(new Contract<CreateContactRequest>().Requires()
@@ -21,11 +24,14 @@ namespace AgencyManager.Core.Requests.Contact
 
                 .IsNotNullOrEmpty(Departament,"Description","Departamento inválido.")
                 .IsGreaterThan(Departament, 2, "Description","O departamento deve ter no mínimo 2 caracteres")
-                .IsLowerThan(Departament, 70, "Description","O departamento deve ter no máximo 70 caracteres")      
+                .IsLowerThan(Departament, 70, "Description","O departamento deve ter no máximo 70 caracteres")  
             );
 
-           switch (ContactType)
-           {
+            if (AgencyId is null && CompanyId is null && EmplooyeId is null)
+                AddNotification("AgencyId", "O contato deve pertencer a alguém.");
+
+            switch (ContactType)
+            {
             case EContactType.Phone: 
                 if (!PhoneValidate()) {AddNotification("ContactType","Telefone inválido");}
                 break;
@@ -40,7 +46,7 @@ namespace AgencyManager.Core.Requests.Contact
                 break;
             default: AddNotification("ContactType","Tipo de contato inválido");
                 break;
-           }
+            }
         }
 
            #region Private Methods

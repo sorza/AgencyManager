@@ -6,7 +6,7 @@ namespace AgencyManager.Core.Handlers
 {
     public interface IContactHandler
     {
-        Task<Response<Contact>> CreateAsync(CreateContactRequest request);
+        Task<Response<Contact>> CreateAsync(IList<CreateContactRequest> request);
         Task<Response<Contact>> DeleteAsync(DeleteContactRequest request);
         Task<PagedResponse<List<Contact>?>> GetByAgencyId(GetContactsByAgencyId request);
         Task<PagedResponse<List<Contact>?>> GetByCompanyId(GetContactsByCompanyId request);
