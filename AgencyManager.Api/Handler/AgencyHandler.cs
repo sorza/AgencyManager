@@ -22,12 +22,10 @@ namespace AgencyManager.Api.Handler
 
             #region 02. Mapear propriedades e criar agencia
             try
-            {
-                var address = mapper.Map<Address>(request.Address);  
+            {              
+                var agency = mapper.Map<Agency>(request);
 
-                var agency = new Agency(request.Description, request.Cnpj, address, request.Photo);
                 await context.Agencies.AddAsync(agency);
-
                 await context.SaveChangesAsync();
 
                 return new Response<Agency?>(agency, 201, "Agência criada com sucesso.");

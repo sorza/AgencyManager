@@ -19,7 +19,7 @@ namespace AgencyManager.Api.Data.Mappings
             builder.Property(x => x.Description)
                 .IsRequired(true)
                 .HasColumnType("VARCHAR")
-                .HasMaxLength(70);
+                .HasMaxLength(120);
 
             builder.Property(x => x.Departament)
                 .IsRequired(true)

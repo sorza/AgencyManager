@@ -28,7 +28,8 @@ internal class Program
         });
 
         builder.Services.AddTransient<IContactHandler, ContactHandler>();
-        builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();        
+        builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
+        builder.Services.AddTransient<IEmployeeHandler, EmployeeHandler>();
 
         builder.Services.Configure<JsonOptions>(options =>
         {
