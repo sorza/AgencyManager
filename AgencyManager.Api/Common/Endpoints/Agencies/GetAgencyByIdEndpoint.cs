@@ -13,7 +13,6 @@ namespace AgencyManager.Api.Common.Endpoints.Agencies
            .WithName("Agencies: Get By Id")
            .WithSummary("Recupera uma agência")
            .WithDescription("Recupera uma agência")
-           .WithOrder(4)
            .Produces<Response<Agency?>>();
 
         private static async Task<IResult> HandleAsync(

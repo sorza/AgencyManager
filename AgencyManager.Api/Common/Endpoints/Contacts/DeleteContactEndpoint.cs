@@ -2,23 +2,24 @@
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
 
-namespace AgencyManager.Api.Common.Endpoints.Agencies
+namespace AgencyManager.Api.Common.Endpoints.Contacts
 {
-    public class DeleteAgencyEndpoint : IEndpoint
+    public class DeleteContactEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
            => app.MapDelete("/{id}", HandleAsync)
-            .WithName("Agencies: Delete")
-            .WithSummary("Excui uma agência")
-            .WithDescription("Exclui uma agência")
-            .Produces<Response<Agency?>>();
+               .WithName("Contacts: Delete")
+               .WithSummary("Exclui um contato")
+               .WithDescription("Exclui um contato")
+               .Produces<Response<Contact?>>();
 
         private static async Task<IResult> HandleAsync(
-             IAgencyHandler handler, int id)
+             IContactHandler handler, int id)
         {
-            var request = new DeleteAgencyRequest
+            var request = new DeleteContactRequest
             {
                 UserId = "teste@teste.com",
                 Id = id

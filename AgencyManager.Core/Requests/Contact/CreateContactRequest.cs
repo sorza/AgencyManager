@@ -42,7 +42,7 @@ namespace AgencyManager.Core.Requests.Contact
                 if(!EmailValidate()) {AddNotification("ContactType","Email inválido");}
                 break;
             case EContactType.WhatsApp: 
-                if(!WhatsAppValidate()) {AddNotification("ContactType","Email inválido");}
+                if(!WhatsAppValidate()) {AddNotification("ContactType","Whatsapp inválido");}
                 break;
             default: AddNotification("ContactType","Tipo de contato inválido");
                 break;

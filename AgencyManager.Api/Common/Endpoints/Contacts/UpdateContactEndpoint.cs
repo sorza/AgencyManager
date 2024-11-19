@@ -1,23 +1,23 @@
 ﻿using AgencyManager.Api.Common.Api;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
-using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
 
-namespace AgencyManager.Api.Common.Endpoints.Agencies
+namespace AgencyManager.Api.Common.Endpoints.Contacts
 {
-    public class UpdateAgencyEndpoint : IEndpoint
+    public class UpdateContactEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-         => app.MapPut("/{id}", HandleAsync)
-            .WithName("Agencies: Update")
-            .WithSummary("Atualiza uma agência")
-            .WithDescription("Atualiza uma agência")
-            .Produces<Response<Agency?>>();
+           => app.MapPut("/{id}", HandleAsync)
+               .WithName("Contacts: Update")
+               .WithSummary("Atualiza um contato")
+               .WithDescription("Atualiza um contato")
+               .Produces<Response<Contact?>>();
 
         private static async Task<IResult> HandleAsync(
-            IAgencyHandler handler,
-            UpdateAgencyRequest request,
+            IContactHandler handler,
+            UpdateContactRequest request,
             int id)
         {
             request.UserId = "teste@teste.com";

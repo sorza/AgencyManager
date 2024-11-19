@@ -2,23 +2,23 @@
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
-using System.Reflection.Metadata.Ecma335;
 
-namespace AgencyManager.Api.Common.Endpoints.Agencies
+namespace AgencyManager.Api.Common.Endpoints.Contacts
 {
-    public class CreateAgencyEndpoint : IEndpoint
+    public class CreateContactEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
         => app.MapPost("/", HandleAsync)
-            .WithName("Agencies: Create")
-            .WithSummary("Cria uma nova agência")
-            .WithDescription("Cria uma nova agência")
-            .Produces<Response<Agency?>>();
+            .WithName("Contacts: Create")
+            .WithSummary("Cria um novo contato")
+            .WithDescription("Cria um novo contato")
+            .Produces<Response<Contact?>>();
 
         private static async Task<IResult> HandleAsync(
-            IAgencyHandler handler,
-            CreateAgencyRequest request)
+            IContactHandler handler,
+            CreateContactRequest request)
         {
             var result = await handler.CreateAsync(request);
 

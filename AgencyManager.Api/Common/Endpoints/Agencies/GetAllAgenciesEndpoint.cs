@@ -15,7 +15,6 @@ namespace AgencyManager.Api.Common.Endpoints.Agencies
            .WithName("Agencies: Get All")
            .WithSummary("Recupera todas as agências")
            .WithDescription("Recupera todas as agências")
-           .WithOrder(5)
            .Produces<PagedResponse<List<Agency>?>>();
 
         private static async Task<IResult> HandleAsync(
