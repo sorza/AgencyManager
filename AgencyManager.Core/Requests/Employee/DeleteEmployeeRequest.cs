@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Employee
 {
-    public class DeleteEmployeeRequest
+    public class DeleteEmployeeRequest : Request
     {
         public int Id { get; set; }
     }
