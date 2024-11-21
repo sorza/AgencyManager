@@ -9,7 +9,7 @@ namespace AgencyManager.Core.Profiles
         public PositionProfile()
         {
             CreateMap<CreatePositionRequest, Position>();
-            CreateMap<CreatePositionRequest, Position>();
+            CreateMap<UpdatePositionRequest, Position>();
         }
     }
 }
