@@ -51,7 +51,7 @@ namespace AgencyManager.Api.Handler
             try
             {
                 #region 01. Buscar contato
-                var position = await context.Positions.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.Id);
+                var position = await context.Positions.FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 #endregion
 
