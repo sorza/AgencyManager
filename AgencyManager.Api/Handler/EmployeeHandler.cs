@@ -4,6 +4,7 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
 using AgencyManager.Core.Responses;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
@@ -46,30 +47,130 @@ namespace AgencyManager.Api.Handler
                 return new Response<Employee>(null, 500, "Não foi possível cadastrar o colaborador");
             }
         }
-
-        public Task<Response<Employee>> DeleteAsync(DeleteEmployeeRequest request)
+        public async Task<Response<Employee>> DeleteAsync(DeleteEmployeeRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region 01. Buscar colaborador
+                var employee = await context
+                .Employees
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+
+                #endregion
+
+                #region 02. Remover colaborador
+                context.Employees.Remove(employee);
+                await context.SaveChangesAsync();
+
+                #endregion
+
+                #region 03. Retornar resposta
+                return new Response<Employee>(employee, 200, "Colaborador excluído com sucesso");
+
+                #endregion
+            }
+            catch
+            {
+                return new Response<Employee>(null, 500, "Não foi possível excluir o colaborador");
+            }
         }
-
-        public Task<PagedResponse<List<Employee>?>> GetAllAsync(GetAllEmployeesRequest request)
+        public async Task<PagedResponse<List<Employee>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region 01. Buscar colaboradores por agencia
+                var query = context
+                .Employees
+                .Where(x => x.AgencyId == request.AgencyId)
+                .AsNoTracking();
+
+                #endregion
+
+                #region 02. Paginar de acordo com o especificado
+                var employees = await query
+                    .Skip(request.PageSize * (request.PageNumber - 1))
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                #endregion
+
+                #region 03. Obter quantidade de colaboradores
+                var count = await query.CountAsync();
+
+                #endregion
+
+                #region 04. Retornar Resposta
+                return employees is null
+                        ? new PagedResponse<List<Employee>?>(null, 404, "Não foram encontrados colaboradores para esta agencia.")
+                        : new PagedResponse<List<Employee>?>(employees, count, request.PageNumber, request.PageSize);
+                #endregion
+            }
+            catch
+            {
+                return new PagedResponse<List<Employee>?>(null, 500, "Não possível consultar os colaboradores.");
+            }
         }
-
-        public Task<PagedResponse<List<Employee>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request)
+        public async Task<Response<Employee>> GetByIdAsync(GetEmployeeByIdRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var employee = await context
+                .Employees
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+
+                return new Response<Employee>(employee, 200);
+            }
+            catch
+            {
+                return new Response<Employee>(null, 500, "Não foi possível buscar colaborador");
+            }            
         }
-
-        public Task<Response<Employee>> GetByIdAsync(GetEmployeeByIdRequest request)
+        public async Task<Response<Employee>> UpdateAsync(UpdateEmployeeRequest request)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                #region 01. Buscar colaborador
+                var employee = await context
+                .Employees
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-        public Task<Response<Employee>> UpdateAsync(UpdateEmployeeRequest request)
-        {
-            throw new NotImplementedException();
+                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+
+                #endregion
+
+                #region 02. Validar Colaborador
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
+
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                    return new Response<Employee>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+
+                #endregion
+
+                #region 03. Atualizar dados
+                mapper.Map(request, employee);
+                await context.SaveChangesAsync();
+
+                #endregion
+
+                #region 04. Retornar resposta
+                return new Response<Employee>(employee, 200, "Colaborador atualizado com sucesso!");
+                
+                #endregion
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

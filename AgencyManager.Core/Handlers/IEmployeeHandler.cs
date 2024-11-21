@@ -9,7 +9,6 @@ namespace AgencyManager.Core.Handlers
         Task<Response<Employee>> CreateAsync(CreateEmployeeRequest request);
         Task<Response<Employee>> DeleteAsync(DeleteEmployeeRequest request);        
         Task<PagedResponse<List<Employee>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request);
-        Task<PagedResponse<List<Employee>?>> GetAllAsync(GetAllEmployeesRequest request);
         Task<Response<Employee>> GetByIdAsync(GetEmployeeByIdRequest request);
         Task<Response<Employee>> UpdateAsync(UpdateEmployeeRequest request);
 
