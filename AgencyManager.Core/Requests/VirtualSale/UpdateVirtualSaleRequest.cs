@@ -1,37 +1,29 @@
 using AgencyManager.Core.Enums;
 using Flunt.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.VirtualSale
 {
     public class UpdateVirtualSaleRequest : Request
     {
-        public Guid Id { get; set; }       
-        public Guid CompanyId { get;  set; }      
-        public Guid OrignId { get; set; }       
-        public Guid DestinationId { get; set; }        
-        public decimal Amount { get;  set; }
-        public EPaymentType PaymentType { get;  set; } = EPaymentType.PIX;
-        public bool Paid { get;  set; } = true;
-        public string? Observation { get;  set; }
+        public int Id { get; set; }       
 
-        public void Validate()
-        {
-            var contract = new Contract<UpdateVirtualSaleRequest>();
+        [Required(ErrorMessage = "Empresa inválida")]
+        public int CompanyId { get; set; }
 
-            AddNotifications(contract.Requires()
-                .AreNotEquals(Id, Guid.Empty, "Identidicador de venda virtual inválido.")
-                .IsEmail(UserId, "Usuário inválido")
-                .AreNotEquals(CompanyId, Guid.Empty, "Identidicador de empresa inválido.")
-                .AreNotEquals(OrignId, Guid.Empty, "Identidicador de origem inválido.")
-                .AreNotEquals(DestinationId, Guid.Empty, "Identidicador de destino inválido.")
-                .IsGreaterThan(Amount,0,"O valor deve ser maior que zero")                
-            );
+        [Required(ErrorMessage = "Origem inválida")]
+        public int OrignId { get; set; }
 
-            if(Observation is not null)
-            {
-                AddNotifications(contract.Requires()
-                    .IsLowerThan(Observation.Length,100,"A observação deve ter no máximo 100 caracteres."));
-            }
-        }
+        [Required(ErrorMessage = "Destino inválido")]
+        public int DestinationId { get; set; }
+
+        [Required(ErrorMessage = "Valor inválido")]
+        public decimal Amount { get; set; }
+
+        public EPaymentType PaymentType { get; set; } = EPaymentType.PIX;
+        public bool Paid { get; set; } = true;
+
+        [MaxLength(100, ErrorMessage = "A observação deve ter no máximo 100 caracteres.")]
+        public string? Observation { get; set; }
     }
 }

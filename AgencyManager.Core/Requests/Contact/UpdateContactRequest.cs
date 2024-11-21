@@ -1,77 +1,28 @@
-using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
+using AgencyManager.Core.Common.CustomValidations;
 using AgencyManager.Core.Enums;
-using Flunt.Validations;
 
 namespace AgencyManager.Core.Requests.Contact
 {
     public class UpdateContactRequest : Request
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "O tipo de contato é obrigatório")]
         public EContactType ContactType { get; set; }
+
+        [Required(ErrorMessage = "A descrição é obrigatória")]
+        [MaxLength(120, ErrorMessage = "O contato deve ter no máximo 120 caracteres")]
+        [MinLength(7, ErrorMessage = "O contato deve ter no mínimo 7 caracteres")]
+        [ContactValidation]
         public string Description { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "O departamento/setor é obrigatório")]
+        [MaxLength(70, ErrorMessage = "O departamento/setor deve ter no máximo 70 caracteres")]
+        [MinLength(7, ErrorMessage = "O departamento/setor deve ter no mínimo 2 caracteres")]
         public string Departament { get; set; } = string.Empty;
-        
-        public void Validate()
-        {            
-            AddNotifications(new Contract<UpdateContactRequest>().Requires()            
-                .IsNotNull(ContactType,"ContactType","O tipo é obrigatório.")
 
-                .IsNotNullOrEmpty(Description,"Description","Contato inválido.")
-                .IsGreaterThan(Description, 7, "Description","O contato deve ter no mínimo 7 caracteres")
-                .IsLowerThan(Description, 70, "Description","O contato deve ter no máximo 70 caracteres") 
-
-                .IsNotNullOrEmpty(Departament,"Description","Departamento inválido.")
-                .IsGreaterThan(Departament, 2, "Description","O departamento deve ter no mínimo 2 caracteres")
-                .IsLowerThan(Departament, 70, "Description","O departamento deve ter no máximo 70 caracteres")      
-            );
-
-           switch (ContactType)
-           {
-            case EContactType.Phone: 
-                if (!PhoneValidate()) {AddNotification("ContactType","Telefone inválido");}
-                break;
-            case EContactType.CellPhone: 
-                if(!CellPhoneValidate()) {AddNotification("ContactType","Celular inválido");}
-                break;
-            case EContactType.Email: 
-                if(!EmailValidate()) {AddNotification("ContactType","Email inválido");}
-                break;
-            case EContactType.WhatsApp: 
-                if(!WhatsAppValidate()) {AddNotification("ContactType","Email inválido");}
-                break;
-            default: AddNotification("ContactType","Tipo de contato inválido");
-                break;
-           }
-        }
-
-           #region Private Methods
-        private bool WhatsAppValidate()
-        {
-            var phone = PhoneValidate();
-            var CellPhone = CellPhoneValidate();
-
-            if(phone || CellPhone) 
-                return true;
-            return false;
-        }
-
-        private bool PhoneValidate()
-        {
-            string number = Description.Replace("(","").Replace(")","").Replace("-","").Trim(); 
-            return new Regex(@"^\d{10}$").IsMatch(number);
-        }    
-
-        private bool CellPhoneValidate()
-        {
-            string number = Description.Replace("(","").Replace(")","").Replace("-","").Trim(); 
-            return new Regex(@"^\d{11}$").IsMatch(number);
-        }   
-
-        private bool EmailValidate()
-        {
-            string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$";
-            return new Regex(pattern).IsMatch(Description);
-        }
-        #endregion
+        public int? AgencyId { get; set; }
+        public int? CompanyId { get; set; }
+        public int? EmplooyeId { get; set; }
     }
 }

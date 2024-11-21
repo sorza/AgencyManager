@@ -1,23 +1,24 @@
-using Flunt.Validations;
+using AgencyManager.Core.Common.CustomValidations;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Cash
 {
     public class UpdateCashRequest : Request
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public decimal StartValue { get; set; }
-        public decimal EndValue { get; set; }
+        
+        public bool Status { get; set; }
 
-        public void Validate()
-        {
-            AddNotifications(new Contract<UpdateCashRequest>().Requires()  
-                .IsGreaterThan(Id, 0, "Identificador de caixa inválido")   
-                .IsEmail(UserId, "UserId", "Não é um email válido.")          
-                .IsLowerOrEqualsThan(Date, DateTime.Now, "A data não pode ser futura")
-                .IsGreaterOrEqualsThan(StartValue, 0, "StartValue", "O troco inicial deve ser positivo")
-                .IsGreaterOrEqualsThan(EndValue, 0, "EndValue", "O troco final deve ser positivo")
-            );
-        }
+        [Required(ErrorMessage = "A data é obrigatória")]
+        [DateNotInFuture]
+        public DateTime Date { get; set; }
+
+        [Required(ErrorMessage = "Informe o troco inicial")]
+        [MinLength(0, ErrorMessage = "O troco não pode ser negativo")]
+        public decimal StartValue { get; set; }
+
+        [Required(ErrorMessage = "Informe o troco final")]
+        [MinLength(0, ErrorMessage = "O troco não pode ser negativo")]
+        public decimal EndValue { get; set; }
     }
 }

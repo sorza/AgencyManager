@@ -1,30 +1,20 @@
 using AgencyManager.Core.Enums;
 using Flunt.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Transaction
 {
     public class UpdateTransactionRequest : Request
     {
-        public int Id { get; set; }
+        public int Id { get; set; }       
+
+        [Required(ErrorMessage = "Tipo de transação inválida")]
         public ETransactionType Type { get; set; } = ETransactionType.Output;
+
+        [Required(ErrorMessage = "Informe o valor da transação.")]
         public decimal Amount { get; set; }
+
+        [MaxLength(100, ErrorMessage = "A descrição deve ter no máximo 100 caracteres")]
         public string? Description { get; set; }
-
-        public void Validate()
-        {
-            var contract = new Contract<UpdateTransactionRequest>();
-
-            AddNotifications(contract.Requires()                
-                .AreNotEquals(0, Amount, "A transação deve ter um valor diferente de zero.")  
-                .IsGreaterThan(Id, 0, "O identificador da transação é inválido")
-            );
-
-            if(Description is not null)
-            {
-                AddNotifications(contract.Requires()
-                    .IsLowerOrEqualsThan(Description.Length, 100, "A descrição deve ter no máximo 100 caracteres")
-                );
-            }
-        }
     }
 }

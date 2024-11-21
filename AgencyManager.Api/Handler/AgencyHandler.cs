@@ -6,6 +6,7 @@ using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
@@ -14,10 +15,18 @@ namespace AgencyManager.Api.Handler
         public async Task<Response<Agency?>> CreateAsync(CreateAgencyRequest request)
         {
             #region 01. Validar requisição
-            request.Validate();
 
-            if(!request.IsValid)
-                return new Response<Agency?>(null, 400, string.Join(", ", request.Notifications.Select(n => n.Message)));
+            var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+            string errors = string.Empty;
+
+            if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+            {
+                foreach (var error in validationResults)
+                    errors += error.ErrorMessage;
+                return new Response<Agency?>(null, 400, errors);
+            }              
+           
             #endregion
 
             #region 02. Mapear propriedades e criar agencia

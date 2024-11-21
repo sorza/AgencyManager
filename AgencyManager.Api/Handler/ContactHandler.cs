@@ -5,6 +5,7 @@ using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
@@ -15,10 +16,16 @@ namespace AgencyManager.Api.Handler
             try
             {
                 #region 01. Validar contato
-                request.Validate();
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
 
-                if(!request.IsValid)
-                    return new Response<Contact>(null, 400, string.Join(", ", request.Notifications.Select(n => n.Message)));
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                {
+                    foreach (var error in validationResults)
+                        errors += error.ErrorMessage;
+                    return new Response<Contact>(null, 400, errors);
+                }
 
                 #endregion
 

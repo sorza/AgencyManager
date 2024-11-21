@@ -1,31 +1,21 @@
 using AgencyManager.Core.Enums;
-using Flunt.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Transaction
 {
     public class CreateTransactionRequest : Request
     {
-        public int CashId { get; set; }       
+        [Required(ErrorMessage ="Caixa inválido.")]
+        public int CashId { get; set; }
+
+        [Required(ErrorMessage = "Tipo de transação inválida")]
         public ETransactionType Type { get; set; } = ETransactionType.Output;
+
+        [Required(ErrorMessage ="Informe o valor da transação.")]
         public decimal Amount { get; set; }
+
+        [MaxLength(100,ErrorMessage = "A descrição deve ter no máximo 100 caracteres")]
         public string? Description { get; set; }
-
-        public void Validate()
-        {
-            var contract = new Contract<CreateTransactionRequest>();
-
-            AddNotifications(contract.Requires()
-                .IsGreaterThan(CashId, 0, "Identidicador de caixa inválido.")
-                .IsEmail(UserId, "UserId", "Usuário inválido")
-                .AreNotEquals(0, Amount, "A transação deve ter um valor diferente de zero.")  
-            );
-
-            if(Description is not null)
-            {
-                AddNotifications(contract.Requires()
-                    .IsLowerOrEqualsThan(Description.Length, 100, "A descrição deve ter no máximo 100 caracteres")
-                );
-            }
-        }
+      
     }
 }

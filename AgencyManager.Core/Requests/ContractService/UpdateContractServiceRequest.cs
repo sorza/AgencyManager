@@ -1,5 +1,6 @@
 using AgencyManager.Core.Enums;
 using Flunt.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.ContractService
 {
@@ -7,21 +8,19 @@ namespace AgencyManager.Core.Requests.ContractService
     {
         public int Id { get; set; }
         public bool Active { get; set; }
+
+        [Required(ErrorMessage = "Informe a agência")]
         public int AgencyId { get; set; }
+        [Required(ErrorMessage = "Informe a empresa")]
         public int CompanyId { get; set; }
+        [Required(ErrorMessage = "O tipo de serviço é obrigatório")]
         public EServiceType ServiceType { get; set; }
+        [Required(ErrorMessage = "Informe o valor da comissão")]
+        [MaxLength(50, ErrorMessage = "A comissão não pode ser maior que 50%")]
+        [MinLength(1, ErrorMessage = "A comissão não pode ser menor que 1%")]
         public decimal Comission { get; set; }
+        [Required(ErrorMessage = "Informe a data de início do contrato")]
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; private set; }
-        public void Validate()
-        {
-             AddNotifications(new Contract<UpdateContractServiceRequest>().Requires()   
-                .IsLowerOrEqualsThan(Comission, 50, "Comission", "A comissão não pode ser maior que 50%" )
-                .IsGreaterOrEqualsThan(Comission, 1, "Comission", "A comissão não pode ser menor que 1%" )               
-                .IsGreaterThan(AgencyId, 0, "Identificador de agência inválido")
-                .IsGreaterThan(CompanyId, 0, "Identificador de empresa inválido")
-                .IsGreaterThan(Id, 0, "O Identificador do contrato é inválido")
-            );
-        }
     }
 }

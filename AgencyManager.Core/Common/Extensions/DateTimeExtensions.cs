@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace AgencyManager.Core.Common.Extensions
+﻿namespace AgencyManager.Core.Common.Extensions
 {
     public static class DateTimeExtensions
     {

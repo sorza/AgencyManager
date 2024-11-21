@@ -4,6 +4,7 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
 using AgencyManager.Core.Responses;
 using AutoMapper;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
@@ -13,14 +14,35 @@ namespace AgencyManager.Api.Handler
         {
             try
             {
-                request.Validate();
-                if(!request.IsValid) return new Response<Employee>(null, 400, "Colaborador inválido");
+                #region 01. Validar Colaborador
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
 
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                {
+                    foreach (var error in validationResults)
+                        errors += error.ErrorMessage;
+                    return new Response<Employee>(null, 400, errors);
+                }
+
+                #endregion
+
+                #region 02. Mapear dados da requisição para classe concreta
                 var employee = mapper.Map<Employee>(request);
+
+                #endregion
+
+                #region 03. Cadastrar colaborador
                 await context.Employees.AddAsync(employee);
                 await context.SaveChangesAsync();
 
+                #endregion
+
+                #region 04. Retornar resposta
                 return new Response<Employee>(employee, 201, "Colaborador cadastrado com sucesso.");
+
+                #endregion
 
             }
             catch 

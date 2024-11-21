@@ -1,4 +1,7 @@
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+using AgencyManager.Core.Common.CustomValidations;
 using AgencyManager.Core.Requests.Address;
 using AgencyManager.Core.Requests.Contact;
 using Flunt.Validations;
@@ -7,40 +10,31 @@ namespace AgencyManager.Core.Requests.Employee
 {
     public class CreateEmployeeRequest : Request
     {       
+        [Required(ErrorMessage = "Nome inválido.")]
+        [MaxLength(100, ErrorMessage = "O nome deve conter no máximo 100 letras.")]
+        [MinLength(5, ErrorMessage = "O nome deve conter no mínimo 5 letras.")]
         public string Name { get;  set; } = string.Empty;
-        public string Cpf { get; set; } = string.Empty;
-        public string Rg { get; set; } = string.Empty;
-        public DateTime BirthDay { get; set; }
-        public CreateAddressRequest Address { get; set; } = null!;
-        public int AgencyId { get; set; }
-        public int PositionId { get; set; }
-        public DateTime DateHire { get; set; }
-        public DateTime DateDismiss { get; set; }        
-        public IList<CreateContactRequest>? Contacts { get; set; }
         
-        public void Validate()
-        {
-            AddNotifications(new Contract<CreateEmployeeRequest>().Requires()
-                .IsNotNullOrEmpty(Name, "Name", "Nome inválido.")
-                .IsLowerOrEqualsThan(Name, 100, "Name", "O nome deve conter no máximo 100 letras.")
-                .IsGreaterOrEqualsThan(Name, 5, "Name", "O nome deve conter no mínimo 5 letras.")
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "O CPF deve conter 11 dígitos númericos.")]
+        public string Cpf { get; set; } = string.Empty;
 
-                .Matches(Cpf, @"^\d{11}$", "Cpf", "O CPF deve conter 11 dígitos númericos.")
+        [MaxLength(14, ErrorMessage = "O RG deve conter no máximo 14 dígitos.")]
+        [MinLength(4, ErrorMessage = "O RG deve conter no mínimo 4 dígitos.")]
+        public string Rg { get; set; } = string.Empty;
 
-                .Matches(Rg, @"^\d+$", "Rg", "O RG deve conter apenas dígitos númericos.")
-                .IsGreaterOrEqualsThan(Rg, 4,"Rg", "O RG deve conter no mínimo 4 dígitos.")
-                .IsLowerOrEqualsThan(Rg, 14, "Rg", "O RG pode conter no máximo 14 dígitos.")
+        [AgeToHire]
+        public DateTime BirthDay { get; set; }
 
-                .IsLowerOrEqualsThan(BirthDay,DateTime.Now.AddYears(-16),"Birthday","A idade mínima é de 16 anos")
-                .IsGreaterOrEqualsThan(BirthDay,DateTime.Now.AddYears(-60),"Birthday","A idade máxima é de 60 anos")
+        [Required(ErrorMessage ="Endereço inválido")]
+        public CreateAddressRequest Address { get; set; } = null!;
 
-                .IsNotNull(Address,"Address", "Endereço inválido")
-            );
+        [Required(ErrorMessage ="Agência inválida")]
+        public int AgencyId { get; set; }
+        [Required(ErrorMessage = "Cargo inválido")]
+        public int PositionId { get; set; }
 
-            if(Address is not null)
-            {
-                AddNotifications(Address.Notifications);
-            }
-        }
+        [Required(ErrorMessage ="Informe a data de contratação")]
+        public DateTime DateHire { get; set; }            
+      
     }
 }
