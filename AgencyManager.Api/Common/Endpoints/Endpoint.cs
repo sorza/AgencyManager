@@ -2,6 +2,7 @@
 using AgencyManager.Api.Common.Endpoints.Agencies;
 using AgencyManager.Api.Common.Endpoints.Contacts;
 using AgencyManager.Api.Common.Endpoints.Employees;
+using AgencyManager.Api.Common.Endpoints.Positions;
 using AgencyManager.Core.Requests.Contact;
 
 namespace AgencyManager.Api.Common.Endpoints
@@ -33,6 +34,10 @@ namespace AgencyManager.Api.Common.Endpoints
             endpoints.MapGroup("/v1/employees")
                 .WithTags("Employees")
                 .MapEndpoint<CreateEmployeeEndpoint>();
+
+            endpoints.MapGroup("/v1/positions")
+                .WithTags("Positions")
+                .MapEndpoint<CreatePositionEndpoint>();
 
         }
 

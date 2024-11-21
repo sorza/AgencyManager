@@ -4,14 +4,50 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Position;
 using AgencyManager.Core.Responses;
 using AutoMapper;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
     public class PositionHandler(AppDbContext context, IMapper mapper) : IPositionHandler
     {
-        public Task<Response<Position>> CreateAsync(CreatePositionRequest request)
+        public async Task<Response<Position>> CreateAsync(CreatePositionRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region 01. Validar cargo
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
+
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                {
+                    foreach (var error in validationResults)
+                        errors += error.ErrorMessage;
+                    return new Response<Position>(null, 400, errors);
+                }
+                #endregion
+
+                #region 02. Mapear dados da requisição para classe concreta
+                var position = mapper.Map<Position>(request);
+
+                #endregion
+
+                #region 03. Adicionar cargo
+                await context.Positions.AddAsync(position);
+                await context.SaveChangesAsync();
+
+                #endregion
+
+                #region 04. Retornar resposta
+                return new Response<Position>(position, 200, "Cargo cadastrado com sucesso!");
+
+                #endregion
+            }
+            catch
+            {
+                return new Response<Position>(null, 500, "Não foi possível cadastrar o cargo");
+            }
+           
         }
 
         public Task<Response<Position>> DeleteAsync(DeletePositionRequest request)

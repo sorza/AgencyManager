@@ -10,7 +10,6 @@ namespace AgencyManager.Core.Profiles
         {
             CreateMap<CreateAddressRequest, Address>();
             CreateMap<UpdateAddressRequest, Address>();
-            CreateMap<Address, UpdateAddressRequest>();
         }        
     }
 }

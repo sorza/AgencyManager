@@ -1,5 +1,3 @@
-using Flunt.Notifications;
-
 namespace AgencyManager.Core.Requests
 {
     public abstract class Request

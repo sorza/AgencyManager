@@ -63,10 +63,17 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 02. Validar Contato
-                request.Validate();
+               
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
 
-                if (!request.IsValid)
-                    return new Response<Contact>(null, 400, "Contato inválido.");
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                {
+                    foreach (var error in validationResults)
+                        errors += error.ErrorMessage;
+                    return new Response<Contact>(null, 400, errors);
+                }
 
                 #endregion
 
