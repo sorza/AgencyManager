@@ -77,11 +77,42 @@ namespace AgencyManager.Api.Handler
             }
            
         }
-        public Task<PagedResponse<List<Position>?>> GetAllByAgencyIdAsync(GetPositionsByAgencyIdRequest request)
+        public async Task<PagedResponse<List<Position>?>> GetAllByAgencyIdAsync(GetPositionsByAgencyIdRequest request)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                #region 01. Buscar cargos por agencia
+                var query = context
+                .Positions
+                .Where(x => x.AgencyId == request.AgencyId)
+                .AsNoTracking();
 
+                #endregion
+
+                #region 02. Paginar de acordo com o especificado
+                var positions = await query
+                    .Skip(request.PageSize * (request.PageNumber - 1))
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                #endregion
+
+                #region 03. Obter quantidade de cargos
+                var count = await query.CountAsync();
+
+                #endregion
+
+                #region 04. Retornar Resposta
+                return positions is null
+                        ? new PagedResponse<List<Position>?>(null, 404, "Não foram encontrados cargos para esta agencia.")
+                        : new PagedResponse<List<Position>?>(positions, count, request.PageNumber, request.PageSize);
+                #endregion
+            }
+            catch
+            {
+                return new PagedResponse<List<Position>?>(null, 500, "Não possível consultar os cargos.");
+            }
+        }
         public async Task<Response<Position>> UpdateAsync(UpdatePositionRequest request)
         {
             try

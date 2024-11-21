@@ -39,7 +39,8 @@ namespace AgencyManager.Api.Common.Endpoints
                 .WithTags("Positions")
                 .MapEndpoint<CreatePositionEndpoint>()
                 .MapEndpoint<UpdatePositionEndpoint>()
-                .MapEndpoint<DeletePositionEndpoint>();
+                .MapEndpoint<DeletePositionEndpoint>()
+                .MapEndpoint<GetPositionsByAgencyEndpoint>();
 
         }
 
