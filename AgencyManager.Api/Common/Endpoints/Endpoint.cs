@@ -40,8 +40,8 @@ namespace AgencyManager.Api.Common.Endpoints
                 .MapEndpoint<CreatePositionEndpoint>()
                 .MapEndpoint<UpdatePositionEndpoint>()
                 .MapEndpoint<DeletePositionEndpoint>()
-                .MapEndpoint<GetPositionsByAgencyEndpoint>();
-
+                .MapEndpoint<GetPositionsByAgencyEndpoint>()
+                .MapEndpoint<GetPositionByIdEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)

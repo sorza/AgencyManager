@@ -11,7 +11,7 @@ namespace AgencyManager.Api.Handler
 {
     public class PositionHandler(AppDbContext context, IMapper mapper) : IPositionHandler
     {
-        public async Task<Response<Position>> CreateAsync(CreatePositionRequest request)
+        public async Task<Response<Position?>> CreateAsync(CreatePositionRequest request)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace AgencyManager.Api.Handler
             }
            
         }
-        public async Task<Response<Position>> DeleteAsync(DeletePositionRequest request)
+        public async Task<Response<Position?>> DeleteAsync(DeletePositionRequest request)
         {
             try
             {
@@ -113,7 +113,25 @@ namespace AgencyManager.Api.Handler
                 return new PagedResponse<List<Position>?>(null, 500, "Não possível consultar os cargos.");
             }
         }
-        public async Task<Response<Position>> UpdateAsync(UpdatePositionRequest request)
+        public async Task<Response<Position?>> GetByIdAsync(GetPositionByIdRequest request)
+        {
+            try
+            {
+                var position = await context
+                   .Positions
+                   .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (position is null)
+                    return new Response<Position?>(null, 404, "Cargo não encontrado");
+
+                return new Response<Position?>(position, 200);
+            }
+            catch 
+            {
+                return new Response<Position?>(null, 500, "Não foi possível consultar o cargo");
+            }
+        }
+        public async Task<Response<Position?>> UpdateAsync(UpdatePositionRequest request)
         {
             try
             {
@@ -123,7 +141,7 @@ namespace AgencyManager.Api.Handler
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (position is null)
-                    return new Response<Position>(null, 404, "Cargo não encontrado");
+                    return new Response<Position?>(null, 404, "Cargo não encontrado");
                 #endregion
 
                 #region 02. Validar Cargo
