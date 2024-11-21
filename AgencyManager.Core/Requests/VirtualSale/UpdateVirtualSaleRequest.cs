@@ -1,5 +1,4 @@
 using AgencyManager.Core.Enums;
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.VirtualSale
@@ -23,7 +22,7 @@ namespace AgencyManager.Core.Requests.VirtualSale
         public EPaymentType PaymentType { get; set; } = EPaymentType.PIX;
         public bool Paid { get; set; } = true;
 
-        [MaxLength(100, ErrorMessage = "A observação deve ter no máximo 100 caracteres.")]
+        [MaxLength(100, ErrorMessage = "A observação deve ter no máximo 100 caracteres")]
         public string? Observation { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
 using AgencyManager.Api.Common.Endpoints;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
@@ -21,21 +21,22 @@ internal class Program
         });
 
         builder.Services.AddAutoMapper(typeof(AddressProfile).Assembly);
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(x =>
         {
-            x.CustomSchemaIds(n => n.FullName);
+            x.CustomSchemaIds(n => n.FullName);           
         });
 
         builder.Services.AddTransient<IContactHandler, ContactHandler>();
         builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
         builder.Services.AddTransient<IEmployeeHandler, EmployeeHandler>();
         builder.Services.AddTransient<IPositionHandler, PositionHandler>();
+               
 
         builder.Services.Configure<JsonOptions>(options =>
         {
             options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-            options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         });
 
         var app = builder.Build();

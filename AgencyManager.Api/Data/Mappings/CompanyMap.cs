@@ -33,9 +33,7 @@ namespace AgencyManager.Api.Data.Mappings
                 .HasMaxLength(255);
 
             builder.OwnsOne(x => x.Address, address =>
-            {
-                address.Ignore(x => x.Notifications);
-
+            {               
                 address.Property(address => address.ZipCode)
                     .IsRequired(true)
                     .HasColumnName("ZipCode")

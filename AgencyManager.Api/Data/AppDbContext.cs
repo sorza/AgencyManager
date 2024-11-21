@@ -1,5 +1,4 @@
 ﻿using AgencyManager.Core.Models.Entities;
-using Flunt.Notifications;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -20,9 +19,7 @@ namespace AgencyManager.Api.Data
         public DbSet<VirtualSale> VirtualSales { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Ignore<Notification>();
-
+        {          
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

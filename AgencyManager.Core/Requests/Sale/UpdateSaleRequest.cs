@@ -1,4 +1,3 @@
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Sale

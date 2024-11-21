@@ -25,9 +25,7 @@ public class AgencyMap : IEntityTypeConfiguration<Agency>
                .HasColumnType("BIT");
 
         builder.OwnsOne(x => x.Address, address =>
-        {
-            address.Ignore(x => x.Notifications);
-
+        {        
             address.Property(address => address.ZipCode)
                    .IsRequired()
                    .HasColumnName("ZipCode")

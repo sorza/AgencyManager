@@ -1,4 +1,3 @@
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Position
@@ -16,7 +15,7 @@ namespace AgencyManager.Core.Requests.Position
         public string Responsabilities { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Informe o salário")]        
-        [Range(0, 20000, ErrorMessage = "O salário deve estar entre R$ 0 a R$ 20.000,00")]
+        [Range(0, 20000, ErrorMessage = "O salário deve estar entre R$ 0 a R$ 20000")]
         public decimal Salary { get; set; }
 
         [Required(ErrorMessage = "Informe a agência")]

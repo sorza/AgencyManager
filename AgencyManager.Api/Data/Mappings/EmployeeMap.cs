@@ -48,9 +48,7 @@ namespace AgencyManager.Api.Data.Mappings
                 .HasColumnType("DATETIME2");
 
             builder.OwnsOne(x => x.Address, address =>
-            {
-                address.Ignore(x => x.Notifications);
-
+            {                
                 address.Property(address => address.ZipCode)
                     .IsRequired(true)
                     .HasColumnName("ZipCode")

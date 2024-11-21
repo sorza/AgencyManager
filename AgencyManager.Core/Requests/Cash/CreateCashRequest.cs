@@ -1,12 +1,11 @@
 using AgencyManager.Core.Common.CustomValidations;
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Cash
 {
     public class CreateCashRequest : Request
     {
-        [Required(ErrorMessage = "Agência inválida.")]
+        [Required(ErrorMessage = "Agência inválida")]
         public int AgencyId { get; set; }
 
         [Required(ErrorMessage = "A data é obrigatória")]

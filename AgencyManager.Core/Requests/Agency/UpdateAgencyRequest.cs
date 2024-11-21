@@ -1,6 +1,4 @@
 using AgencyManager.Core.Requests.Address;
-using AgencyManager.Core.Requests.Contact;
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Agency

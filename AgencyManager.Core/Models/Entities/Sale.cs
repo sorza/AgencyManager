@@ -1,5 +1,3 @@
-using Flunt.Validations;
-
 namespace AgencyManager.Core.Models.Entities
 {
     public class Sale : Entity

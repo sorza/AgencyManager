@@ -1,5 +1,4 @@
 using AgencyManager.Core.Enums;
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.ContractService

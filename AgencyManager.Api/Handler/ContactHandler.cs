@@ -14,18 +14,13 @@ namespace AgencyManager.Api.Handler
         public async Task<Response<Contact>> CreateAsync(CreateContactRequest request)
         {
             try
-            {
+            {                
                 #region 01. Validar contato
                 var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
-                var validationResults = new List<ValidationResult>();
-                string errors = string.Empty;
+                var validationResults = new List<ValidationResult>();               
 
-                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                {
-                    foreach (var error in validationResults)
-                        errors += error.ErrorMessage;
-                    return new Response<Contact>(null, 400, errors);
-                }
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))                                    
+                    return new Response<Contact>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                
 
                 #endregion
 
@@ -70,9 +65,7 @@ namespace AgencyManager.Api.Handler
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
                 {
-                    foreach (var error in validationResults)
-                        errors += error.ErrorMessage;
-                    return new Response<Contact>(null, 400, errors);
+                    return new Response<Contact>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 }
 
                 #endregion

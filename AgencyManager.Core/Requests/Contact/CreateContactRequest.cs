@@ -17,7 +17,7 @@ namespace AgencyManager.Core.Requests.Contact
 
         [Required(ErrorMessage = "O departamento/setor é obrigatório")]
         [MaxLength(70, ErrorMessage = "O departamento/setor deve ter no máximo 70 caracteres")]
-        [MinLength(7, ErrorMessage = "O departamento/setor deve ter no mínimo 2 caracteres")]
+        [MinLength(2, ErrorMessage = "O departamento/setor deve ter no mínimo 2 caracteres")]
         public string Departament { get; set; } = string.Empty;
 
         public int? AgencyId { get; set; }

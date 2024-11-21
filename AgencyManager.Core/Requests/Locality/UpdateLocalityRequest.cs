@@ -1,4 +1,3 @@
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Locality
@@ -13,7 +12,7 @@ namespace AgencyManager.Core.Requests.Locality
         public string City { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Informe o estado")]
-        [RegularExpression("^[a-zA-Z]{2}$", ErrorMessage = "O Estado deve conter 2 dígitos alfabéticos.")]
+        [RegularExpression("^[a-zA-Z]{2}$", ErrorMessage = "O Estado deve conter 2 dígitos alfabéticos")]
         public string State { get; set; } = string.Empty;
     }
 }

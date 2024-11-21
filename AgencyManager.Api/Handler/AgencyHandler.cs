@@ -20,12 +20,8 @@ namespace AgencyManager.Api.Handler
             var validationResults = new List<ValidationResult>();
             string errors = string.Empty;
 
-            if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-            {
-                foreach (var error in validationResults)
-                    errors += error.ErrorMessage;
-                return new Response<Agency?>(null, 400, errors);
-            }              
+            if (!Validator.TryValidateObject(request, validationContext, validationResults, true))            
+                return new Response<Agency?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                        
            
             #endregion
 
@@ -156,11 +152,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                {
-                    foreach (var error in validationResults)
-                        errors += error.ErrorMessage;
-                    return new Response<Agency?>(null, 400, errors);
-                }
+                    return new Response<Agency?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
                 #endregion
 

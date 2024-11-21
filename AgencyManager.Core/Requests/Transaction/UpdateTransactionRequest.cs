@@ -1,5 +1,4 @@
 using AgencyManager.Core.Enums;
-using Flunt.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Transaction
@@ -11,7 +10,7 @@ namespace AgencyManager.Core.Requests.Transaction
         [Required(ErrorMessage = "Tipo de transação inválida")]
         public ETransactionType Type { get; set; } = ETransactionType.Output;
 
-        [Required(ErrorMessage = "Informe o valor da transação.")]
+        [Required(ErrorMessage = "Informe o valor da transação")]
         public decimal Amount { get; set; }
 
         [MaxLength(100, ErrorMessage = "A descrição deve ter no máximo 100 caracteres")]
