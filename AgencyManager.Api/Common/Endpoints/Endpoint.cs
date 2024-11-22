@@ -33,7 +33,10 @@ namespace AgencyManager.Api.Common.Endpoints
 
             endpoints.MapGroup("/v1/employees")
                 .WithTags("Employees")
-                .MapEndpoint<CreateEmployeeEndpoint>();
+                .MapEndpoint<CreateEmployeeEndpoint>()
+                .MapEndpoint<DeleteEmployeeEndpoint>()
+                .MapEndpoint<GetAllEmployeesByAgencyEndpoint>()
+                .MapEndpoint<GetEmployeeByIdEndpoint>();
 
             endpoints.MapGroup("/v1/positions")
                 .WithTags("Positions")

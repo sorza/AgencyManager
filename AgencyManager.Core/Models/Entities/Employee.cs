@@ -3,14 +3,12 @@ using AgencyManager.Core.Models.Entities.ValueObjects;
 namespace AgencyManager.Core.Models.Entities
 {
     public class Employee : Entity
-    {      
-        private readonly IList<Contact> _contacts;
-
+    {             
         public Employee()
         {
             
         }
-        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, int agencyId, int positionId, DateTime? dataHire = null,IList<Contact>? contacts = null)
+        public Employee(string name, string cpf, string rg, DateTime birthDay, Address address, int agencyId, int positionId, DateTime? dataHire = null)
         {   
             Active = true;
 
@@ -25,7 +23,6 @@ namespace AgencyManager.Core.Models.Entities
             DateHire = dataHire ?? DateTime.Now;
 
             Address = address;
-            _contacts = contacts ?? [];  
         }
 
         public bool Active { get; private set; }
@@ -39,8 +36,7 @@ namespace AgencyManager.Core.Models.Entities
         public int PositionId { get; private set; }
         public virtual Position? Position { get; private set; }
         public DateTime DateHire { get; private set; }
-        public DateTime DateDismiss { get; private set; }        
-        public IReadOnlyCollection<Contact>? Contacts { get { return _contacts.ToArray(); }}
-    
+        public DateTime DateDismiss { get; private set; }
+        public List<Contact>? Contacts { get; set; } = [];
     }
 }

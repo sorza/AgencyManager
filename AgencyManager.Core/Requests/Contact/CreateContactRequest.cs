@@ -22,6 +22,6 @@ namespace AgencyManager.Core.Requests.Contact
 
         public int? AgencyId { get; set; }
         public int? CompanyId { get; set; }
-        public int? EmplooyeId { get; set; }        
+        public int? EmployeeId { get; set; }        
     }
 }

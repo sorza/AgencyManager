@@ -83,8 +83,10 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar colaboradores por agencia
                 var query = context
                 .Employees
-                .Where(x => x.AgencyId == request.AgencyId)
-                .AsNoTracking();
+                .AsNoTracking()
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
+                .Where(x => x.AgencyId == request.AgencyId);
 
                 #endregion
 
@@ -119,6 +121,8 @@ namespace AgencyManager.Api.Handler
                 var employee = await context
                 .Employees
                 .AsNoTracking()
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
@@ -165,10 +169,9 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
             }
-            catch (Exception)
+            catch
             {
-
-                throw;
+                return new Response<Employee>(null, 500, "Não foi possível atualizar o colaborador");
             }
             
         }
