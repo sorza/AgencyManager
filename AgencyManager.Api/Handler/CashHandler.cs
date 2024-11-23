@@ -103,7 +103,23 @@ namespace AgencyManager.Api.Handler
 
         public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cash = await context.Cash
+                .AsNoTracking()
+                .Include(x => x.Sales)
+                .Include(x => x.Transactions)
+                .Include(x => x.VirtualSales)
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                return cash is null
+                    ? new Response<Cash?>(null, 404, "Caixa não encontrado")
+                    : new Response<Cash?>(cash);
+            }
+            catch
+            {
+                return new Response<Cash?>(null, 500, "Não foi possível recuperar o caixa.");
+            }
         }
 
         public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
