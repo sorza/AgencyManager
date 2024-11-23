@@ -1,5 +1,6 @@
 ﻿using AgencyManager.Api.Common.Api;
 using AgencyManager.Api.Common.Endpoints.Agencies;
+using AgencyManager.Api.Common.Endpoints.Cashs;
 using AgencyManager.Api.Common.Endpoints.Companies;
 using AgencyManager.Api.Common.Endpoints.Contacts;
 using AgencyManager.Api.Common.Endpoints.Employees;
@@ -55,6 +56,15 @@ namespace AgencyManager.Api.Common.Endpoints
                .MapEndpoint<DeleteCompanyEndpoint>()
                .MapEndpoint<GetCompanyByIdEndpoint>()
                .MapEndpoint<GetAllCompaniesEndpoint>();
+
+            endpoints.MapGroup("/v1/cashs")
+               .WithTags("Cashs")
+               .MapEndpoint<CreateCashEndpoint>()
+               .MapEndpoint<UpdateCashEndpoint>()
+               .MapEndpoint<DeleteCashEndpoint>()
+               .MapEndpoint<GetCashByIdEndpoint>()
+               .MapEndpoint<GetCashsByUserByPeriodEndpoint>()
+               .MapEndpoint<GetCashsByAgencyByPeriodEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
