@@ -84,7 +84,29 @@ namespace AgencyManager.Api.Handler
 
         public async Task<PagedResponse<List<Company>?>> GetAllAsync(GetAllCompaniesRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = context
+                .Companies
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
+                .AsNoTracking();
+
+                var companies = await query
+                    .Skip(request.PageSize * (request.PageNumber - 1))
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                var count = await query.CountAsync();
+
+                return companies.Count == 0
+                        ? new PagedResponse<List<Company>?>(null, 404, "Não foram encontradas empresas cadastradas.")
+                        : new PagedResponse<List<Company>?>(companies, count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Company>?>(null, 500, "Não possível consultar agências.");
+            }
         }
 
         public async Task<Response<Company?>> UpdateAsync(UpdateCompanyRequest request)
