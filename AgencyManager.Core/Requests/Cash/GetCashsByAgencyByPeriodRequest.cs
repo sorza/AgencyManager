@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Cash
 {
-    public class GetCashsByAgencyIdRequest : PagedRequest
+    public class GetCashsByAgencyByPeriodRequest : PagedRequest
     {
         public int Id { get; set; }
     }
