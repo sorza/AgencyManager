@@ -54,19 +54,27 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar colaborador
                 var employee = await context
                 .Employees
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
 
                 #endregion
 
-                #region 02. Remover colaborador
+                #region 02. Remover contatos
+                if (employee.Contacts is not null)
+                    context.Contacts.RemoveRange(employee.Contacts);
+                   
+                #endregion
+
+                #region 03. Remover colaborador
                 context.Employees.Remove(employee);
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 03. Retornar resposta
+                #region 04. Retornar resposta
                 return new Response<Employee>(employee, 200, "Colaborador excluído com sucesso");
 
                 #endregion
@@ -104,7 +112,7 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
-                return employees is null
+                return employees.Count == 0
                         ? new PagedResponse<List<Employee>?>(null, 404, "Não foram encontrados colaboradores para esta agencia.")
                         : new PagedResponse<List<Employee>?>(employees, count, request.PageNumber, request.PageSize);
                 #endregion

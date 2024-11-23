@@ -144,14 +144,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
-                return contacts is null
+                return contacts.Count == 0
                         ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
                         : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos.");
+                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos desta agência.");
             }
         }
         public async Task<PagedResponse<List<Contact>?>> GetAllByCompanyAsync(GetContactsByCompanyId request)
@@ -180,14 +180,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
-                return contacts is null
+                return contacts.Count == 0
                         ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
                         : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos.");
+                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos desta empresa.");
             }
         }
         public async Task<PagedResponse<List<Contact>?>> GetAllByEmployeeAsync(GetContactsByEmployeeId request)
@@ -216,14 +216,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
-                return contacts is null
-                        ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
+                return contacts.Count == 0
+                        ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para este colaborador.")
                         : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos.");
+                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos deste colaborador.");
             }
         }
     }

@@ -58,7 +58,8 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 02. Remover contatos
-                context.Contacts.RemoveRange(agency.Contacts!);
+                if(agency.Contacts is not null)
+                    context.Contacts.RemoveRange(agency.Contacts!);
 
                 #endregion               
 
