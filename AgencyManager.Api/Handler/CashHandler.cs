@@ -172,7 +172,11 @@ namespace AgencyManager.Api.Handler
             {
                 #region 02. Buscar caixas da agência para o período definido
                 var query = context.Cash
+                .Include(x => x.Sales)
+                .Include(x => x.Transactions)
+                .Include(x => x.VirtualSales)
                 .AsNoTracking()
+                
                 .Where(x => x.AgencyId == request.Id &&
                             x.Date <= request.EndDate &&
                             x.Date >= request.StartDate)
@@ -219,6 +223,9 @@ namespace AgencyManager.Api.Handler
             {
                 #region 02. Buscar caixas do usuário informado para o período definido
                 var query = context.Cash
+                .Include(x => x.Sales)
+                .Include(x => x.Transactions)
+                .Include(x => x.VirtualSales)
                 .AsNoTracking()
                 .Where(x => x.UserId.Equals(request.Id) &&
                             x.Date <= request.EndDate &&
