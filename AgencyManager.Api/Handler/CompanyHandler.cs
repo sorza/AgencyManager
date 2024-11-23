@@ -40,7 +40,6 @@ namespace AgencyManager.Api.Handler
             }
             #endregion
         }
-
         public async Task<Response<Company?>> DeleteAsync(DeleteCompanyRequest request)
         {
             try
@@ -81,7 +80,6 @@ namespace AgencyManager.Api.Handler
                 return new Response<Company?>(null, 500, "Não foi possível excluir a empresa");
             }
         }
-
         public async Task<PagedResponse<List<Company>?>> GetAllAsync(GetAllCompaniesRequest request)
         {
             try
@@ -108,7 +106,25 @@ namespace AgencyManager.Api.Handler
                 return new PagedResponse<List<Company>?>(null, 500, "Não possível consultar agências.");
             }
         }
+        public async Task<Response<Company?>> GetByIdAsync(GetCompanyByIdRequest request)
+        {
+            try
+            {
+                var company = await context.Companies
+                 .Include(a => a.Address)
+                 .Include(a => a.Contacts)
+                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
+                if (company is null)
+                    return new Response<Company?>(null, 404, "Empresa não encontrada");
+
+                return new Response<Company?>(company, 200);
+            }
+            catch
+            {
+                return new Response<Company?>(null, 500, "Não foi possível consultar a empresa");
+            }
+        }
         public async Task<Response<Company?>> UpdateAsync(UpdateCompanyRequest request)
         {
             try
