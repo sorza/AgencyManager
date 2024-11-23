@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.Common.Extensions;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Cash;
@@ -40,7 +41,6 @@ namespace AgencyManager.Api.Handler
             }
             #endregion
         }
-
         public async Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
         {
             try
@@ -95,12 +95,45 @@ namespace AgencyManager.Api.Handler
                 return new Response<Cash?>(null, 500, "Não foi possível excluir o caixa");
             }
         }
-
-        public async Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
+        public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                #region 01. Buscar caixa
+                var cash = await context.Cash
+                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
+                if (cash is null)
+                    return new Response<Cash?>(null, 404, "Caixa não encontrado");
+
+                #endregion
+
+                #region 02. Validar requisição
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
+
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                    return new Response<Cash?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+
+                #endregion
+
+                #region 03. Mapear dados e atualizar
+                mapper.Map(request, cash);
+                await context.SaveChangesAsync();
+
+                #endregion  
+
+                #region 04. Retornar Resposta
+                return new Response<Cash?>(cash, 200, "Caixa atualizado com sucesso");
+
+                #endregion
+            }
+            catch
+            {
+                return new Response<Cash?>(null, 500, "Não foi possível alterar o caixa");
+            }
+        }
         public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
         {
             try
@@ -121,50 +154,100 @@ namespace AgencyManager.Api.Handler
                 return new Response<Cash?>(null, 500, "Não foi possível recuperar o caixa.");
             }
         }
-
-        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
+        public async Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
-        {
+            #region 01. Determinar o mês corrente como padrão
             try
             {
-                #region 01. Buscar caixa
-                var cash = await context.Cash                   
-                    .FirstOrDefaultAsync(x => x.Id == request.Id);
+                request.StartDate ??= DateTime.Now.GetFirstDay();
+                request.EndDate ??= DateTime.Now.GetLastDay();
+            }
+            catch
+            {
+                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível determinar a data de início ou término.");
+            }
+            #endregion
 
-                if (cash is null)
-                    return new Response<Cash?>(null, 404, "Caixa não encontrado");
+            try
+            {
+                #region 02. Buscar caixas da agência para o período definido
+                var query = context.Cash
+                .AsNoTracking()
+                .Where(x => x.AgencyId == request.Id &&
+                            x.Date <= request.EndDate &&
+                            x.Date >= request.StartDate)
+                .OrderBy(x => x.Date);
+
+                var cashs = await query
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                var count = await query.CountAsync();
 
                 #endregion
 
-                #region 02. Validar requisição
-                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
-                var validationResults = new List<ValidationResult>();
-                string errors = string.Empty;
-
-                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Cash?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
-
-                #endregion
-               
-                #region 03. Mapear dados e atualizar
-                mapper.Map(request, cash);
-                await context.SaveChangesAsync();
-
-                #endregion  
-
-                #region 04. Retornar Resposta
-                return new Response<Cash?>(cash, 200, "Caixa atualizado com sucesso");
+                #region 03. Retornar resposta
+                return new PagedResponse<List<Cash>?>(
+                    cashs,
+                    count,
+                    request.PageNumber,
+                    request.PageSize);
 
                 #endregion
             }
             catch
             {
-                return new Response<Cash?>(null, 500, "Não foi possível alterar o caixa");
+                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível obter os caixas da agência.");
+            }
+        }       
+        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
+        {
+            #region 01. Determinar o mês corrente como padrão
+            try
+            {
+                request.StartDate ??= DateTime.Now.GetFirstDay();
+                request.EndDate ??= DateTime.Now.GetLastDay();
+            }
+            catch
+            {
+                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível determinar a data de início ou término.");
+            }
+            #endregion
+
+            try
+            {
+                #region 02. Buscar caixas do usuário informado para o período definido
+                var query = context.Cash
+                .AsNoTracking()
+                .Where(x => x.UserId.Equals(request.Id) &&
+                            x.Date <= request.EndDate &&
+                            x.Date >= request.StartDate)
+                .OrderBy(x => x.Date);
+
+                var cashs = await query
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                var count = await query.CountAsync();
+
+                #endregion
+
+                #region 03. Retornar resposta
+                return new PagedResponse<List<Cash>?>(
+                    cashs,
+                    count,
+                    request.PageNumber,
+                    request.PageSize);
+
+                #endregion
+            }
+            catch
+            {
+                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível obter os caixas do usuário.");
             }
         }
+       
     }
 }
