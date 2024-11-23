@@ -32,6 +32,7 @@ public class Program
         builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
         builder.Services.AddTransient<IEmployeeHandler, EmployeeHandler>();
         builder.Services.AddTransient<IPositionHandler, PositionHandler>();
+        builder.Services.AddTransient<ICompanyHandler, CompanyHandler>();
                
 
         builder.Services.Configure<JsonOptions>(options =>

@@ -1,5 +1,6 @@
 ﻿using AgencyManager.Api.Common.Api;
 using AgencyManager.Api.Common.Endpoints.Agencies;
+using AgencyManager.Api.Common.Endpoints.Companies;
 using AgencyManager.Api.Common.Endpoints.Contacts;
 using AgencyManager.Api.Common.Endpoints.Employees;
 using AgencyManager.Api.Common.Endpoints.Positions;
@@ -46,6 +47,14 @@ namespace AgencyManager.Api.Common.Endpoints
                 .MapEndpoint<DeletePositionEndpoint>()
                 .MapEndpoint<GetPositionsByAgencyEndpoint>()
                 .MapEndpoint<GetPositionByIdEndpoint>();
+
+            endpoints.MapGroup("/v1/companies")
+               .WithTags("Companies")  
+               .MapEndpoint<CreateCompanyEndpoint>()
+               .MapEndpoint<UpdateCompanyEndpoint>()
+               .MapEndpoint<DeleteCompanyEndpoint>()
+               .MapEndpoint<GetCompanyByIdEndpoint>()
+               .MapEndpoint<GetAllCompaniesEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
