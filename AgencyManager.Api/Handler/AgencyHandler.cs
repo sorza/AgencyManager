@@ -157,22 +157,17 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 03. Remover Lista Contatos Antigos
-
-                context.Contacts.RemoveRange(agency.Contacts!);
-                #endregion
-
-                #region 04. Mapear dados de Request para a Entidade
+                #region 03. Mapear dados de Request para a Entidade
                 mapper.Map(request, agency);
 
                 #endregion
 
-                #region 05. Salvar alterações
+                #region 04. Salvar alterações
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 06. Retornar Resposta
+                #region 05. Retornar Resposta
                 return new Response<Agency?>(agency, 200, "Agência atualizada com sucesso");
 
                 #endregion

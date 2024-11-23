@@ -129,7 +129,42 @@ namespace AgencyManager.Api.Handler
 
         public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region 01. Buscar caixa
+                var cash = await context.Cash                   
+                    .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (cash is null)
+                    return new Response<Cash?>(null, 404, "Caixa não encontrado");
+
+                #endregion
+
+                #region 02. Validar requisição
+                var validationContext = new ValidationContext(request, serviceProvider: null, items: null);
+                var validationResults = new List<ValidationResult>();
+                string errors = string.Empty;
+
+                if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
+                    return new Response<Cash?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+
+                #endregion
+               
+                #region 03. Mapear dados e atualizar
+                mapper.Map(request, cash);
+                await context.SaveChangesAsync();
+
+                #endregion  
+
+                #region 04. Retornar Resposta
+                return new Response<Cash?>(cash, 200, "Caixa atualizado com sucesso");
+
+                #endregion
+            }
+            catch
+            {
+                return new Response<Cash?>(null, 500, "Não foi possível alterar o caixa");
+            }
         }
     }
 }
