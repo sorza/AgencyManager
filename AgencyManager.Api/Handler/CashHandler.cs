@@ -4,6 +4,7 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Cash;
 using AgencyManager.Core.Responses;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
@@ -40,27 +41,77 @@ namespace AgencyManager.Api.Handler
             #endregion
         }
 
-        public Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
+        public async Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
+        {
+            try
+            {
+                #region 01. Buscar caixa
+                var cash = await context.Cash
+                  .Include(x => x.Sales)
+                  .Include(x => x.Transactions)
+                  .Include(x => x.VirtualSales)
+                  .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (cash is null)
+                    return new Response<Cash?>(null, 404, "Caixa não encontrada");
+
+                #endregion
+                /*
+                #region 02. Excluir transações
+                if(cash.Transactions is not null)
+                    context.Transactions.RemoveRange(cash.Transactions);
+
+                #endregion
+
+                #region 03. Excluir vendas virtuais
+                if (cash.VirtualSales is not null)
+                    context.VirtualSales.RemoveRange(cash.VirtualSales);
+
+                #endregion
+
+                #region 04. Excluir vendas
+                if (cash.Sales is not null)
+                    context.Sales.RemoveRange(cash.Sales);
+
+                #endregion
+                */
+                #region 05. Excluir caixa
+                context.Cash.Remove(cash);
+
+                #endregion
+
+                #region 06. Salvar alterações
+                await context.SaveChangesAsync();
+
+                #endregion
+
+                #region 07. Retornar resposta
+                return new Response<Cash?>(cash, 204, "Caixa excluído com sucesso");
+                #endregion
+
+            }
+            catch
+            {
+                return new Response<Cash?>(null, 500, "Não foi possível excluir o caixa");
+            }
+        }
+
+        public async Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
+        public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
+        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
+        public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
         {
             throw new NotImplementedException();
         }
