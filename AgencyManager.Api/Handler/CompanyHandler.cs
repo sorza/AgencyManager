@@ -4,13 +4,14 @@ using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Responses;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
     public class CompanyHandler(AppDbContext context, IMapper mapper) : ICompanyHandler
     {
-        public async Task<Response<Company>> CreateAsync(CreateCompanyRequest request)
+        public async Task<Response<Company?>> CreateAsync(CreateCompanyRequest request)
         {
             #region 01. Validar requisição
 
@@ -19,7 +20,7 @@ namespace AgencyManager.Api.Handler
             string errors = string.Empty;
 
             if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                return new Response<Company>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                return new Response<Company?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
             #endregion
 
@@ -31,18 +32,54 @@ namespace AgencyManager.Api.Handler
                 await context.Companies.AddAsync(company);
                 await context.SaveChangesAsync();
 
-                return new Response<Company>(company, 201, "Empresa cadastrada com sucesso.");
+                return new Response<Company?>(company, 201, "Empresa cadastrada com sucesso.");
             }
             catch
             {
-                return new Response<Company>(null, 500, "Não foi possível cadastrar empresa");
+                return new Response<Company?>(null, 500, "Não foi possível cadastrar empresa");
             }
             #endregion
         }
 
-        public async Task<Response<Company>> DeleteAsync(DeleteCompanyRequest request)
+        public async Task<Response<Company?>> DeleteAsync(DeleteCompanyRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region 01. Buscar empresa
+                var company = await context.Companies
+                  .Include(a => a.Address)
+                  .Include(a => a.Contacts)
+                  .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (company is null)
+                    return new Response<Company?>(null, 404, "Empresa não encontrada");
+
+                #endregion
+
+                #region 02. Remover contatos
+                if (company.Contacts is not null)
+                    context.Contacts.RemoveRange(company.Contacts);
+
+                #endregion               
+
+                #region 03. Remover empresa
+                context.Companies.Remove(company);
+
+                #endregion
+
+                #region 04. Salvar Alterações
+                await context.SaveChangesAsync();
+                #endregion
+
+                #region 05. Retornar resposta
+                return new Response<Company?>(company, 204, "Empresa excluída com sucesso");
+                #endregion
+
+            }
+            catch
+            {
+                return new Response<Company?>(null, 500, "Não foi possível excluir a empresa");
+            }
         }
 
         public async Task<PagedResponse<List<Company>?>> GetAllAsync(GetAllCompaniesRequest request)
