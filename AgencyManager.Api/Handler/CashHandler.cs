@@ -205,7 +205,7 @@ namespace AgencyManager.Api.Handler
                 return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível obter os caixas da agência.");
             }
         }       
-        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request)
+        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
         {
             #region 01. Determinar o mês corrente como padrão
             try

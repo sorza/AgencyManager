@@ -11,6 +11,6 @@ namespace AgencyManager.Core.Handlers
         Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request);
         Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request);
         Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request);
-        Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserRequest request);
+        Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request);
     }
 }
