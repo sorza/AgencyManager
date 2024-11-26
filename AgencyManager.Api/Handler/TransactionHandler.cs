@@ -75,7 +75,7 @@ namespace AgencyManager.Api.Handler
                 return new Response<Transaction?>(null, 500, "Não foi possível excluir a transação");
             }
         }
-        public async Task<PagedResponse<List<Transaction>?>> GetAllByCashAsync(GetTransactionsByCashId request)
+        public async Task<PagedResponse<List<Transaction>?>> GetAllByCashAsync(GetTransactionsByCashIdRequest request)
         {
             try
             {

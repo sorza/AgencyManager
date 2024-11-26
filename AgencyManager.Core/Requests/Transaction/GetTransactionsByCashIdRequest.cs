@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Transaction
 {
-    public class GetTransactionsByCashId : PagedRequest
+    public class GetTransactionsByCashIdRequest : PagedRequest
     {
         public int CashId { get; set; }
     }

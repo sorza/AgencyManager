@@ -1,6 +1,6 @@
 namespace AgencyManager.Core.Requests.Transaction
 {
-    public class DeleteTransactionRequest
+    public class DeleteTransactionRequest : Request
     {
         public int Id { get; set; }
     }
