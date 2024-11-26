@@ -42,7 +42,7 @@ namespace AgencyManager.Api.Handler
             }
             catch
             {
-                return new Response<Position>(null, 500, "Não foi possível cadastrar o cargo");
+                return new Response<Position?>(null, 500, "Não foi possível cadastrar o cargo");
             }
            
         }
@@ -73,7 +73,7 @@ namespace AgencyManager.Api.Handler
             }
             catch
             {
-                return new Response<Position>(null, 500, "Não foi possível excluir o cargo");
+                return new Response<Position?>(null, 500, "Não foi possível excluir o cargo");
             }
            
         }
@@ -168,13 +168,13 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar Resposta
-                return new Response<Position>(position, 200, "Cargo atualizado com sucesso");
+                return new Response<Position?>(position, 200, "Cargo atualizado com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Position>(null, 500, "Não foi possível atualizar o cargo");
+                return new Response<Position?>(null, 500, "Não foi possível atualizar o cargo");
             }
         }
     }
