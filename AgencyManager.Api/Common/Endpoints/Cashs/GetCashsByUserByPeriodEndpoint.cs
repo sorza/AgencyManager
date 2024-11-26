@@ -18,13 +18,13 @@ namespace AgencyManager.Api.Common.Endpoints.Cashs
             .Produces<PagedResponse<List<Cash>?>>();
 
         private static async Task<IResult> HandleAsync(
-             ICashHandler handler,
+             ICashHandler handler, string id,
              [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
              [FromQuery] int pageSize = Configuration.DefaultPageSize)
         {
             var request = new GetCashsByUserByPeriodRequest
             {
-                UserId = "teste@teste.com",
+                Id = id,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };

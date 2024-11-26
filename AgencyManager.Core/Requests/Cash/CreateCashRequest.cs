@@ -12,12 +12,10 @@ namespace AgencyManager.Core.Requests.Cash
         [DateNotInFuture]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage ="Informe o troco inicial")]
-        [MinLength(0, ErrorMessage = "O troco não pode ser negativo")]
+        [Required(ErrorMessage ="Informe o troco inicial")]        
         public decimal StartValue { get; set; }
 
-        [Required(ErrorMessage = "Informe o troco final")]
-        [MinLength(0, ErrorMessage = "O troco não pode ser negativo")]
+        [Required(ErrorMessage = "Informe o troco final")]        
         public decimal EndValue { get; set; }
     }
 }

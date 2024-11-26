@@ -1,7 +1,6 @@
 ﻿using AgencyManager.Api.Common.Api;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
-using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Cash;
 using AgencyManager.Core.Responses;
 
@@ -11,7 +10,7 @@ namespace AgencyManager.Api.Common.Endpoints.Cashs
     {
         public static void Map(IEndpointRouteBuilder app)
            => app.MapGet("/{id}", HandleAsync)
-            .WithName("Cashs: Get By Id")
+            .WithName("Cashs: Get Cash By Id")
             .WithSummary("Recupera um caixa por id")
             .WithDescription("Recupera um caixa por id")
             .Produces<Response<Cash?>>();
