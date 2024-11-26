@@ -11,14 +11,14 @@ namespace AgencyManager.Api.Common.Endpoints.Positions
     {
         public static void Map(IEndpointRouteBuilder app)
             => app.MapPut("/{id}", HandleAsync)
-            .WithName("Sales: Update")
-            .WithSummary("Atualiza uma venda")
-            .WithDescription("Atualiza uma venda")
-            .Produces<Response<Sale?>>();
+            .WithName("Positions: Update")
+            .WithSummary("Atualiza um cargo")
+            .WithDescription("Atualiza um cargo")
+            .Produces<Response<Position?>>();
 
         private static async Task<IResult> HandleAsync(
-            ISaleHandler handler,
-            UpdateSaleRequest request,
+            IPositionHandler handler,
+            UpdatePositionRequest request,
             int id )
         {
             request.UserId = "teste@teste.com";
