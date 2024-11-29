@@ -10,7 +10,7 @@ namespace AgencyManager.Api.Common.Endpoints.Sales
     public class GetSaleByIdEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-       => app.MapGet("/{id}", HandleAsync)
+        => app.MapGet("/{id}", HandleAsync)
           .WithName("Sales: Get By Id")
           .WithSummary("Recupera uma venda")
           .WithDescription("Recupera uma venda")
