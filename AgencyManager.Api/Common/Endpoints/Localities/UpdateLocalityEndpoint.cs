@@ -10,9 +10,9 @@ namespace AgencyManager.Api.Common.Endpoints.Localities
     {
         public static void Map(IEndpointRouteBuilder app)
          => app.MapPut("/{id}", HandleAsync)
-            .WithName("Agencies: Update")
-            .WithSummary("Atualiza uma agência")
-            .WithDescription("Atualiza uma agência")
+            .WithName("Localities: Update")
+            .WithSummary("Atualiza uma localidade")
+            .WithDescription("Atualiza uma localidade")
             .Produces<Response<Locality?>>();
 
         private static async Task<IResult> HandleAsync(
