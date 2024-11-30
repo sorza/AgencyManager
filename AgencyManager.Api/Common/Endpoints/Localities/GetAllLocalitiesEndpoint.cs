@@ -1,6 +1,8 @@
-﻿namespace AgencyManager.Api.Common.Endpoints.Localities
+﻿using AgencyManager.Api.Common.Api;
+
+namespace AgencyManager.Api.Common.Endpoints.Localities
 {
-    public class GetAllLocalitiesEndpoint
+    public class GetAllLocalitiesEndpoint : IEndpoint
     {
     }
 }
