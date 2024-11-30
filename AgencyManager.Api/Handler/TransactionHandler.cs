@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.Enums;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Transaction;
@@ -24,18 +25,24 @@ namespace AgencyManager.Api.Handler
                     return new Response<Transaction?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 #endregion
 
-                #region 02. Mapear dados para transação
+
+                #region 02. Verifica se o tipo de transação é Output
+                if (request is { Type: ETransactionType.Output, Amount: >= 0 })
+                    request.Amount *= -1;
+                #endregion
+
+                #region 03. Mapear dados para transação
                 var transaction = mapper.Map<Transaction>(request);
 
                 #endregion
 
-                #region 03. Adicionar transação
+                #region 04. Adicionar transação
                 await context.Transactions.AddAsync(transaction);
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 04. Retornar resposta
+                #region 05. Retornar resposta
                 return new Response<Transaction?>(transaction, 200, "Transação registrada com sucesso!");
 
                 #endregion
@@ -160,17 +167,22 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 03. Transferir os dados da Requisição para a transação                
+                #region 03. Verifica se o tipo de transação é Output
+                if (request is { Type: ETransactionType.Output, Amount: >= 0 })
+                    request.Amount *= -1;
+                #endregion
+
+                #region 04. Transferir os dados da Requisição para a transação                
                 mapper.Map(request, transaction);
 
                 #endregion
 
-                #region 04. Salvar alterações
+                #region 05. Salvar alterações
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 05. Retornar Resposta
+                #region 06. Retornar Resposta
                 return new Response<Transaction?>(transaction, 200, "Transação atualizada com sucesso");
 
                 #endregion
