@@ -7,6 +7,7 @@ using AgencyManager.Api.Common.Endpoints.Employees;
 using AgencyManager.Api.Common.Endpoints.Positions;
 using AgencyManager.Api.Common.Endpoints.Sales;
 using AgencyManager.Api.Common.Endpoints.Transactions;
+using AgencyManager.Api.Common.Endpoints.VirtualSales;
 using AgencyManager.Core.Requests.Contact;
 
 namespace AgencyManager.Api.Common.Endpoints
@@ -83,6 +84,14 @@ namespace AgencyManager.Api.Common.Endpoints
               .MapEndpoint<DeleteTransactionEndpoint>()
               .MapEndpoint<GetTransactionByIdEndpoint>()
               .MapEndpoint<GetAllTransactionsByCashEndpoint>();
+
+            endpoints.MapGroup("/v1/virtualSales")
+              .WithTags("VirtualSales")
+              .MapEndpoint<CreateVirtualSaleEndpoint>()
+              .MapEndpoint<UpdateVirtualSaleEndpoint>()
+              .MapEndpoint<DeleteVirtualSaleEndpoint>()
+              .MapEndpoint<GetVirtualSaleByIdEndpoint>()
+              .MapEndpoint<GetAllVirtualSalesByCashEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)

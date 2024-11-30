@@ -36,6 +36,7 @@ public class Program
         builder.Services.AddTransient<ICashHandler, CashHandler>();
         builder.Services.AddTransient<ISaleHandler, SaleHandler>();
         builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+        builder.Services.AddTransient<IVirtualSaleHandler, VirtualSaleHandler>();
 
 
         builder.Services.Configure<JsonOptions>(options =>
