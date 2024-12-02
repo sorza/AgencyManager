@@ -77,7 +77,7 @@ namespace AgencyManager.Api.Handler
             }
         }
 
-        public async Task<PagedResponse<List<ContractService>?>> GetAllAsync(GetAllContractsByAgencyRequest request)
+        public async Task<PagedResponse<List<ContractService>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request)
         {
             try
             {

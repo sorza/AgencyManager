@@ -8,7 +8,7 @@ namespace AgencyManager.Core.Handlers
     {
         Task<Response<ContractService?>> CreateAsync(CreateContractServiceRequest request);
         Task<Response<ContractService?>> DeleteAsync(DeleteContractServiceRequest request);
-        Task<PagedResponse<List<ContractService>?>> GetAllAsync(GetAllContractsByAgencyRequest request);
+        Task<PagedResponse<List<ContractService>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request);
         Task<Response<ContractService?>> UpdateAsync(UpdateContractServiceRequest request);
         Task<Response<ContractService?>> GetByIdAsync(GetContractByIdRequest request);
     }
