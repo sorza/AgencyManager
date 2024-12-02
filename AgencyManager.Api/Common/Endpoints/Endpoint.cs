@@ -3,6 +3,7 @@ using AgencyManager.Api.Common.Endpoints.Agencies;
 using AgencyManager.Api.Common.Endpoints.Cashs;
 using AgencyManager.Api.Common.Endpoints.Companies;
 using AgencyManager.Api.Common.Endpoints.Contacts;
+using AgencyManager.Api.Common.Endpoints.Contracts;
 using AgencyManager.Api.Common.Endpoints.Employees;
 using AgencyManager.Api.Common.Endpoints.Localities;
 using AgencyManager.Api.Common.Endpoints.Positions;
@@ -101,6 +102,14 @@ namespace AgencyManager.Api.Common.Endpoints
               .MapEndpoint<DeleteLocalityEndpoint>()
               .MapEndpoint<GetLocalityByIdEndpoit>()
               .MapEndpoint<GetAllLocalitiesEndpoint>();
+
+            endpoints.MapGroup("/v1/contracts")
+             .WithTags("Contracts")
+             .MapEndpoint<CreateContractEndpoint>()
+             .MapEndpoint<UpdateContractEndpoint>()
+             .MapEndpoint<DeleteContractEndpoint>()
+             .MapEndpoint<GetContractsByAgencyEndpoint>()
+             .MapEndpoint<GetContractByIdEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
