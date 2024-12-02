@@ -38,6 +38,7 @@ public class Program
         builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
         builder.Services.AddTransient<IVirtualSaleHandler, VirtualSaleHandler>();
         builder.Services.AddTransient<ILocalityHandler, LocalityHandler>();
+        builder.Services.AddTransient<IContractHandler, ContractHandler>();
 
         builder.Services.Configure<JsonOptions>(options =>
         {
