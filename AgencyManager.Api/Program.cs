@@ -5,10 +5,10 @@ using AgencyManager.Core.Handlers;
 using AgencyManager.Api.Handler;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
-using AgencyManager.Api.Common.Endpoints;
 using Microsoft.AspNetCore.Identity;
 using AgencyManager.Api.Models;
 using System.Security.Claims;
+using AgencyManager.Api.Endpoints;
 
 public class Program
 {
