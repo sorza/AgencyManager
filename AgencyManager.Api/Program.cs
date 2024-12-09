@@ -6,6 +6,8 @@ using AgencyManager.Api.Handler;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
 using AgencyManager.Api.Common.Endpoints;
+using Microsoft.AspNetCore.Identity;
+using AgencyManager.Api.Models;
 
 public class Program
 {
@@ -15,18 +17,29 @@ public class Program
 
         var cnnString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(x =>
+        {
+            x.CustomSchemaIds(n => n.FullName);
+        });
+
+        builder.Services
+            .AddAuthentication(IdentityConstants.ApplicationScheme)
+            .AddIdentityCookies();
+        builder.Services.AddAuthorization();
+
         builder.Services.AddDbContext<AppDbContext>(x =>
         {
             x.UseSqlServer(cnnString);
         });
 
-        builder.Services.AddAutoMapper(typeof(AddressProfile).Assembly);
+        builder.Services
+            .AddIdentityCore<User>()
+            .AddRoles<IdentityRole<int>>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddApiEndpoints();
 
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(x =>
-        {
-            x.CustomSchemaIds(n => n.FullName);           
-        });
+        builder.Services.AddAutoMapper(typeof(AddressProfile).Assembly);
 
         builder.Services.AddTransient<IContactHandler, ContactHandler>();
         builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
@@ -47,11 +60,16 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseSwagger();
         app.UseSwaggerUI();
 
         app.MapGet("/", () => new { message = "OK"});
         app.MapEndpoints();
+        app.MapGroup("v1/identity")
+            .WithTags("Identity")
+            .MapIdentityApi<User>();
 
         app.Run();
     }

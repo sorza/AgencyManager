@@ -12,8 +12,7 @@ namespace AgencyManager.Core.Requests.ContractService
         [Required(ErrorMessage = "O tipo de serviço é obrigatório")]
         public EServiceType ServiceType { get; set; }
         [Required(ErrorMessage = "Informe o valor da comissão")]
-        [MaxLength(50, ErrorMessage ="A comissão não pode ser maior que 50%")]
-        [MinLength(1, ErrorMessage = "A comissão não pode ser menor que 1%")]
+        [Range(1.0, 50.0, ErrorMessage = "A comissão deve ser entre 1 a 50.")]
         public decimal Comission { get; set; }
         [Required(ErrorMessage ="Informe a data de início do contrato")]
         public DateTime StartDate { get; set; }
