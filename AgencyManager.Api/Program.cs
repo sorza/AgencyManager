@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http.Json;
 using AgencyManager.Api.Common.Endpoints;
 using Microsoft.AspNetCore.Identity;
 using AgencyManager.Api.Models;
+using System.Security.Claims;
 
 public class Program
 {
@@ -70,6 +71,38 @@ public class Program
         app.MapGroup("v1/identity")
             .WithTags("Identity")
             .MapIdentityApi<User>();
+
+        app.MapGroup("v1/identity")
+            .WithTags("Identity")
+            .MapPost("/logout", async (
+                SignInManager<User> signInManager) =>
+            {
+                await signInManager.SignOutAsync();
+                return Results.Ok();
+            })
+            .RequireAuthorization();
+
+        app.MapGroup("v1/identity")
+            .WithTags("Identity")
+            .MapPost("/roles", ( ClaimsPrincipal user) =>
+            {
+                if (user.Identity is null || !user.Identity.IsAuthenticated)
+                    return Results.Unauthorized();
+
+                var identity = (ClaimsIdentity)user.Identity;
+                var roles = identity
+                    .FindAll(identity.RoleClaimType)
+                    .Select(c => new
+                    {
+                        c.Issuer,
+                        c.OriginalIssuer,
+                        c.Type,
+                        c.Value,
+                        c.ValueType
+                    });
+                return TypedResults.Json(roles);
+            })
+            .RequireAuthorization();
 
         app.Run();
     }
