@@ -5,11 +5,13 @@ using AgencyManager.Api.Endpoints.Companies;
 using AgencyManager.Api.Endpoints.Contacts;
 using AgencyManager.Api.Endpoints.Contracts;
 using AgencyManager.Api.Endpoints.Employees;
+using AgencyManager.Api.Endpoints.Identity;
 using AgencyManager.Api.Endpoints.Localities;
 using AgencyManager.Api.Endpoints.Positions;
 using AgencyManager.Api.Endpoints.Sales;
 using AgencyManager.Api.Endpoints.Transactions;
 using AgencyManager.Api.Endpoints.VirtualSales;
+using AgencyManager.Api.Models;
 using AgencyManager.Core.Requests.Contact;
 
 namespace AgencyManager.Api.Endpoints
@@ -124,6 +126,15 @@ namespace AgencyManager.Api.Endpoints
              .MapEndpoint<DeleteContractEndpoint>()
              .MapEndpoint<GetContractsByAgencyEndpoint>()
              .MapEndpoint<GetContractByIdEndpoint>();
+
+            endpoints.MapGroup("v1/identity")
+                .WithTags("Identity")
+                .MapIdentityApi<User>();
+
+            endpoints.MapGroup("v1/identity")
+                .WithTags("Identity")
+                .MapEndpoint<LogoutEndpoint>()
+                .MapEndpoint<GetRolesEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
