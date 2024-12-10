@@ -17,6 +17,9 @@ namespace AgencyManager.Api.Common.Api
                 .Configuration
                 .GetConnectionString("DefaultConnection")
             ?? string.Empty;
+
+            Configuration.BackendUrl = builder.Configuration.GetValue<string>("BackendUrl") ?? string.Empty;
+            Configuration.FrontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? string.Empty;
         }
 
         public static void AddDocumentation(this WebApplicationBuilder builder)
@@ -66,6 +69,20 @@ namespace AgencyManager.Api.Common.Api
             builder.Services.AddTransient<IContractHandler, ContractHandler>();
         }
 
-        public static void AddCrossOrign(this WebApplicationBuilder builder) { }
+        public static void AddCrossOrign(this WebApplicationBuilder builder) 
+        {
+            builder.Services.AddCors(
+                options => options.AddPolicy(
+                    ApiConfiguration.CorsPolicyName,
+                    policy => policy
+                        .WithOrigins([
+                            Configuration.BackendUrl,
+                            Configuration.FrontendUrl
+                         ])
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                    ));
+        }
     }
 }

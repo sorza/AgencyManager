@@ -1,5 +1,6 @@
 using AgencyManager.Api.Endpoints;
 using AgencyManager.Api.Common.Api;
+using AgencyManager.Api;
 
 public class Program
 {
@@ -20,6 +21,7 @@ public class Program
         if (app.Environment.IsDevelopment())
             app.ConfigDevEnvironment();
 
+        app.UseCors(ApiConfiguration.CorsPolicyName);
         app.UseSecurity();        
         app.MapEndpoints();
 
