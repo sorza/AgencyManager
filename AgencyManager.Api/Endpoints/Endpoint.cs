@@ -20,6 +20,10 @@ namespace AgencyManager.Api.Endpoints
         {
             var endpoints = app.MapGroup("");
 
+            endpoints.MapGroup("")
+                .WithTags("Health Check")
+                .MapGet("/", () => new { message = "OK" });
+
             endpoints.MapGroup("/v1/agencies")
                 .WithTags("Agencies")
                 .RequireAuthorization()    
