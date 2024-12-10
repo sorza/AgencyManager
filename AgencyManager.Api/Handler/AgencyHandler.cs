@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.Entities.ValueObjects;
@@ -12,7 +13,7 @@ namespace AgencyManager.Api.Handler
 {
     public class AgencyHandler(AppDbContext context, IMapper mapper) : IAgencyHandler
     {
-        public async Task<Response<Agency?>> CreateAsync(CreateAgencyRequest request)
+        public async Task<Response<AgencyDto?>> CreateAsync(CreateAgencyRequest request)
         {
             #region 01. Validar requisição
 
@@ -21,7 +22,7 @@ namespace AgencyManager.Api.Handler
             string errors = string.Empty;
 
             if (!Validator.TryValidateObject(request, validationContext, validationResults, true))            
-                return new Response<Agency?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                        
+                return new Response<AgencyDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                        
            
             #endregion
 
@@ -33,16 +34,17 @@ namespace AgencyManager.Api.Handler
                 await context.Agencies.AddAsync(agency);
                 await context.SaveChangesAsync();
 
-                return new Response<Agency?>(agency, 201, "Agência criada com sucesso.");
+                var agencyDto = mapper.Map<AgencyDto>(agency);
+                return new Response<AgencyDto?>(agencyDto, 201, "Agência criada com sucesso.");
             }
             catch
             {
-                return new Response<Agency?>(null, 500, "Não foi possível criar agência");
+                return new Response<AgencyDto?>(null, 500, "Não foi possível criar agência");
             }
             #endregion
         }
 
-        public async Task<Response<Agency?>> DeleteAsync(DeleteAgencyRequest request)
+        public async Task<Response<AgencyDto?>> DeleteAsync(DeleteAgencyRequest request)
         {
             try
             {
@@ -53,7 +55,7 @@ namespace AgencyManager.Api.Handler
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (agency is null)
-                    return new Response<Agency?>(null, 404, "Agência não encontrada");
+                    return new Response<AgencyDto?>(null, 404, "Agência não encontrada");
 
                 #endregion
 
@@ -73,25 +75,26 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar resposta
-                return new Response<Agency?>(agency, 204, "Agência excluída com sucesso");
+
+                var agencyDto = mapper.Map<AgencyDto>(agency);
+                return new Response<AgencyDto?>(agencyDto, 204, "Agência excluída com sucesso");
                 #endregion
 
             }
             catch
             {
-                return new Response<Agency?>(null, 500, "Não foi possível excluir a agência");
+                return new Response<AgencyDto?>(null, 500, "Não foi possível excluir a agência");
             }
             
         }
 
-        public async Task<PagedResponse<List<Agency>?>> GetAllAsync(GetAllAgenciesRequest request)
+        public async Task<PagedResponse<List<AgencyDto>?>> GetAllAsync(GetAllAgenciesRequest request)
         {
             try
             {
                 var query = context
                 .Agencies                
                 .Include(a => a.Address)
-                .Include(a => a.Contacts)
                 .AsNoTracking()
                 .OrderBy(x => x.Description);
 
@@ -102,48 +105,50 @@ namespace AgencyManager.Api.Handler
 
                 var count = await query.CountAsync();
 
-                return agencies is null
-                        ? new PagedResponse<List<Agency>?>(null, 404, "Não foram encontrada agências cadastradas.")
-                        : new PagedResponse<List<Agency>?>(agencies, count, request.PageNumber, request.PageSize);
+                var agenciesDto = mapper.Map<List<AgencyDto>>(agencies);
+
+                return agenciesDto is null
+                        ? new PagedResponse<List<AgencyDto>?>(null, 404, "Não foram encontrada agências cadastradas.")
+                        : new PagedResponse<List<AgencyDto>?>(agenciesDto, count, request.PageNumber, request.PageSize);
             }
             catch 
             {
-                return new PagedResponse<List<Agency>?>(null, 500, "Não possível consultar agências.");
+                return new PagedResponse<List<AgencyDto>?>(null, 500, "Não possível consultar agências.");
             }           
         }
 
-        public async Task<Response<Agency?>> GetByIdAsync(GetAgencyByIdRequest request)
+        public async Task<Response<AgencyDto?>> GetByIdAsync(GetAgencyByIdRequest request)
         {
             try
             {
                 var agency = await context.Agencies
                 .AsNoTracking()
                 .Include(a => a.Address)
-                .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                return agency is null
-                    ? new Response<Agency?>(null, 404, "Agência não encontrada")
-                    : new Response<Agency?>(agency);
+                var agencyDto = mapper.Map<AgencyDto>(agency);
+
+                return agencyDto is null
+                    ? new Response<AgencyDto?>(null, 404, "Agência não encontrada")
+                    : new Response<AgencyDto?>(agencyDto);
             }
             catch 
             {
-                return new Response<Agency?>(null, 500, "Não foi possível recuperar a agência.");
+                return new Response<AgencyDto?>(null, 500, "Não foi possível recuperar a agência.");
             }                
         }
 
-        public async Task<Response<Agency?>> UpdateAsync(UpdateAgencyRequest request)
+        public async Task<Response<AgencyDto?>> UpdateAsync(UpdateAgencyRequest request)
         {
             try
             {
                 #region 01. Buscar agência
                 var agency = await context.Agencies
                    .Include(a => a.Address)
-                   .Include(a => a.Contacts)
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (agency is null)
-                    return new Response<Agency?>(null, 404, "Agência não encontrada");
+                    return new Response<AgencyDto?>(null, 404, "Agência não encontrada");
 
                 #endregion
 
@@ -153,7 +158,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Agency?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<AgencyDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
                 #endregion
 
@@ -168,13 +173,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar Resposta
-                return new Response<Agency?>(agency, 200, "Agência atualizada com sucesso");
+                var agencyDto = mapper.Map<AgencyDto>(agency);
+                return new Response<AgencyDto?>(agencyDto, 200, "Agência atualizada com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Agency?>(null, 500, "Não foi possível alterar a agência");
+                return new Response<AgencyDto?>(null, 500, "Não foi possível alterar a agência");
             }
         }
     }

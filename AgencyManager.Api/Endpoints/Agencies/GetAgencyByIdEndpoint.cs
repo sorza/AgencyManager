@@ -17,7 +17,9 @@ namespace AgencyManager.Api.Endpoints.Agencies
            .Produces<Response<Agency?>>();
 
         private static async Task<IResult> HandleAsync(
-             ClaimsPrincipal user ,IAgencyHandler handler, int id)
+             ClaimsPrincipal user ,
+             IAgencyHandler handler,
+             int id)
         {
             var request = new GetAgencyByIdRequest
             {
