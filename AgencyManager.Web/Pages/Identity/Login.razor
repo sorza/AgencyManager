@@ -3,37 +3,33 @@
 
 <PageTitle> AgencyManager - Entrar</PageTitle>
 
-<MudGrid Justify="Justify.Center">   
+<MudGrid Justify="Justify.Center">
     <MudItem xs="12" sm="12" md="8" lg="6" xl="6" xxl="6">
         <MudPaper Class="mud-width-full pa-8" Elevation="1">
             <div class="d-flex justify-center pb-8 pt-8">
                 <img src="imgs/login.png"
-                alt="AgencyManager - Gerenciador de Agencias"
-                width="300" />                
+                     alt="AgencyManager - Gerenciador de Agencias"
+                     width="300" />
             </div>
 
             <MudForm @ref="_mudForm">
-                <MudTextField
-                    T="string"
-                    Label="E-mail"
-                    InputType="InputType.Email"
-                    Required="true"
-                    RequiredError="Informe o E-mail"/>
+                <MudTextField T="string"
+                              Label="E-mail"
+                              InputType="InputType.Email"
+                              Required="true"
+                              RequiredError="Informe o E-mail" />
 
-                <MudTextField 
-                    T="string"
-                    Label="Senha"
-                    InputType="InputType.Password"
-                    Required="true"
-                    RequiredError="Senha inválida" />                    
+                <MudTextField T="string"
+                              Label="Senha"
+                              InputType="InputType.Password"
+                              Required="true"
+                              RequiredError="Senha inválida" />
             </MudForm>
 
             <div class="d-flex mt-8">
-                <MudButton 
-                    Variant="Variant.Filled"
-                    Color="Color.Primary"
-                    >ENTRAR</MudButton>
-                <MudSpacer/>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary">ENTRAR</MudButton>
+                <MudSpacer />
                 <MudButton Href="comecar">REGISTRAR</MudButton>
             </div>
         </MudPaper>
