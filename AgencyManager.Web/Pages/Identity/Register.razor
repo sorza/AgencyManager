@@ -1,5 +1,6 @@
 ﻿@page "/comecar"
 @layout HeadlessLayout
+@inherits RegisterPage
 
 <PageTitle> AgencyManager - Entrar</PageTitle>
 
@@ -12,7 +13,7 @@
                      width="300" />
             </div>
 
-            <MudForm @ref="_mudForm">
+            <MudForm @ref="MudForm">
                 <MudTextField T="string"
                               Label="E-mail"
                               InputType="InputType.Email"
@@ -35,8 +36,3 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
-
-@code
-{
-    MudForm? _mudForm;
-}
