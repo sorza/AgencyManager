@@ -6,6 +6,7 @@ namespace AgencyManager.Web
     {
         public const string HttpClientName = "AgencyManager";
         public static string BackendUrl { get; set; } = "http://localhost:5252/";
+        
         public static MudTheme Theme = new()
         {
             Typography = new Typography
