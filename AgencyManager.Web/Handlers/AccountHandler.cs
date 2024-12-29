@@ -2,6 +2,7 @@
 using AgencyManager.Core.Requests.Account;
 using AgencyManager.Core.Responses;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace AgencyManager.Web.Handlers
 {
@@ -16,9 +17,9 @@ namespace AgencyManager.Web.Handlers
                 : new Response<string>(null, (int)result.StatusCode, "Não foi possível realizar o login.");
         }
 
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            var emptyContent = new StringContent("{}", Encoding.UTF8, "application/json");
         }
 
         public async Task<Response<string>> RegisterAsync(RegisterRequest request)
