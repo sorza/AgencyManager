@@ -8,12 +8,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.AddConfiguration();        
-        builder.AddSecurity();     
+        builder.AddConfiguration();
+        builder.AddSecurity();
         builder.AddDataContexts();
         builder.AddAutoMapper();
         builder.AddCrossOrign();
-        builder.AddDocumentation();       
+        builder.AddDocumentation();
         builder.AddServices();
 
         var app = builder.Build();
@@ -22,9 +22,10 @@ public class Program
             app.ConfigDevEnvironment();
 
         app.UseCors(ApiConfiguration.CorsPolicyName);
-        app.UseSecurity();        
+        app.UseSecurity();
         app.MapEndpoints();
 
         app.Run();
     }
 }
+

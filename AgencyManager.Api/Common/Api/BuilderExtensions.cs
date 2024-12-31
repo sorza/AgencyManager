@@ -39,7 +39,7 @@ namespace AgencyManager.Api.Common.Api
 
         public static void AddDataContexts(this WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<AppDbContext>(x => { x.UseSqlServer(Configuration.ConnectionString);});
+            builder.Services.AddDbContext<AppDbContext>(x => { x.UseSqlServer(Configuration.ConnectionString); });
 
             builder.Services
                 .AddIdentityCore<User>()
@@ -69,20 +69,20 @@ namespace AgencyManager.Api.Common.Api
             builder.Services.AddTransient<IContractHandler, ContractHandler>();
         }
 
-        public static void AddCrossOrign(this WebApplicationBuilder builder) 
+        public static void AddCrossOrign(this WebApplicationBuilder builder)
         {
             builder.Services.AddCors(
                 options => options.AddPolicy(
                     ApiConfiguration.CorsPolicyName,
-                    policy => policy
-                        .WithOrigins([
-                            Configuration.BackendUrl,
-                            Configuration.FrontendUrl
-                         ])
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials()
-                    ));
+                        policy => policy
+                            .WithOrigins([
+                                Configuration.BackendUrl,
+                                Configuration.FrontendUrl
+                             ])
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                ));
         }
     }
 }
