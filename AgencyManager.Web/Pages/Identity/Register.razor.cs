@@ -39,6 +39,7 @@ namespace AgencyManager.Web.Pages.Identity
 
             try
             {
+                //To do: Before create user, verify if the email address is in permitted list
                 var result = await Handler.RegisterAsync(InputModel);
 
                 if (result.IsSuccess)

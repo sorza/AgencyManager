@@ -19,27 +19,27 @@ namespace AgencyManager.Web
 
             PaletteLight = new PaletteLight
             {
-                Primary = "#1E3A5F",
+                Primary = "#FFF",
                 Secondary = "#4A90E2",
                 Tertiary = "#005B96",
                 Background = "#FFFFFF",
                 AppbarBackground = "#1E3A5F",
                 AppbarText = "#FFFFFF",
                 TextPrimary = Colors.Shades.Black,
-                DrawerBackground = "#7F8C8D",
+                DrawerBackground = "#21508e",
                 DrawerText = "#ECF0F1"
 
             },
             PaletteDark = new PaletteDark
             {
-                Primary = "#2C3E50",
+                Primary = "#FFF",
                 Secondary = "1E3A5F",
                 Tertiary = "4A90E2",
-                Background = "#1C1C1C",
-                AppbarBackground = "#2C3E50",
+                Background = "#343434",
+                AppbarBackground = "#21508e",
                 AppbarText = "#ECF0F1",
                 TextPrimary = "#ECF0F1",
-                DrawerBackground = "#1E3A5F",
+                DrawerBackground = "#1C1C1C",
                 DrawerText = "#95A5A6"
             }
         };
