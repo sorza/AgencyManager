@@ -40,12 +40,14 @@ namespace AgencyManager.Web.Pages.Identity
             {
                 var result = await Handler.LoginAsync(InputModel);
 
-                if (result.IsSuccess)                
-                    NavigationManager.NavigateTo("/");                
-                else
+                if (result.IsSuccess)
                 {
-                    Snackbar.Add(result.Message!, Severity.Error);
-                }
+                    await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                    AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+                    NavigationManager.NavigateTo("/");
+                }                            
+                else                
+                    Snackbar.Add(result.Message!, Severity.Error);                
             }
             catch (Exception ex)
             {
