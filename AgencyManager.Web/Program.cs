@@ -30,7 +30,6 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
-builder.Services.AddTransient<IAddressHandler, AddressHandler>();
 builder.Services.AddTransient<IContactHandler, ContactHandler>();
 
 await builder.Build().RunAsync();

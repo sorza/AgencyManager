@@ -30,7 +30,7 @@ namespace AgencyManager.Api.Endpoints.Contacts
                 UserId = user.Identity?.Name ?? string.Empty,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
-                EmplooyeeId = id
+                EmployeeId = id
             };
 
             var result = await handler.GetAllByEmployeeAsync(request);

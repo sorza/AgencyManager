@@ -161,7 +161,7 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar contatos por compania
                 var query = context
                 .Contacts
-                .Where(x => x.AgencyId == request.ComapanyId)
+                .Where(x => x.AgencyId == request.CompanyId)
                 .AsNoTracking();
 
                 #endregion
@@ -197,7 +197,7 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar contatos por colaborador
                 var query = context
                 .Contacts
-                .Where(x => x.AgencyId == request.EmplooyeeId)
+                .Where(x => x.AgencyId == request.EmployeeId)
                 .AsNoTracking();
 
                 #endregion
@@ -224,6 +224,28 @@ namespace AgencyManager.Api.Handler
             catch
             {
                 return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos deste colaborador.");
+            }
+        }
+        public async Task<Response<Contact>> GetByIdAsync(GetContactByIdRequest request)
+        {
+            try
+            {
+                #region 01. Buscar contato
+                var contact = await context.Contacts
+                   .FirstOrDefaultAsync(x => x.Id == request.Id);
+
+                if (contact is null)
+                    return new Response<Contact>(null, 404, "Contato não encontrado");
+                #endregion
+
+                #region 02. Retornar Resposta
+                return new Response<Contact>(contact, 200);
+
+                #endregion
+            }
+            catch
+            {
+                return new Response<Contact>(null, 500, "Não possível recuperar o contato.");
             }
         }
     }
