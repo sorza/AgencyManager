@@ -19,7 +19,7 @@ namespace AgencyManager.Web
 
             PaletteLight = new PaletteLight
             {
-                Primary = "#FFF",
+                Primary = "#1E3A5F",
                 Secondary = "#4A90E2",
                 Tertiary = "#005B96",
                 Background = "#FFFFFF",
@@ -32,7 +32,7 @@ namespace AgencyManager.Web
             },
             PaletteDark = new PaletteDark
             {
-                Primary = "#FFF",
+                Primary = "#21508e",
                 Secondary = "1E3A5F",
                 Tertiary = "4A90E2",
                 Background = "#343434",
