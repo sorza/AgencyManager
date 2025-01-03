@@ -2,34 +2,40 @@
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Responses;
+using System.Net.Http.Json;
 
 namespace AgencyManager.Web.Handlers
 {
-    public class AgencyHandler : IAgencyHandler
+    public class AgencyHandler(IHttpClientFactory httpClientFactory) : IAgencyHandler
     {
-        public Task<Response<AgencyDto?>> CreateAsync(CreateAgencyRequest request)
+        private readonly HttpClient _client = httpClientFactory.CreateClient(Configuration.HttpClientName);
+        public async Task<Response<AgencyDto?>> CreateAsync(CreateAgencyRequest request)
         {
-            throw new NotImplementedException();
+            var result = await _client.PostAsJsonAsync("v1/agencies", request);
+            return await result.Content.ReadFromJsonAsync<Response<AgencyDto?>>()
+                ?? new Response<AgencyDto?>(null, 400, "Falha ao criar agência");
         }
 
-        public Task<Response<AgencyDto?>> DeleteAsync(DeleteAgencyRequest request)
+        public async Task<Response<AgencyDto?>> DeleteAsync(DeleteAgencyRequest request)
         {
-            throw new NotImplementedException();
+            var result = await _client.DeleteAsync($"v1/agencies/{request.Id}");
+            return await result.Content.ReadFromJsonAsync<Response<AgencyDto?>>()
+                ?? new Response<AgencyDto?>(null, 400, "Falha ao excluir agência");
         }
 
-        public Task<PagedResponse<List<AgencyDto>?>> GetAllAsync(GetAllAgenciesRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<PagedResponse<List<AgencyDto>?>> GetAllAsync(GetAllAgenciesRequest request)
+         => await _client.GetFromJsonAsync<PagedResponse<List<AgencyDto>?>>("v1/agencies")
+             ?? new PagedResponse<List<AgencyDto>?>(null, 400, "Falha ao retornar agências");
 
-        public Task<Response<AgencyDto?>> GetByIdAsync(GetAgencyByIdRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Response<AgencyDto?>> GetByIdAsync(GetAgencyByIdRequest request)
+         => await _client.GetFromJsonAsync<Response<AgencyDto?>>($"v1/agencies/{request.Id}")
+             ?? new Response<AgencyDto?>(null, 400, "Falha ao retornar a agência");
 
-        public Task<Response<AgencyDto?>> UpdateAsync(UpdateAgencyRequest request)
+        public async Task<Response<AgencyDto?>> UpdateAsync(UpdateAgencyRequest request)
         {
-            throw new NotImplementedException();
+            var result = await _client.PutAsJsonAsync($"v1/agencies/{request.Id}", request);
+            return await result.Content.ReadFromJsonAsync<Response<AgencyDto?>>()
+                ?? new Response<AgencyDto?>(null, 400, "Falha ao atualizar agência");
         }
     }
 }
