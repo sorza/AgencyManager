@@ -177,7 +177,7 @@ namespace AgencyManager.Api.Handler
                 .Include(x => x.VirtualSales)
                 .AsNoTracking()
                 
-                .Where(x => x.AgencyId == request.Id &&
+                .Where(x => x.AgencyId == request.AgencyId &&
                             x.Date <= request.EndDate &&
                             x.Date >= request.StartDate)
                 .OrderBy(x => x.Date);

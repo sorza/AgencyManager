@@ -21,6 +21,8 @@ namespace AgencyManager.Api.Endpoints.Cashs
         private static async Task<IResult> HandleAsync(
              ClaimsPrincipal user,
              ICashHandler handler, string id,
+             [FromQuery] DateTime? startDate = null,
+             [FromQuery] DateTime? endDate = null,
              [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
              [FromQuery] int pageSize = Configuration.DefaultPageSize)
         {
@@ -29,7 +31,9 @@ namespace AgencyManager.Api.Endpoints.Cashs
                 UserId = user.Identity?.Name ?? string.Empty,
                 Id = id,
                 PageNumber = pageNumber,
-                PageSize = pageSize
+                PageSize = pageSize,
+                StartDate = startDate,
+                EndDate = endDate
             };
 
             var result = await handler.GetByUserByPeriodAsync(request);
