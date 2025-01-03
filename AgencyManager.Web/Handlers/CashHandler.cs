@@ -12,14 +12,14 @@ namespace AgencyManager.Web.Handlers
         private readonly HttpClient _client = httpClientFactory.CreateClient(Configuration.HttpClientName);
         public async Task<Response<Cash?>> CreateAsync(CreateCashRequest request)
         {
-            var result = await _client.PostAsJsonAsync("cash", request);
+            var result = await _client.PostAsJsonAsync("v1/cashs", request);
             return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
                 ?? new Response<Cash?>(null, 400, "Falha ao criar caixa");
         }
 
         public async Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
         {
-           var result = await _client.DeleteAsync($"cash/{request.Id}");
+           var result = await _client.DeleteAsync($"v1/cashs/{request.Id}");
             return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
                 ?? new Response<Cash?>(null, 400, "Falha ao deletar caixa");
         }
@@ -42,7 +42,7 @@ namespace AgencyManager.Web.Handlers
         }
 
         public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
-        => await _client.GetFromJsonAsync<Response<Cash?>>($"cash/{request.Id}")
+        => await _client.GetFromJsonAsync<Response<Cash?>>($"v1/cashs/{request.Id}")
             ?? new Response<Cash?>(null, 400, "Falha ao buscar caixa");
 
         public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
@@ -64,7 +64,7 @@ namespace AgencyManager.Web.Handlers
 
         public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
         {
-           var result = await _client.PutAsJsonAsync("cash", request);
+           var result = await _client.PutAsJsonAsync("v1/cashs", request);
             return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
                 ?? new Response<Cash?>(null, 400, "Falha ao atualizar caixa");
         }
