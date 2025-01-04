@@ -31,5 +31,15 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();
 builder.Services.AddTransient<IContactHandler, ContactHandler>();
+builder.Services.AddTransient<ICashHandler, CashHandler>();
+builder.Services.AddTransient<ICompanyHandler, CompanyHandler>();
+builder.Services.AddTransient<IContractHandler, ContractHandler>();
+builder.Services.AddTransient<IEmployeeHandler, EmployeeHandler>();
+builder.Services.AddTransient<ILocalityHandler, LocalityHandler>();
+builder.Services.AddTransient<IPositionHandler, PositionHandler>();
+builder.Services.AddTransient<ISaleHandler, SaleHandler>();
+builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+builder.Services.AddTransient<IVirtualSaleHandler, VirtualSaleHandler>();
+
 
 await builder.Build().RunAsync();
