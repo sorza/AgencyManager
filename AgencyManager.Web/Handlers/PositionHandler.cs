@@ -18,7 +18,7 @@ namespace AgencyManager.Web.Handlers
 
         public async Task<Response<Position?>> DeleteAsync(DeletePositionRequest request)
         {
-           var result = await _client.DeleteAsync($"v1/positions/{request.Id}");
+            var result = await _client.DeleteAsync($"v1/positions/{request.Id}");
             return await result.Content.ReadFromJsonAsync<Response<Position?>>()
                 ?? new Response<Position?>(null, 400, "Falha ao deletar cargo");
         }
@@ -33,7 +33,7 @@ namespace AgencyManager.Web.Handlers
 
         public async Task<Response<Position?>> UpdateAsync(UpdatePositionRequest request)
         {
-           var result = await _client.PutAsJsonAsync($"v1/positions/{request.Id}", request);
+            var result = await _client.PutAsJsonAsync($"v1/positions/{request.Id}", request);
             return await result.Content.ReadFromJsonAsync<Response<Position?>>()
                 ?? new Response<Position?>(null, 400, "Falha ao atualizar cargo");
         }
