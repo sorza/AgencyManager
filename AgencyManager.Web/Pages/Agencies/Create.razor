@@ -1,0 +1,80 @@
+﻿@page "/agencias/adicionar"
+@inherits CreateAgencyPage
+
+<MudText Typo="Typo.h4" Class="mt-8">Nova Agência</MudText>
+<EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+    <DataAnnotationsValidator />
+
+    <MudPaper Class="pa-4 mt-4">
+        <MudText Typo="Typo.h6">Dados</MudText>
+        <MudTextField Label="Descrição"
+                      Placeholder="Nome da agência"
+                      @bind-Value="InputModel.Description"
+                      For="@(() => InputModel.Description)" />
+
+        <MudTextField Label="CNPJ"
+                      Placeholder="CNPJ"
+                      @bind-Value="InputModel.Cnpj"
+                      For="@(() => InputModel.Cnpj)" />
+
+        <MudImage Class="mt-4" src="@FileImage" />
+        <br />
+        <MudButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Tertiary"
+                   StartIcon="@Icons.Material.Filled.PhotoCamera"
+                   Class="mt-2">
+            <MudFileUpload T="IBrowserFile"
+                           Accept=".jpg"
+                           FilesChanged="UploadFile"
+                           Style="display:none;" />
+            Foto
+        </MudButton>
+    </MudPaper>
+
+    <MudPaper Class="pa-4 mt-4">
+        <MudText Typo="Typo.h6">Endereço</MudText>
+        <MudTextField Label="CEP"
+                      Placeholder="CEP"
+                      @bind-Value="InputModel.Address.ZipCode"
+                      For="@(() => InputModel.Address.ZipCode)" />
+
+        <MudTextField Label="Logradouro"
+                      Placeholder="Logradouro"
+                      @bind-Value="InputModel.Address.Street"
+                      For="@(() => InputModel.Address.Street)" />
+
+        <MudTextField Label="Número"
+                      Placeholder="Número"
+                      @bind-Value="InputModel.Address.Number"
+                      For="@(() => InputModel.Address.Number)" />
+
+        <MudTextField Label="Bairro"
+                      Placeholder="Bairro"
+                      @bind-Value="InputModel.Address.Neighborhood"
+                      For="@(() => InputModel.Address.Neighborhood)" />
+
+        <MudTextField Label="Cidade"
+                      Placeholder="Cidade"
+                      @bind-Value="InputModel.Address.City"
+                      For="@(() => InputModel.Address.City)" />
+
+        <MudTextField Label="UF"
+                      Placeholder="UF"
+                      @bind-Value="InputModel.Address.State"
+                      For="@(() => InputModel.Address.State)" />
+
+        <MudTextField Label="Complemento"
+                      Placeholder="Complemento"
+                      @bind-Value="InputModel.Address.Complement"
+                      For="@(() => InputModel.Address.Complement)" />
+
+        <MudButton ButtonType="ButtonType.Submit"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Class="mt-4">
+            Cadastrar
+        </MudButton>
+    </MudPaper>
+
+</EditForm>
