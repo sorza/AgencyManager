@@ -3,8 +3,7 @@ using AgencyManager.Core.Models.Entities.ValueObjects;
 namespace AgencyManager.Core.Models.Entities
 {
     public class Agency : Entity
-    {
-        private IList<Contact> _contacts = [];
+    {       
         private IList<Position> _positions = [];
         private IList<Employee> _emplooyes = [];
         private IList<ContractService> _contracts = [];

@@ -24,6 +24,9 @@ public class AgencyMap : IEntityTypeConfiguration<Agency>
                .IsRequired()
                .HasColumnType("BIT");
 
+        builder.Property(x => x.Photo)
+            .HasColumnType("NVARCHAR(MAX)");
+
         builder.OwnsOne(x => x.Address, address =>
         {        
             address.Property(address => address.ZipCode)

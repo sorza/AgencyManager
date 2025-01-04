@@ -1,0 +1,58 @@
+﻿@page "/agencias"
+@inherits ListAgenciesPage
+
+<MudText Typo="Typo.h4" Class="mt-4">Minhas Agências</MudText>
+
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Add"
+               Href="/agencias/adicionar"           
+    >NOVA AGÊNCIA
+    </MudButton>
+</div>
+
+<MudDataGrid 
+    Items="@Agencies" 
+    Class="mt-4"
+    Filterable="true"
+    QuickFilter="Filter">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Lista de agências</MudText>
+        <MudSpacer/>
+        <MudTextField 
+            @bind-Value="SearchTerm"
+            Placeholder="Filtrar..."
+            Adornment="Adornment.Start"
+            AdornmentIcon="@Icons.Material.Filled.Search"
+            Immediate="true"
+            IconSize="Size.Medium"
+            Class="mt-0"
+        ></MudTextField>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="#" />
+        <PropertyColumn Property="x => x.Description" Title="Descrição" />
+        <PropertyColumn Property="x => x.Cnpj" Title="CNPJ" />
+        <PropertyColumn Property="x => x.Address.City" Title="Cidade"/>
+        <PropertyColumn Property="x => x.Address.State" Title="UF" />
+        <TemplateColumn>
+            <CellTemplate>
+                <MudStack Row Class="d-flex justify-end">
+                    <MudIconButton 
+                        Icon="@Icons.Material.Filled.Edit"
+                        Href="@($"/agencias/editar/{context.Item.Id}")"
+                        Color="Color.Primary">
+                    </MudIconButton>
+                    <MudIconButton 
+                        Icon="@Icons.Material.Filled.Delete"                        
+                        OnClick="@(()=> OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Description))"
+                        aria-label="Excluir"
+                        Color="Color.Error">
+                    </MudIconButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+        
+    </Columns>
+</MudDataGrid>
