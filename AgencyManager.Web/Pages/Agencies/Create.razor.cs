@@ -24,6 +24,11 @@ namespace AgencyManager.Web.Pages.Agencies
         #endregion
 
         #region Overrides
+
+        protected override void OnInitialized()
+        {
+            FileImage = "imgs/cardAgencia.jpg";
+        }
         #endregion
 
         #region Methods
