@@ -79,7 +79,6 @@ namespace AgencyManager.Web.Pages.Agencies
 
             StateHasChanged();
         }
-
         public async Task OnDeleteAsync(int id, string description)
         {
             try
