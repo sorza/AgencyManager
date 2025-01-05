@@ -95,15 +95,39 @@ else
                                           For="@(() => InputModel.Address.Complement)" />
                         </MudItem>
                     </MudGrid>
-                    <div class="d-flex justify-end">
-                        <MudButton ButtonType="ButtonType.Submit"
-                                   Variant="Variant.Filled"
-                                   Color="Color.Primary"
-                                   Class="mt-4">
-                            Salvar
-                        </MudButton>
-                    </div>
+                                        
                 </MudItem>               
+            </MudGrid>
+            <MudGrid Class="mt-2">
+                <MudButton Href="#"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.Contacts"
+                           Class="mt-4 ml-6">
+                    Contatos
+                </MudButton>
+                <MudButton Href="#"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.Group"
+                           Class="mt-4 ml-2">
+                    Cargos
+                </MudButton>
+                <MudButton Href="#"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.Person"
+                           Class="mt-4 ml-2">
+                    Colaboradores
+                </MudButton>
+                <MudButton ButtonType="ButtonType.Submit"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Save"
+                           Class="mt-4"
+                           Style="margin-left: auto;">
+                    Salvar
+                </MudButton>
             </MudGrid>
         </MudPaper>
 
