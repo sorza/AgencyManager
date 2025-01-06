@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Company;
@@ -11,7 +12,7 @@ namespace AgencyManager.Api.Handler
 {
     public class CompanyHandler(AppDbContext context, IMapper mapper) : ICompanyHandler
     {
-        public async Task<Response<Company?>> CreateAsync(CreateCompanyRequest request)
+        public async Task<Response<CompanyDto?>> CreateAsync(CreateCompanyRequest request)
         {
             #region 01. Validar requisição
 
@@ -20,7 +21,7 @@ namespace AgencyManager.Api.Handler
             string errors = string.Empty;
 
             if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                return new Response<Company?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                return new Response<CompanyDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
             #endregion
 
@@ -32,15 +33,16 @@ namespace AgencyManager.Api.Handler
                 await context.Companies.AddAsync(company);
                 await context.SaveChangesAsync();
 
-                return new Response<Company?>(company, 201, "Empresa cadastrada com sucesso.");
+                var companyDto = mapper.Map<CompanyDto>(company);
+                return new Response<CompanyDto?>(companyDto, 201, "Empresa cadastrada com sucesso.");
             }
             catch
             {
-                return new Response<Company?>(null, 500, "Não foi possível cadastrar empresa");
+                return new Response<CompanyDto?>(null, 500, "Não foi possível cadastrar empresa");
             }
             #endregion
         }
-        public async Task<Response<Company?>> DeleteAsync(DeleteCompanyRequest request)
+        public async Task<Response<CompanyDto?>> DeleteAsync(DeleteCompanyRequest request)
         {
             try
             {
@@ -51,7 +53,7 @@ namespace AgencyManager.Api.Handler
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (company is null)
-                    return new Response<Company?>(null, 404, "Empresa não encontrada");
+                    return new Response<CompanyDto?>(null, 404, "Empresa não encontrada");
 
                 #endregion
 
@@ -71,23 +73,23 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar resposta
-                return new Response<Company?>(company, 204, "Empresa excluída com sucesso");
+                var companyDto = mapper.Map<CompanyDto>(company);
+                return new Response<CompanyDto?>(companyDto, 204, "Empresa excluída com sucesso");
                 #endregion
 
             }
             catch
             {
-                return new Response<Company?>(null, 500, "Não foi possível excluir a empresa");
+                return new Response<CompanyDto?>(null, 500, "Não foi possível excluir a empresa");
             }
         }
-        public async Task<PagedResponse<List<Company>?>> GetAllAsync(GetAllCompaniesRequest request)
+        public async Task<PagedResponse<List<CompanyDto>?>> GetAllAsync(GetAllCompaniesRequest request)
         {
             try
             {
                 var query = context
                 .Companies
                 .Include(a => a.Address)
-                .Include(a => a.Contacts)
                 .AsNoTracking();
 
                 var companies = await query
@@ -97,16 +99,18 @@ namespace AgencyManager.Api.Handler
 
                 var count = await query.CountAsync();
 
+                var companiesDto = mapper.Map<List<CompanyDto>>(companies);
+
                 return companies.Count == 0
-                        ? new PagedResponse<List<Company>?>(null, 404, "Não foram encontradas empresas cadastradas.")
-                        : new PagedResponse<List<Company>?>(companies, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<CompanyDto>?>(null, 404, "Não foram encontradas empresas cadastradas.")
+                        : new PagedResponse<List<CompanyDto>?>(companiesDto, count, request.PageNumber, request.PageSize);
             }
             catch
             {
-                return new PagedResponse<List<Company>?>(null, 500, "Não possível consultar agências.");
+                return new PagedResponse<List<CompanyDto>?>(null, 500, "Não possível consultar agências.");
             }
         }
-        public async Task<Response<Company?>> GetByIdAsync(GetCompanyByIdRequest request)
+        public async Task<Response<CompanyDto?>> GetByIdAsync(GetCompanyByIdRequest request)
         {
             try
             {
@@ -116,16 +120,17 @@ namespace AgencyManager.Api.Handler
                  .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (company is null)
-                    return new Response<Company?>(null, 404, "Empresa não encontrada");
+                    return new Response<CompanyDto?>(null, 404, "Empresa não encontrada");
 
-                return new Response<Company?>(company, 200);
+                var companyDto = mapper.Map<CompanyDto>(company);
+                return new Response<CompanyDto?>(companyDto, 200);
             }
             catch
             {
-                return new Response<Company?>(null, 500, "Não foi possível consultar a empresa");
+                return new Response<CompanyDto?>(null, 500, "Não foi possível consultar a empresa");
             }
         }
-        public async Task<Response<Company?>> UpdateAsync(UpdateCompanyRequest request)
+        public async Task<Response<CompanyDto?>> UpdateAsync(UpdateCompanyRequest request)
         {
             try
             {
@@ -136,7 +141,7 @@ namespace AgencyManager.Api.Handler
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (company is null)
-                    return new Response<Company?>(null, 404, "Empresa não encontrada");
+                    return new Response<CompanyDto?>(null, 404, "Empresa não encontrada");
 
                 #endregion
 
@@ -146,34 +151,29 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Company?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<CompanyDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
-                #endregion
+                #endregion               
 
-                #region 03. Remover Contatos
-                if(company.Contacts is not null)
-                    context.Contacts.RemoveRange(company.Contacts);
-
-                #endregion
-
-                #region 04. Mapear dados e atualizar dados
+                #region 03. Mapear dados e atualizar dados
                 mapper.Map(request, company);
 
                 #endregion
 
-                #region 05. Salvar alterações
+                #region 04. Salvar alterações
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 06. Retornar Resposta
-                return new Response<Company?>(company, 200, "Empresa atualizada com sucesso");
+                #region 05. Retornar Resposta
+                var companyDto = mapper.Map<CompanyDto>(company);
+                return new Response<CompanyDto?>(companyDto, 200, "Empresa atualizada com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Company?>(null, 500, "Não foi possível alterar a empresa");
+                return new Response<CompanyDto?>(null, 500, "Não foi possível alterar a empresa");
             }
         }
     }

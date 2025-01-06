@@ -1,5 +1,4 @@
 ﻿using AgencyManager.Api.Common.Api;
-using AgencyManager.Api.Models;
 using AgencyManager.Core;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;

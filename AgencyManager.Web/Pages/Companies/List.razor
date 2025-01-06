@@ -1,0 +1,54 @@
+﻿@page "/empresas"
+@inherits ListCompaniesPage
+
+
+<MudText Typo="Typo.h4" Class="mt-4">Empresas</MudText>
+
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Add"
+               Href="/empresas/adicionar">
+        NOVA EMPRESA
+    </MudButton>
+</div>
+
+<MudDataGrid Items="@Companies"
+             Class="mt-4"
+             Filterable="true"
+             QuickFilter="Filter">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Lista de empresas</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="SearchTerm"
+                      Placeholder="Filtrar..."
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      Immediate="true"
+                      IconSize="Size.Medium"
+                      Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="#" />
+        <PropertyColumn Property="x => x.TradingName" Title="Nome Fantasia" />
+        <PropertyColumn Property="x => x.Name" Title="Razão Social" />        
+        <PropertyColumn Property="x => x.Cnpj" Title="CNPJ" />
+        <TemplateColumn>
+            <CellTemplate>
+                <MudStack Row Class="d-flex justify-end">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   Href="@($"/empresas/editar/{context.Item.Id}")"
+                                   Color="Color.Primary">
+                    </MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   OnClick="@(()=> OnDeleteButtonClickedAsync(context.Item.Id, context.Item.TradingName))"
+                                   aria-label="Excluir"
+                                   Color="Color.Error">
+                    </MudIconButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+
+    </Columns>
+</MudDataGrid>
+

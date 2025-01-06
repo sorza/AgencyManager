@@ -1,4 +1,5 @@
-﻿using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.DTOs;
+using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Company;
 using AutoMapper;
 
@@ -10,6 +11,8 @@ namespace AgencyManager.Core.Profiles
         {
             CreateMap<CreateCompanyRequest, Company>();
             CreateMap<UpdateCompanyRequest, Company>();
+
+            CreateMap<Company, CompanyDto>();
         }
     }
 }
