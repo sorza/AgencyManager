@@ -18,6 +18,6 @@ namespace AgencyManager.Core.Requests.Company
 
         [Required(ErrorMessage ="Endereço inválido")]
         public CreateAddressRequest Address { get; set; }  = new();       
-        public string? Logo { get; private set; }
+        public string? Logo { get; set; }
     }
 }

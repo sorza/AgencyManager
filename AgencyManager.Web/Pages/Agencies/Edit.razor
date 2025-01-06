@@ -18,12 +18,12 @@ else
         <MudPaper Class="pa-4 mt-4">
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="12" md="2">
-                    <MudImage Class="mt-4" Src="@FileImage" ObjectFit="ObjectFit.Cover" Height="200" Width="200" Fluid />
+                    <MudImage Class="mt-2" Src="@FileImage" ObjectFit="ObjectFit.Cover" Height="200" Width="200" Fluid />
                     <MudButton HtmlTag="label"
                                Variant="Variant.Filled"
                                Color="Color.Tertiary"
                                StartIcon="@Icons.Material.Filled.PhotoCamera"
-                               Class="mt-6"
+                               Class="mt-1"
                                FullWidth>
                         <MudFileUpload T="IBrowserFile"
                                        Accept=".jpg"
@@ -75,8 +75,8 @@ else
                                               For="@(() => InputModel.Address.Neighborhood)" />
                         </MudItem>
                     </MudGrid>
-                    <MudGrid Class="mt-1">
-                        <MudItem sm="12" md="5">
+                    <MudGrid>
+                        <MudItem sm="12" md="5" Class="mt-1">
                             <MudTextField Label="Cidade"
                                           Placeholder="Cidade"
                                           @bind-Value="InputModel.Address.City"
@@ -119,6 +119,13 @@ else
                            StartIcon="@Icons.Material.Filled.Person"
                            Class="mt-4 ml-2">
                     Colaboradores
+                </MudButton>
+                <MudButton Href="#"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.Dock"
+                           Class="mt-4 ml-2">
+                    Contratos
                 </MudButton>
                 <MudButton ButtonType="ButtonType.Submit"
                            Variant="Variant.Filled"

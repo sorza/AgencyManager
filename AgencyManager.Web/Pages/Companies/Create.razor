@@ -1,7 +1,8 @@
-﻿@page "/agencias/adicionar"
-@inherits CreateAgencyPage
+﻿@page "/empresas/adicionar"
+@inherits CreateCompanyPage
 
-<MudText Typo="Typo.h4" Class="mt-4">Nova Agência</MudText>
+
+<MudText Typo="Typo.h4" Class="mt-4">Nova Empresa</MudText>
 @if (IsBusy)
 {
     <MudSkeleton Height="55px" />
@@ -23,7 +24,7 @@ else
                                Variant="Variant.Filled"
                                Color="Color.Tertiary"
                                StartIcon="@Icons.Material.Filled.PhotoCamera"
-                               Class="mt-1"
+                               Class="mt-2"
                                FullWidth>
                         <MudFileUpload T="IBrowserFile"
                                        Accept=".jpg"
@@ -36,16 +37,24 @@ else
                     <MudText Typo="Typo.h6">Dados</MudText>
                     <MudGrid>
                         <MudItem sm="12" md="7">
-                            <MudTextField Label="Descrição"
-                                          Placeholder="Nome da agência"
-                                          @bind-Value="InputModel.Description"
-                                          For="@(() => InputModel.Description)" />
+                            <MudTextField Label="Razão Social"
+                                          Placeholder="Nome formal da empresa"
+                                          @bind-Value="InputModel.Name"
+                                          For="@(() => InputModel.Name)" />
                         </MudItem>
                         <MudItem sm="12" md="5">
                             <MudTextField Label="CNPJ"
                                           Placeholder="CNPJ"
                                           @bind-Value="InputModel.Cnpj"
                                           For="@(() => InputModel.Cnpj)" />
+                        </MudItem>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem sm="12" md="12" Class="mt-1">
+                            <MudTextField Label="Nome Fantasia"
+                                          Placeholder="Nome comercial da empresa"
+                                          @bind-Value="InputModel.TradingName"
+                                          For="@(() => InputModel.TradingName)" />
                         </MudItem>
                     </MudGrid>
                     <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
