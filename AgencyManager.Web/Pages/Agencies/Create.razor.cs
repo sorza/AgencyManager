@@ -89,7 +89,14 @@ namespace AgencyManager.Web.Pages.Agencies
         {           
             if (IsValid(ContactModel))
             {    
-                InputModel.Contacts.Add(ContactModel);             
+                var contact = new CreateContactRequest
+                {
+                    ContactType = ContactModel.ContactType,
+                    Description = ContactModel.Description,
+                    Departament = ContactModel.Departament,
+                };
+
+                InputModel.Contacts.Add(contact);             
             }
             else
             {
