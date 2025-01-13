@@ -1,4 +1,5 @@
 ﻿@page "/agencias/editar/{id}"
+@using AgencyManager.Core.Enums
 @inherits EditAgencyPage
 
 <MudText Typo="Typo.h4">Editar Agência</MudText>
@@ -30,6 +31,30 @@ else
                                        FilesChanged="UploadFile"
                                        Style="display:none;" />   
                                        IMAGEM
+                    </MudButton>
+                    <MudButton Href="#"
+                               Variant="Variant.Filled"
+                               Color="Color.Secondary"
+                               StartIcon="@Icons.Material.Filled.Person"
+                               FullWidth
+                               Class="mt-6">
+                        Cargos
+                    </MudButton>                    
+                    <MudButton Href="#"
+                               Variant="Variant.Filled"
+                               Color="Color.Secondary"
+                               StartIcon="@Icons.Material.Filled.Dock"
+                               FullWidth
+                               Class="mt-2">
+                        Contratos
+                    </MudButton>
+                    <MudButton Href="#"
+                               Variant="Variant.Filled"
+                               Color="Color.Secondary"
+                               StartIcon="@Icons.Material.Filled.Group"
+                               FullWidth
+                               Class="mt-2">
+                        Colaboradores
                     </MudButton>
                 </MudItem>
                 <MudItem sm="12" md="10">
@@ -95,31 +120,89 @@ else
                                           For="@(() => InputModel.Address.Complement)" />
                         </MudItem>
                     </MudGrid>
+                    <MudText Typo="Typo.h6" Class="mt-5">Lista de contatos</MudText>
+                    <MudGrid>
+                        <MudItem sm="12" md="3" Class="mt-1">
+                            <MudSelect T="EContactType"
+                                       Label="Tipo de contato"
+                                       For="@(() => ContactModel.ContactType)"
+                                       @bind-Value="ContactModel.ContactType">
+                                @foreach (var value in Enum.GetValues(typeof(EContactType)).Cast<EContactType>())
+                                {
+                                    <MudSelectItem Value="@value">@value</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="3">
+                            @switch (ContactModel.ContactType)
+                            {
+                                case Core.Enums.EContactType.Email:
+                                    <MudTextField Label="E-mail"
+                                                  Placeholder="exemplo@exemplo.com"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+                                case Core.Enums.EContactType.Phone:
+                                    <MudTextField Label="Telefone Fixo"
+                                                  Placeholder="(19)3333-4444"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                                case Core.Enums.EContactType.CellPhone:
+                                    <MudTextField Label="Celular"
+                                                  Placeholder="(19)99999-9999"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                                default:
+                                    <MudTextField Label="WhatsApp"
+                                                  Placeholder="(19)99999-9999"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                            }
+                        </MudItem>
+                        <MudItem sm="12" md="3">
+                            <MudTextField Label="Departamento"
+                                          Placeholder="Ex: Guichê"
+                                          @bind-Value="ContactModel.Departament"
+                                          For="@(() => ContactModel.Departament)" />
+                        </MudItem>
+                        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                       OnClick="@(()=> AddContact())"
+                                       Size="Size.Small"
+                                       Color="Color.Success">
+                        </MudIconButton>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem sm="12" md="12">
+                            <MudDataGrid Items="@InputModel.Contacts"
+                                         Class="mt-6">
+                                <Columns>
+                                    <PropertyColumn Property="x => x.ContactType" Title="Tipo" />
+                                    <PropertyColumn Property="x => x.Description" Title="Contato" />
+                                    <PropertyColumn Property="x => x.Departament" Title="Departamento" />
+                                    <TemplateColumn>
+                                        <CellTemplate Context="contato">
+                                            <MudStack Row Class="d-flex justify-end">
+                                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                               OnClick="@(()=> OnDeleteButtonClickedAsync(contato.Item))"
+                                                               Color="Color.Error">
+                                                </MudIconButton>
+                                            </MudStack>
+                                        </CellTemplate>
+                                    </TemplateColumn>
+                                </Columns>
+                            </MudDataGrid>
+                        </MudItem>
+                    </MudGrid>
                                         
                 </MudItem>               
             </MudGrid>
-            <MudGrid Class="mt-2">                
-                <MudButton Href="#"
-                           Variant="Variant.Filled"
-                           Color="Color.Secondary"
-                           StartIcon="@Icons.Material.Filled.Group"
-                           Class="mt-4 ml-6">
-                    Cargos
-                </MudButton>
-                <MudButton Href="#"
-                           Variant="Variant.Filled"
-                           Color="Color.Secondary"
-                           StartIcon="@Icons.Material.Filled.Person"
-                           Class="mt-4 ml-2">
-                    Colaboradores
-                </MudButton>
-                <MudButton Href="#"
-                           Variant="Variant.Filled"
-                           Color="Color.Secondary"
-                           StartIcon="@Icons.Material.Filled.Dock"
-                           Class="mt-4 ml-2">
-                    Contratos
-                </MudButton>
+            <MudGrid Class="mt-2">   
                 <MudButton ButtonType="ButtonType.Submit"
                            Variant="Variant.Filled"
                            Color="Color.Primary"

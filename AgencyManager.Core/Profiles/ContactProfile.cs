@@ -1,4 +1,5 @@
-﻿using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.DTOs;
+using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Contact;
 using AutoMapper;
 
@@ -11,6 +12,8 @@ namespace AgencyManager.Core.Profiles
             CreateMap<CreateContactRequest, Contact>();
             CreateMap<Contact, UpdateContactRequest>();
             CreateMap<UpdateContactRequest, Contact>();
+
+            CreateMap<Contact, ContactDto>();
         }
     }
 }

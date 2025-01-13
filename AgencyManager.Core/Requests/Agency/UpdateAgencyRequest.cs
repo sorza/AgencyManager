@@ -1,4 +1,5 @@
 using AgencyManager.Core.Requests.Address;
+using AgencyManager.Core.Requests.Contact;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Agency
@@ -17,6 +18,8 @@ namespace AgencyManager.Core.Requests.Agency
 
         [Required(ErrorMessage = "O endereço é obrigatório")]
         public CreateAddressRequest Address { get; set; } = new();
+
+        public List<UpdateContactRequest>? Contacts { get; set; } = [];
 
         public string? Photo { get; set; }
     }
