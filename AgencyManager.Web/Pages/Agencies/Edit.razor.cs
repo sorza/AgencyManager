@@ -1,5 +1,6 @@
 ﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -16,6 +17,7 @@ namespace AgencyManager.Web.Pages.Agencies
         #region Properties
         public bool IsBusy { get; set; } = false;
         public UpdateAgencyRequest InputModel { get; set; } = new();
+        public CreateContactRequest ContactModel { get; set; } = new();
         public string FileImage { get; set; } = string.Empty;
 
         #endregion
@@ -24,6 +26,7 @@ namespace AgencyManager.Web.Pages.Agencies
         [Inject] ISnackbar Snackbar { get; set; } = null!;
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
         [Inject] IAgencyHandler Handler { get; set; } = null!;
+        [Inject] IContactHandler ContactHandler { get; set; } = null!;
         #endregion
 
         #region Overrides

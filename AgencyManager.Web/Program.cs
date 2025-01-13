@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Web.Handlers;
 using System.Globalization;
+using AgencyManager.Core.Profiles;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -27,6 +28,8 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 {
     opt.BaseAddress = new Uri(Configuration.BackendUrl);
 }).AddHttpMessageHandler<CookieHandler>();
+
+builder.Services.AddAutoMapper(typeof(AddressProfile).Assembly);
 
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 builder.Services.AddTransient<IAgencyHandler, AgencyHandler>();

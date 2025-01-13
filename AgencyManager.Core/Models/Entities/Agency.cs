@@ -27,7 +27,7 @@ namespace AgencyManager.Core.Models.Entities
         public string Cnpj { get; private set; }
         public bool Active { get; private set; }
         public Address Address { get; private set; }
-        public List<Contact>? Contacts { get; set; }
+        public IList<Contact>? Contacts { get; set; }
         public IReadOnlyCollection<Position>? Positions { get { return _positions.ToArray(); }}
         public IReadOnlyCollection<Employee>? Employees { get { return _emplooyes.ToArray(); }}
         public IReadOnlyCollection<ContractService>? Contracts { get { return _contracts.ToArray(); }}

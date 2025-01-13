@@ -1,9 +1,11 @@
 ﻿using AgencyManager.Core.Handlers;
-using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
+using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Web.Pages.Agencies
 {
@@ -12,6 +14,7 @@ namespace AgencyManager.Web.Pages.Agencies
         #region Properties
         public bool IsBusy { get; set; } = false;
         public CreateAgencyRequest InputModel { get; set; } = new();
+        public CreateContactRequest ContactModel { get; set; } = new();
         public string FileImage { get; set; } = string.Empty;
 
         #endregion
@@ -20,6 +23,7 @@ namespace AgencyManager.Web.Pages.Agencies
         [Inject] public IAgencyHandler Handler { get; set; } = null!;
         [Inject] public NavigationManager Navigation { get; set; } = null!;
         [Inject] public ISnackbar Snackbar { get; set; } = null!;
+        [Inject] public IMapper Mapper { get; set; } = null!;
 
         #endregion
 
@@ -27,7 +31,8 @@ namespace AgencyManager.Web.Pages.Agencies
 
         protected override void OnInitialized()
         {
-            FileImage = "imgs/cardAgencia.jpg";
+            FileImage = "imgs/cardAgencia.jpg";  
+            ContactModel.ContactType = Core.Enums.EContactType.Phone;
         }
         #endregion
 
@@ -59,7 +64,6 @@ namespace AgencyManager.Web.Pages.Agencies
                 IsBusy = false;
             }
         }
-
         public async Task UploadFile(IBrowserFile file)
         {
             var format = "image/jpeg";
@@ -75,6 +79,32 @@ namespace AgencyManager.Web.Pages.Agencies
 
             FileImage = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
 
+        }
+        public void RemoveContact(CreateContactRequest contact)
+        {
+            InputModel.Contacts.Remove(contact);     
+            StateHasChanged();
+        }
+        public void AddContact()
+        {           
+            if (IsValid(ContactModel))
+            {    
+                InputModel.Contacts.Add(ContactModel);             
+            }
+            else
+            {
+                Snackbar.Add("Contato inválido.", Severity.Error);
+            }
+            StateHasChanged();
+        }
+        private bool IsValid(CreateContactRequest contact)
+        {
+            var validationContext = new ValidationContext(contact, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(contact, validationContext, validationResults, true))
+                return false;
+            return true;
         }
         #endregion
     }

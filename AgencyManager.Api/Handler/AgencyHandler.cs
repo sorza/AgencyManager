@@ -2,7 +2,6 @@
 using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
-using AgencyManager.Core.Models.Entities.ValueObjects;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Responses;
 using AutoMapper;
@@ -28,13 +27,15 @@ namespace AgencyManager.Api.Handler
 
             #region 02. Mapear propriedades e criar agencia
             try
-            {              
+            {               
                 var agency = mapper.Map<Agency>(request);
 
                 await context.Agencies.AddAsync(agency);
+
                 await context.SaveChangesAsync();
 
                 var agencyDto = mapper.Map<AgencyDto>(agency);
+
                 return new Response<AgencyDto?>(agencyDto, 201, "Agência criada com sucesso.");
             }
             catch

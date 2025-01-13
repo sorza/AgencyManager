@@ -10,7 +10,10 @@ namespace AgencyManager.Core.Profiles
         public AgencyProfile()
         {
             CreateMap<CreateAgencyRequest, Agency>()
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));              
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
+                .ForMember(dest => dest.Contacts, opt => opt.MapFrom(src => src.Contacts));
+
+
 
             CreateMap<UpdateAgencyRequest, Agency>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))

@@ -1,4 +1,5 @@
 ﻿@page "/agencias/adicionar"
+@using AgencyManager.Core.Enums
 @inherits CreateAgencyPage
 
 <MudText Typo="Typo.h4" Class="mt-4">Nova Agência</MudText>
@@ -20,15 +21,15 @@ else
                 <MudItem sm="12" md="2">
                     <MudImage Class="mt-2" Src="@FileImage" ObjectFit="ObjectFit.Cover" Height="200" Width="200" Fluid />
                     <MudButton HtmlTag="label"
-                               Variant="Variant.Filled"
-                               Color="Color.Tertiary"
-                               StartIcon="@Icons.Material.Filled.PhotoCamera"
-                               Class="mt-1"
-                               FullWidth>
+                    Variant="Variant.Filled"
+                    Color="Color.Tertiary"
+                    StartIcon="@Icons.Material.Filled.PhotoCamera"
+                    Class="mt-1"
+                    FullWidth>
                         <MudFileUpload T="IBrowserFile"
-                                       Accept=".jpg"
-                                       FilesChanged="UploadFile"
-                                       Style="display:none;" />
+                        Accept=".jpg"
+                        FilesChanged="UploadFile"
+                        Style="display:none;" />
                         IMAGEM
                     </MudButton>
                 </MudItem>
@@ -37,63 +38,142 @@ else
                     <MudGrid>
                         <MudItem sm="12" md="7">
                             <MudTextField Label="Descrição"
-                                          Placeholder="Nome da agência"
-                                          @bind-Value="InputModel.Description"
-                                          For="@(() => InputModel.Description)" />
+                            Placeholder="Nome da agência"
+                            @bind-Value="InputModel.Description"
+                            For="@(() => InputModel.Description)" />
                         </MudItem>
                         <MudItem sm="12" md="5">
                             <MudTextField Label="CNPJ"
-                                          Placeholder="CNPJ"
-                                          @bind-Value="InputModel.Cnpj"
-                                          For="@(() => InputModel.Cnpj)" />
+                            Placeholder="CNPJ"
+                            @bind-Value="InputModel.Cnpj"
+                            For="@(() => InputModel.Cnpj)" />
                         </MudItem>
                     </MudGrid>
                     <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
                     <MudGrid>
                         <MudItem sm="12" md="3">
                             <MudTextField Label="CEP"
-                                          Placeholder="CEP"
-                                          @bind-Value="InputModel.Address.ZipCode"
-                                          For="@(() => InputModel.Address.ZipCode)" />
+                            Placeholder="CEP"
+                            @bind-Value="InputModel.Address.ZipCode"
+                            For="@(() => InputModel.Address.ZipCode)" />
                         </MudItem>
                         <MudItem sm="12" md="4">
                             <MudTextField Label="Logradouro"
-                                          Placeholder="Logradouro"
-                                          @bind-Value="InputModel.Address.Street"
-                                          For="@(() => InputModel.Address.Street)" />
+                            Placeholder="Logradouro"
+                            @bind-Value="InputModel.Address.Street"
+                            For="@(() => InputModel.Address.Street)" />
                         </MudItem>
                         <MudItem sm="12" md="2">
                             <MudTextField Label="Número"
-                                          Placeholder="Número"
-                                          @bind-Value="InputModel.Address.Number"
-                                          For="@(() => InputModel.Address.Number)" />
+                            Placeholder="Número"
+                            @bind-Value="InputModel.Address.Number"
+                            For="@(() => InputModel.Address.Number)" />
                         </MudItem>
                         <MudItem sm="12" md="3">
                             <MudTextField Label="Bairro"
-                                          Placeholder="Bairro"
-                                          @bind-Value="InputModel.Address.Neighborhood"
-                                          For="@(() => InputModel.Address.Neighborhood)" />
+                            Placeholder="Bairro"
+                            @bind-Value="InputModel.Address.Neighborhood"
+                            For="@(() => InputModel.Address.Neighborhood)" />
                         </MudItem>
                     </MudGrid>
                     <MudGrid>
                         <MudItem sm="12" md="5" Class="mt-1">
                             <MudTextField Label="Cidade"
-                                          Placeholder="Cidade"
-                                          @bind-Value="InputModel.Address.City"
-                                          For="@(() => InputModel.Address.City)" />
+                            Placeholder="Cidade"
+                            @bind-Value="InputModel.Address.City"
+                            For="@(() => InputModel.Address.City)" />
                         </MudItem>
                         <MudItem sm="12" md="2">
                             <MudTextField Label="UF"
-                                          Placeholder="UF"
-                                          @bind-Value="InputModel.Address.State"
-                                          For="@(() => InputModel.Address.State)" />
+                            Placeholder="UF"
+                            @bind-Value="InputModel.Address.State"
+                            For="@(() => InputModel.Address.State)" />
                         </MudItem>
                         <MudItem sm="12" md="5">
                             <MudTextField Label="Complemento"
-                                          Placeholder="Complemento"
-                                          @bind-Value="InputModel.Address.Complement"
-                                          For="@(() => InputModel.Address.Complement)" />
+                            Placeholder="Complemento"
+                            @bind-Value="InputModel.Address.Complement"
+                            For="@(() => InputModel.Address.Complement)" />
                         </MudItem>
+                    </MudGrid>
+                    <MudText Typo="Typo.h6" Class="mt-5">Lista de contatos</MudText>
+                    <MudGrid>                        
+                        <MudItem sm="12" md="3" Class="mt-1">
+                            <MudSelect T="EContactType"
+                                       Label="Tipo de contato"
+                                       For="@(() => ContactModel.ContactType)"
+                                       @bind-Value="ContactModel.ContactType"> 
+                                    @foreach (var value in Enum.GetValues(typeof(EContactType)).Cast<EContactType>())
+                                    {
+                                        <MudSelectItem Value="@value">@value</MudSelectItem>
+                                    }
+                             </MudSelect>                           
+                        </MudItem>
+                        <MudItem sm="12" md="3">
+                            @switch(ContactModel.ContactType)
+                            {
+                                case Core.Enums.EContactType.Email:
+                                    <MudTextField Label="E-mail"
+                                                  Placeholder="exemplo@exemplo.com"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+                                case Core.Enums.EContactType.Phone:
+                                    <MudTextField Label="Telefone Fixo"
+                                                  Placeholder="(19)3333-4444"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                                case Core.Enums.EContactType.CellPhone:
+                                    <MudTextField Label="Celular"
+                                                  Placeholder="(19)99999-9999"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                                default:
+                                    <MudTextField Label="WhatsApp"
+                                                  Placeholder="(19)99999-9999"
+                                                  @bind-Value="ContactModel.Description"
+                                                  For="@(() => ContactModel.Description)" />
+                                    break;
+
+                            }       
+                        </MudItem>
+                        <MudItem sm="12" md="3">
+                            <MudTextField Label="Departamento"
+                                          Placeholder="Ex: Guichê"
+                                          @bind-Value="ContactModel.Departament"
+                                          For="@(() => ContactModel.Departament)" />
+                        </MudItem>
+                        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                       OnClick="AddContact"
+                                       Size="Size.Small"
+                                       Color="Color.Success">
+                        </MudIconButton>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem sm="12" md="12">
+                            <MudDataGrid Items="@InputModel.Contacts"
+                                         Class="mt-6">
+                                <Columns>                                    
+                                    <PropertyColumn Property="x => x.ContactType" Title="Tipo" />
+                                    <PropertyColumn Property="x => x.Description" Title="Contato" />
+                                    <PropertyColumn Property="x => x.Departament" Title="Departamento" />
+                                    <TemplateColumn>
+                                        <CellTemplate Context="contato">
+                                            <MudStack Row Class="d-flex justify-end">
+                                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                               OnClick="() => RemoveContact(contato.Item)"
+                                                               Color="Color.Error">
+                                                </MudIconButton>
+                                            </MudStack>
+                                        </CellTemplate>
+                                    </TemplateColumn>
+                                </Columns>
+                            </MudDataGrid>
+                        </MudItem>                        
                     </MudGrid>
                     <div class="d-flex justify-end">
                         <MudButton ButtonType="ButtonType.Submit"
