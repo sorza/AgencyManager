@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Position;
@@ -11,7 +12,7 @@ namespace AgencyManager.Api.Handler
 {
     public class PositionHandler(AppDbContext context, IMapper mapper) : IPositionHandler
     {
-        public async Task<Response<Position?>> CreateAsync(CreatePositionRequest request)
+        public async Task<Response<PositionDto?>> CreateAsync(CreatePositionRequest request)
         {
             try
             {
@@ -21,7 +22,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Position>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<PositionDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 #endregion
 
                 #region 02. Mapear dados da requisição para classe concreta
@@ -36,17 +37,18 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<Position>(position, 200, "Cargo cadastrado com sucesso!");
+                var positionDto = mapper.Map<PositionDto>(position);
+                return new Response<PositionDto?>(positionDto, 200, "Cargo cadastrado com sucesso!");
 
                 #endregion
             }
             catch
             {
-                return new Response<Position?>(null, 500, "Não foi possível cadastrar o cargo");
+                return new Response<PositionDto?>(null, 500, "Não foi possível cadastrar o cargo");
             }
            
         }
-        public async Task<Response<Position?>> DeleteAsync(DeletePositionRequest request)
+        public async Task<Response<PositionDto?>> DeleteAsync(DeletePositionRequest request)
         {
             try
             {
@@ -56,7 +58,7 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 02. Verificar se é nulo
-                if (position is null) return new Response<Position>(null, 404, "Cargo não encontrado");
+                if (position is null) return new Response<PositionDto?>(null, 404, "Cargo não encontrado");
 
                 #endregion
 
@@ -67,17 +69,18 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<Position>(position, 200, "Cargo excluído com sucesso");
+                var positionDto = mapper.Map<PositionDto>(position);
+                return new Response<PositionDto?>(positionDto, 200, "Cargo excluído com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Position?>(null, 500, "Não foi possível excluir o cargo");
+                return new Response<PositionDto?>(null, 500, "Não foi possível excluir o cargo");
             }
            
         }
-        public async Task<PagedResponse<List<Position>?>> GetAllByAgencyIdAsync(GetPositionsByAgencyIdRequest request)
+        public async Task<PagedResponse<List<PositionDto>?>> GetAllByAgencyIdAsync(GetPositionsByAgencyIdRequest request)
         {
             try
             {
@@ -103,17 +106,19 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
+                var positionsDto = mapper.Map<List<PositionDto>>(positions);
+
                 return positions is null
-                        ? new PagedResponse<List<Position>?>(null, 404, "Não foram encontrados cargos para esta agencia.")
-                        : new PagedResponse<List<Position>?>(positions, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<PositionDto>?>(null, 404, "Não foram encontrados cargos para esta agencia.")
+                        : new PagedResponse<List<PositionDto>?>(positionsDto, count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Position>?>(null, 500, "Não possível consultar os cargos.");
+                return new PagedResponse<List<PositionDto>?>(null, 500, "Não possível consultar os cargos.");
             }
         }
-        public async Task<Response<Position?>> GetByIdAsync(GetPositionByIdRequest request)
+        public async Task<Response<PositionDto?>> GetByIdAsync(GetPositionByIdRequest request)
         {
             try
             {
@@ -122,16 +127,17 @@ namespace AgencyManager.Api.Handler
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (position is null)
-                    return new Response<Position?>(null, 404, "Cargo não encontrado");
+                    return new Response<PositionDto?>(null, 404, "Cargo não encontrado");
 
-                return new Response<Position?>(position, 200);
+                var positionDto = mapper.Map<PositionDto>(position);
+                return new Response<PositionDto?>(positionDto, 200);
             }
             catch 
             {
-                return new Response<Position?>(null, 500, "Não foi possível consultar o cargo");
+                return new Response<PositionDto?>(null, 500, "Não foi possível consultar o cargo");
             }
         }
-        public async Task<Response<Position?>> UpdateAsync(UpdatePositionRequest request)
+        public async Task<Response<PositionDto?>> UpdateAsync(UpdatePositionRequest request)
         {
             try
             {
@@ -141,7 +147,7 @@ namespace AgencyManager.Api.Handler
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (position is null)
-                    return new Response<Position?>(null, 404, "Cargo não encontrado");
+                    return new Response<PositionDto?>(null, 404, "Cargo não encontrado");
                 #endregion
 
                 #region 02. Validar Cargo
@@ -152,7 +158,7 @@ namespace AgencyManager.Api.Handler
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
                 {
-                    return new Response<Position>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<PositionDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 }
 
                 #endregion
@@ -168,13 +174,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar Resposta
-                return new Response<Position?>(position, 200, "Cargo atualizado com sucesso");
+                var positionDto = mapper.Map<PositionDto>(position);
+                return new Response<PositionDto?>(positionDto, 200, "Cargo atualizado com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Position?>(null, 500, "Não foi possível atualizar o cargo");
+                return new Response<PositionDto?>(null, 500, "Não foi possível atualizar o cargo");
             }
         }
     }

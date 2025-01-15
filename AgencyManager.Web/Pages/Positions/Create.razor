@@ -1,0 +1,57 @@
+﻿@page "/cargos/adicionar/{id}"
+@inherits CreatePositionPage
+
+<MudText Typo="Typo.h4" Class="mt-4">Novo Cargo</MudText>
+@if (IsBusy)
+{
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+}
+else
+{
+     <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+        <DataAnnotationsValidator />
+
+        <MudPaper Class="pa-4 mt-4">
+        <MudGrid> 
+            <MudItem sm="12" md="8">
+                <MudTextField Label="Descrição"
+                              Placeholder="Ex: Vendedor(a)"
+                              @bind-Value="InputModel.Description"
+                              For="@(() => InputModel.Description)" />
+            </MudItem>
+            <MudItem sm="12" md="4">
+                <MudTextField Label="Salário (R$)"
+                              Placeholder="Salário"
+                              Format="C"
+                              Adornment="Adornment.Start" 
+                              AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                              AdornmentColor="Color.Warning"
+                              @bind-Value="InputModel.Salary"
+                              For="@(() => InputModel.Salary)" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem sm="12" Class="mt-2">
+                <MudTextField  Label="Resposabilidades"                               
+                               Placeholder="Ex: Vender produtos"
+                               Lines="3"
+                               @bind-Value="InputModel.Responsabilities"
+                               For="@(() => InputModel.Responsabilities)" />
+            </MudItem>            
+        </MudGrid>
+            <div class="d-flex justify-end">
+                <MudButton ButtonType="ButtonType.Submit"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           Class="mt-4">
+                    Cadastrar
+                </MudButton>
+            </div>
+        </MudPaper>
+     </EditForm>
+}

@@ -1,4 +1,5 @@
-﻿using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.DTOs;
+using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Position;
 using AutoMapper;
 
@@ -10,6 +11,7 @@ namespace AgencyManager.Core.Profiles
         {
             CreateMap<CreatePositionRequest, Position>();
             CreateMap<UpdatePositionRequest, Position>();
+            CreateMap<Position, PositionDto>();
         }
     }
 }
