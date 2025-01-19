@@ -33,7 +33,7 @@ namespace AgencyManager.Web.Pages.Positions
 
             try
             {
-                var request = new GetPositionsByAgencyIdRequest { AgencyId = Convert.ToInt32(Id)};
+                var request = new GetPositionsByAgencyIdRequest { AgencyId = Convert.ToInt32(Id) };
                 var result = await Handler.GetAllByAgencyIdAsync(request);
 
                 if (result.IsSuccess)
@@ -51,9 +51,31 @@ namespace AgencyManager.Web.Pages.Positions
         #endregion
 
         #region Methods
-        public async void OnDeleteButtonClickedAsync(int id, string position)
+        public async void OnDeleteButtonClickedAsync(int id, string description)
         {
+            var result = await DialogService.ShowMessageBox(
+                "ATENÇÃO",
+                $"Ao prosseguir o cargo {description} será excluído permanentemente. Esta é uma ação irreversível! Deseja continuar?",
+                yesText: "Excluir",
+                noText: "Cancelar");
 
+            if (result is true)
+                await OnDeleteAsync(id, description);
+
+            StateHasChanged();
+        }
+        public async Task OnDeleteAsync(int id, string description)
+        {
+            try
+            {
+                await Handler.DeleteAsync(new DeletePositionRequest { Id = id });
+                Positions.RemoveAll(x => x.Id == id);
+                Snackbar.Add($"Cargo {description} excluído com sucesso!", Severity.Success);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message!, Severity.Error);
+            }
         }
 
         public Func<PositionDto, bool> Filter => position =>
