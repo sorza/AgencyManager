@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
@@ -11,7 +12,7 @@ namespace AgencyManager.Api.Handler
 {
     public class EmployeeHandler(AppDbContext context, IMapper mapper) : IEmployeeHandler
     {
-        public async Task<Response<Employee>> CreateAsync(CreateEmployeeRequest request)
+        public async Task<Response<EmployeeDto?>> CreateAsync(CreateEmployeeRequest request)
         {
             try
             {
@@ -21,7 +22,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Employee>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<EmployeeDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
                 #endregion
 
@@ -37,17 +38,17 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<Employee>(employee, 201, "Colaborador cadastrado com sucesso.");
+                return new Response<EmployeeDto?>(mapper.Map<EmployeeDto>(employee), 201, "Colaborador cadastrado com sucesso.");
 
                 #endregion
 
             }
             catch 
             {
-                return new Response<Employee>(null, 500, "Não foi possível cadastrar o colaborador");
+                return new Response<EmployeeDto?>(null, 500, "Não foi possível cadastrar o colaborador");
             }
         }
-        public async Task<Response<Employee>> DeleteAsync(DeleteEmployeeRequest request)
+        public async Task<Response<EmployeeDto?>> DeleteAsync(DeleteEmployeeRequest request)
         {
             try
             {
@@ -58,7 +59,7 @@ namespace AgencyManager.Api.Handler
                 .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+                if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
 
                 #endregion
 
@@ -74,17 +75,17 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 04. Retornar resposta
-                return new Response<Employee>(employee, 200, "Colaborador excluído com sucesso");
+                #region 04. Retornar resposta             
+                return new Response<EmployeeDto?>(mapper.Map<EmployeeDto>(employee), 200, "Colaborador excluído com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Employee>(null, 500, "Não foi possível excluir o colaborador");
+                return new Response<EmployeeDto?>(null, 500, "Não foi possível excluir o colaborador");
             }
         }
-        public async Task<PagedResponse<List<Employee>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request)
+        public async Task<PagedResponse<List<EmployeeDto>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request)
         {
             try
             {
@@ -112,17 +113,19 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar Resposta
-                return employees.Count == 0
-                        ? new PagedResponse<List<Employee>?>(null, 404, "Não foram encontrados colaboradores para esta agencia.")
-                        : new PagedResponse<List<Employee>?>(employees, count, request.PageNumber, request.PageSize);
+
+                var employeeDtos = mapper.Map<List<EmployeeDto>>(employees);
+                return employeeDtos.Count == 0
+                        ? new PagedResponse<List<EmployeeDto>?>(null, 404, "Não foram encontrados colaboradores para esta agencia.")
+                        : new PagedResponse<List<EmployeeDto>?>(employeeDtos, count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Employee>?>(null, 500, "Não possível consultar os colaboradores.");
+                return new PagedResponse<List<EmployeeDto>?>(null, 500, "Não possível consultar os colaboradores.");
             }
         }
-        public async Task<Response<Employee>> GetByIdAsync(GetEmployeeByIdRequest request)
+        public async Task<Response<EmployeeDto?>> GetByIdAsync(GetEmployeeByIdRequest request)
         {
             try
             {
@@ -133,16 +136,16 @@ namespace AgencyManager.Api.Handler
                 .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+                if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
 
-                return new Response<Employee>(employee, 200);
+                return new Response<EmployeeDto?>(mapper.Map<EmployeeDto?>(employee), 200);
             }
             catch
             {
-                return new Response<Employee>(null, 500, "Não foi possível buscar colaborador");
+                return new Response<EmployeeDto?>(null, 500, "Não foi possível buscar colaborador");
             }            
         }
-        public async Task<Response<Employee>> UpdateAsync(UpdateEmployeeRequest request)
+        public async Task<Response<EmployeeDto?>> UpdateAsync(UpdateEmployeeRequest request)
         {
             try
             {
@@ -151,7 +154,7 @@ namespace AgencyManager.Api.Handler
                 .Employees
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                if (employee is null) return new Response<Employee>(null, 404, "Colaborador não encontrado");
+                if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
 
                 #endregion
 
@@ -161,7 +164,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Employee>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<EmployeeDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
                 #endregion
 
@@ -172,14 +175,14 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<Employee>(employee, 200, "Colaborador atualizado com sucesso!");
+                return new Response<EmployeeDto?>(mapper.Map<EmployeeDto>(employee), 200, "Colaborador atualizado com sucesso!");
                 
                 #endregion
 
             }
             catch
             {
-                return new Response<Employee>(null, 500, "Não foi possível atualizar o colaborador");
+                return new Response<EmployeeDto?>(null, 500, "Não foi possível atualizar o colaborador");
             }
             
         }

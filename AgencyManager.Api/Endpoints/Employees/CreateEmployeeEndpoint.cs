@@ -26,6 +26,7 @@ namespace AgencyManager.Api.Endpoints.Employees
 
             return result.IsSuccess
                 ? TypedResults.Created($"/{result.Data?.Id}", result)
+/**/
                 : TypedResults.BadRequest(result);
         }
     }

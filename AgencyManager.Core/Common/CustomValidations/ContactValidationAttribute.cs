@@ -19,11 +19,11 @@ namespace AgencyManager.Core.Common.CustomValidations
 
             switch (contactType)
             {
-                case EContactType.Phone:
+                case EContactType.Fixo:
                     if (!PhoneValidate(description!)) return new ValidationResult("Telefone inválido.");
                     break;
 
-                case EContactType.CellPhone:
+                case EContactType.Celular:
                     if (!CellPhoneValidate(description!)) return new ValidationResult("Celular inválido");
                     break;
 

@@ -2,8 +2,8 @@ namespace AgencyManager.Core.Enums
 {
     public enum EContactType
     {
-       Phone = 1,
-       CellPhone = 2,
+       Fixo= 1,
+       Celular = 2,
        WhatsApp = 3,
        Email = 4
     }

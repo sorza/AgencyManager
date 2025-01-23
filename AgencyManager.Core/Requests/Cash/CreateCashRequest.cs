@@ -9,7 +9,7 @@ namespace AgencyManager.Core.Requests.Cash
         public int AgencyId { get; set; }
 
         [Required(ErrorMessage = "A data é obrigatória")]
-        [DateNotInFuture]
+        [ContractDate]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage ="Informe o troco inicial")]        

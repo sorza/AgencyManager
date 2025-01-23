@@ -126,6 +126,7 @@ namespace AgencyManager.Api.Handler
                 .AsNoTracking()
                 .Include(a => a.Address)
                 .Include(a => a.Contacts)
+                .Include(p => p.Positions)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 var agencyDto = mapper.Map<AgencyDto>(agency);

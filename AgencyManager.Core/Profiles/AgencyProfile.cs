@@ -13,8 +13,6 @@ namespace AgencyManager.Core.Profiles
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dest => dest.Contacts, opt => opt.MapFrom(src => src.Contacts));
 
-
-
             CreateMap<UpdateAgencyRequest, Agency>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());

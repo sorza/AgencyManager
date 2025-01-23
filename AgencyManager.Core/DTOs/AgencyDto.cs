@@ -1,5 +1,4 @@
-﻿
-using AgencyManager.Core.Models.Entities.ValueObjects;
+﻿using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.DTOs
 {
@@ -11,6 +10,7 @@ namespace AgencyManager.Core.DTOs
         public bool Active { get; set; }
         public Address Address { get; set; } = null!;
         public IList<ContactDto> Contacts { get; set; } = [];
+        public IList<PositionDto> Positions { get; set; } = [];
         public string? Photo { get; set; }
     }
 }

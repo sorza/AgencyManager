@@ -4,7 +4,6 @@ namespace AgencyManager.Core.Models.Entities
 {
     public class Agency : Entity
     {       
-        private IList<Position> _positions = [];
         private IList<Employee> _emplooyes = [];
         private IList<ContractService> _contracts = [];
         private IList<Cash> _cash = [];
@@ -28,8 +27,8 @@ namespace AgencyManager.Core.Models.Entities
         public bool Active { get; private set; }
         public Address Address { get; private set; }
         public IList<Contact>? Contacts { get; set; }
-        public IReadOnlyCollection<Position>? Positions { get { return _positions.ToArray(); }}
-        public IReadOnlyCollection<Employee>? Employees { get { return _emplooyes.ToArray(); }}
+        public IList<Position>? Positions { get; set; }
+        public IList<Employee>? Employees { get; set; }
         public IReadOnlyCollection<ContractService>? Contracts { get { return _contracts.ToArray(); }}
         public IReadOnlyCollection<Cash>? Cash { get { return _cash.ToArray(); } }
         public string? Photo { get; private set; }      

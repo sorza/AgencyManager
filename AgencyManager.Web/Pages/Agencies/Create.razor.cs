@@ -1,9 +1,9 @@
 ﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Contact;
-using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AutoMapper;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,16 +28,15 @@ namespace AgencyManager.Web.Pages.Agencies
         #endregion
 
         #region Overrides
-
         protected override void OnInitialized()
         {
             FileImage = "imgs/cardAgencia.jpg";  
-            ContactModel.ContactType = Core.Enums.EContactType.Phone;
+            ContactModel.ContactType = Core.Enums.EContactType.Fixo;
         }
+
         #endregion
 
         #region Methods
-
         public async Task OnValidSubmitAsync()
         {
             IsBusy = true;

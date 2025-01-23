@@ -82,7 +82,7 @@ namespace AgencyManager.Web.Pages.Agencies
                         }).ToList()
                     };
 
-                    ContactModel.ContactType = Core.Enums.EContactType.Phone;
+                    ContactModel.ContactType = Core.Enums.EContactType.Fixo;
 
                     if (string.IsNullOrEmpty(InputModel.Photo)) FileImage = "imgs/cardAgencia.jpg";
                     else FileImage = $"data:image/jpeg;base64,{InputModel.Photo}";                   

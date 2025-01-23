@@ -1,5 +1,4 @@
 ﻿@page "/agencias/adicionar"
-@using AgencyManager.Core.Enums
 @inherits CreateAgencyPage
 
 <MudText Typo="Typo.h4" Class="mt-4">Nova Agência</MudText>
@@ -118,14 +117,14 @@ else
                                                   @bind-Value="ContactModel.Description"
                                                   For="@(() => ContactModel.Description)" />
                                     break;
-                                case Core.Enums.EContactType.Phone:
+                                case Core.Enums.EContactType.Fixo:
                                     <MudTextField Label="Telefone Fixo"
                                                   Placeholder="(19)3333-4444"
                                                   @bind-Value="ContactModel.Description"
                                                   For="@(() => ContactModel.Description)" />
                                     break;
 
-                                case Core.Enums.EContactType.CellPhone:
+                                case Core.Enums.EContactType.Celular:
                                     <MudTextField Label="Celular"
                                                   Placeholder="(19)99999-9999"
                                                   @bind-Value="ContactModel.Description"
