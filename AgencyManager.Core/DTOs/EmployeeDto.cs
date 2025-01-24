@@ -1,4 +1,6 @@
 ﻿using AgencyManager.Core.Models.Entities;
+using AgencyManager.Core.Models.Entities.ValueObjects;
+using AgencyManager.Core.Requests.Address;
 
 namespace AgencyManager.Core.DTOs
 {
@@ -12,6 +14,7 @@ namespace AgencyManager.Core.DTOs
         public DateTime BirthDay { get; set; }
         public int AgencyId { get; set; }
         public int PositionId { get; set; }
+        public Address? Address { get; set; }
         public virtual PositionDto? Position { get; set; }
         public DateTime DateHire { get;  set; }
         public DateTime DateDismiss { get;  set; }

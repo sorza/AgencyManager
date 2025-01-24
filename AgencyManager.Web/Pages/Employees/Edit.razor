@@ -1,0 +1,297 @@
+﻿@page "/funcionarios/editar/{id}"
+@inherits EmployeeEditPage
+
+<MudText Typo="Typo.h4" Class="mt-4">Editar Colaborador</MudText>
+@if (IsBusy)
+{
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+}
+else
+{
+    <EditForm Model="@EmployeeInputModel" OnValidSubmit="OnValidSubmitAsync">
+        <DataAnnotationsValidator />
+
+        <MudPaper Class="pa-4 mt-4">
+            <MudGrid>
+                <MudItem md="6" sm="12">
+                    <MudText Typo="Typo.h6">Dados do colaborador</MudText>
+                </MudItem>
+                <MudItem md="6" sm="12" Class="d-flex justify-end">
+                    @if(EmployeeInputModel.Active is true)
+                    {
+                        <MudSwitch ReadOnly @bind-Value="EmployeeInputModel.Active" Label="Em atividade" Color="Color.Success" />
+                    }  
+                    else
+                    {
+                        <MudSwitch ReadOnly @bind-Value="EmployeeInputModel.Active" Label="Desligado" UncheckedColor="Color.Error" />
+                    }
+                </MudItem>
+            </MudGrid>            
+            <MudGrid>
+                <MudItem sm="12" md="6" Class="mt-1">
+                    <MudTextField Label="Nome Completo"
+                    Placeholder="Ex: José da Silva"
+                    @bind-Value="EmployeeInputModel.Name"
+                    For="@(() => EmployeeInputModel.Name)"/>
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudTextField Label="CPF"
+                    Placeholder="CPF"
+                    MaxLength="11"
+                    @bind-Value="EmployeeInputModel.Cpf"
+                    For="@(() => EmployeeInputModel.Cpf)"/>
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudTextField Label="RG"
+                    Placeholder="RG"
+                    @bind-Value="EmployeeInputModel.Rg"
+                    For="@(() => EmployeeInputModel.Rg)" />
+                </MudItem>
+            </MudGrid>
+
+            <MudGrid>
+                @if(EmployeeInputModel.Active is true)
+                {
+                    <MudItem sm="12" md="4" Class="mt-1">
+                        <MudSelect T="int"
+                        Label="Selecione um cargo"
+                        Text="Selecione um cargo"
+                        For="@(() => EmployeeInputModel.PositionId)"
+                        @bind-Value="EmployeeInputModel.PositionId">
+                            @foreach (var value in Agency.Positions)
+                            {
+                                <MudSelectItem Value="@value.Id">@value.Description</MudSelectItem>
+                            } 
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem sm="12" md="4" Class="mt-1">
+                        <MudDatePicker Label="Data de nascimento"                                  
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        Editable="true"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="EmployeeInputModel.BirthDay"                                  
+                        For="@(() => EmployeeInputModel.BirthDay)"/>
+
+                    </MudItem>
+                    <MudItem sm="12" md="4" Class="mt-1">
+                        <MudDatePicker Label="Data de contratação"
+                        Editable="true"
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="EmployeeInputModel.DateHire"                                  
+                        For="@(() => EmployeeInputModel.DateHire)" />                  
+                    </MudItem>
+                }
+                else
+                {
+                    <MudItem sm="12" md="3" Class="mt-1">
+                    <MudSelect T="int"
+                    Label="Selecione um cargo"
+                    Text="Selecione um cargo"
+                    For="@(() => EmployeeInputModel.PositionId)"
+                    @bind-Value="EmployeeInputModel.PositionId">
+                        @foreach (var value in Agency.Positions)
+                        {
+                            <MudSelectItem Value="@value.Id">@value.Description</MudSelectItem>
+                        } 
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudDatePicker Label="Data de nascimento"                                  
+                    Mask="@(new DateMask("dd/MM/yyyy"))"
+                    Editable="true"
+                    DateFormat="dd/MM/yyyy"
+                    @bind-Date="EmployeeInputModel.BirthDay"                                  
+                    For="@(() => EmployeeInputModel.BirthDay)"/>
+
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudDatePicker Label="Data de contratação"
+                    Editable="true"
+                    Mask="@(new DateMask("dd/MM/yyyy"))"
+                    DateFormat="dd/MM/yyyy"
+                    @bind-Date="EmployeeInputModel.DateHire"                                  
+                    For="@(() => EmployeeInputModel.DateHire)" />                  
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudDatePicker Label="Data de demissão"
+                    Editable="true"
+                    Mask="@(new DateMask("dd/MM/yyyy"))"
+                    DateFormat="dd/MM/yyyy"
+                    @bind-Date="EmployeeInputModel.DateDismiss"                                  
+                            For="@(() => EmployeeInputModel.DateDismiss)" />                  
+                </MudItem>
+                }
+
+            </MudGrid>
+
+            <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
+            <MudGrid >
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudTextField Label="CEP"
+                    Placeholder="CEP"
+                    @bind-Value="EmployeeInputModel.Address.ZipCode"
+                    For="@(() => EmployeeInputModel.Address.ZipCode)"
+                    @ref="CepInput"/>
+                </MudItem>
+                <MudItem sm="12" md="4" Class="mt-1">
+                    <MudTextField Label="Logradouro"
+                    Placeholder="Logradouro"
+                    @bind-Value="EmployeeInputModel.Address.Street"
+                    For="@(() => EmployeeInputModel.Address.Street)" />
+                </MudItem>
+                <MudItem sm="12" md="2" Class="mt-1">
+                    <MudTextField Label="Número"
+                    Placeholder="Número"
+                    @bind-Value="EmployeeInputModel.Address.Number"
+                    For="@(() => EmployeeInputModel.Address.Number)" />
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudTextField Label="Bairro"
+                    Placeholder="Bairro"
+                    @bind-Value="EmployeeInputModel.Address.Neighborhood"
+                    For="@(() => EmployeeInputModel.Address.Neighborhood)" />
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudItem sm="12" md="5">
+                    <MudTextField Label="Cidade"
+                    Placeholder="Cidade"
+                    @bind-Value="EmployeeInputModel.Address.City"
+                    For="@(() => EmployeeInputModel.Address.City)" />
+                </MudItem>
+                <MudItem sm="12" md="2">
+                    <MudTextField Label="UF"
+                    Placeholder="UF"
+                    @bind-Value="EmployeeInputModel.Address.State"
+                    For="@(() => EmployeeInputModel.Address.State)" />
+                </MudItem>
+                <MudItem sm="12" md="5">
+                    <MudTextField Label="Complemento"
+                    Placeholder="Complemento"
+                    @bind-Value="EmployeeInputModel.Address.Complement"
+                    For="@(() => EmployeeInputModel.Address.Complement)" />
+                </MudItem>
+            </MudGrid>
+
+            <MudText Typo="Typo.h6" Class="mt-5">Lista de contatos</MudText>
+            <MudGrid>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudSelect T="EContactType"
+                    Label="Tipo de contato"
+                    For="@(() => ContactInputModel.ContactType)"
+                    @bind-Value="ContactInputModel.ContactType">
+                        @foreach (var value in Enum.GetValues(typeof(EContactType)).Cast<EContactType>())
+                        {
+                            <MudSelectItem Value="@value">@value</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    @switch (ContactInputModel.ContactType)
+                    {
+                        case Core.Enums.EContactType.Email:
+                            <MudTextField Label="E-mail"
+                            Placeholder="exemplo@exemplo.com"
+                            @bind-Value="ContactInputModel.Description"
+                            For="@(() => ContactInputModel.Description)" />
+                            break;
+                        case Core.Enums.EContactType.Fixo:
+                            <MudTextField Label="Telefone Fixo"
+                            Placeholder="(19)3333-4444"
+                            @bind-Value="ContactInputModel.Description"
+                            For="@(() => ContactInputModel.Description)" />
+                            break;
+
+                        case Core.Enums.EContactType.Celular:
+                            <MudTextField Label="Celular"
+                            Placeholder="(19)99999-9999"
+                            @bind-Value="ContactInputModel.Description"
+                            For="@(() => ContactInputModel.Description)" />
+                            break;
+
+                        default:
+                            <MudTextField Label="WhatsApp"
+                            Placeholder="(19)99999-9999"
+                            @bind-Value="ContactInputModel.Description"
+                            For="@(() => ContactInputModel.Description)" />
+                            break;
+
+                    }
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-1">
+                    <MudTextField Label="Departamento"
+                    Placeholder="Ex: Guichê"
+                    @bind-Value="ContactInputModel.Departament"
+                    For="@(() => ContactInputModel.Departament)" />
+                </MudItem>
+                <MudIconButton Icon="@Icons.Material.Filled.Add"
+                OnClick="AddContact"
+                Size="Size.Small"
+                Color="Color.Success">
+                </MudIconButton>
+            </MudGrid>
+            <MudGrid>
+                <MudItem sm="12" md="12">
+                    <MudDataGrid Items="@EmployeeInputModel.Contacts"
+                    Class="mt-6">
+                        <Columns>
+                            <PropertyColumn Property="x => x.ContactType" Title="Tipo" />
+                            <PropertyColumn Property="x => x.Description" Title="Contato" />
+                            <PropertyColumn Property="x => x.Departament" Title="Departamento" />
+                            <TemplateColumn>
+                                <CellTemplate Context="contato">
+                                    <MudStack Row Class="d-flex justify-end">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                        OnClick="() => OnDeleteButtonClickedAsync(contato.Item)"
+                                        Color="Color.Error">
+                                        </MudIconButton>
+                                    </MudStack>
+                                </CellTemplate>
+                            </TemplateColumn>
+                        </Columns>
+                    </MudDataGrid> 
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudItem md="6" sm="12">
+                    @if(EmployeeInputModel.Active is true)
+                    {
+                        <MudButton  Variant="Variant.Filled"                           
+                                    Color="Color.Error"
+                                    OnClick="ChangeState"
+                                    StartIcon="@Icons.Material.Filled.Block"
+                                    Class="mt-2">
+                                Desativar
+                        </MudButton>
+                    }
+                    else
+                    {
+                        <MudButton  Variant="Variant.Filled"                           
+                                    Color="Color.Success"
+                                            OnClick="@(ChangeState)"
+                                    StartIcon="@Icons.Material.Filled.NotificationsActive"
+                                    Class="mt-2">
+                                Reativar
+                        </MudButton>
+                    }
+                </MudItem>
+                <MudItem md="6" sm="12">
+                    <div class="d-flex justify-end">
+                        <MudButton ButtonType="ButtonType.Submit"
+                                    Variant="Variant.Filled"                           
+                                    Color="Color.Primary"
+                                    StartIcon="@Icons.Material.Filled.Save"
+                                    Class="mt-2">
+                            Salvar
+                        </MudButton>
+                    </div>
+                </MudItem>
+            </MudGrid>    
+        </MudPaper>
+    </EditForm>
+}
