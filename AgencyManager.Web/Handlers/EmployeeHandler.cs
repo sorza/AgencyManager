@@ -18,7 +18,7 @@ namespace AgencyManager.Web.Handlers
 
         public async Task<Response<EmployeeDto?>> DeleteAsync(DeleteEmployeeRequest request)
         {
-            var result = await _client.DeleteAsync($"v1/employees/{request.Id}");
+            var result = await _client.DeleteAsync($"v1/employees/id?id={request.Id}");
             return await result.Content.ReadFromJsonAsync<Response<EmployeeDto?>>()
                 ?? new Response<EmployeeDto?>(null, 400, "Falha ao deletar funcionário.");
         }

@@ -15,6 +15,6 @@ namespace AgencyManager.Core.DTOs
         public virtual PositionDto? Position { get; set; }
         public DateTime DateHire { get;  set; }
         public DateTime DateDismiss { get;  set; }
-        public List<Contact>? Contacts { get; set; } = [];
+        public List<ContactDto>? Contacts { get; set; } = [];
     }
 }

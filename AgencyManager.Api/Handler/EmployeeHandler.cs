@@ -95,6 +95,7 @@ namespace AgencyManager.Api.Handler
                 .AsNoTracking()
                 .Include(a => a.Address)
                 .Include(a => a.Contacts)
+                .Include(a => a.Position)
                 .Where(x => x.AgencyId == request.AgencyId);
 
                 #endregion
@@ -134,6 +135,7 @@ namespace AgencyManager.Api.Handler
                 .AsNoTracking()
                 .Include(a => a.Address)
                 .Include(a => a.Contacts)
+                .Include(a => a.Position)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
