@@ -116,9 +116,8 @@ namespace AgencyManager.Api.Handler
                 #region 04. Retornar Resposta
 
                 var employeeDtos = mapper.Map<List<EmployeeDto>>(employees);
-                return employeeDtos.Count == 0
-                        ? new PagedResponse<List<EmployeeDto>?>(null, 404, "Não foram encontrados colaboradores para esta agencia.")
-                        : new PagedResponse<List<EmployeeDto>?>(employeeDtos, count, request.PageNumber, request.PageSize);
+                return new PagedResponse<List<EmployeeDto>?>(employeeDtos, count, request.PageNumber, request.PageSize);
+
                 #endregion
             }
             catch

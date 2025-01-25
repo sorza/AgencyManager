@@ -40,10 +40,13 @@ namespace AgencyManager.Web.Pages.Agencies
             try
             {
                 request = new GetAgencyByIdRequest { Id = Convert.ToInt32(Id) };
+                var result = await Handler.GetByIdAsync(request);
+
             }
             catch
             {
-                Snackbar.Add("Parâmetro inválido", Severity.Error);
+                Snackbar.Add("Agência inválida.", Severity.Error);
+                NavigationManager.NavigateTo("/agencias");
             }
 
             if (request is null) return;

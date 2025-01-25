@@ -1,7 +1,7 @@
 ﻿using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
+using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Employee;
-using AgencyManager.Core.Requests.Position;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -15,7 +15,7 @@ namespace AgencyManager.Web.Pages.Employees
 
         #region Properties
         public bool IsBusy { get; set; }
-        public List<EmployeeDto> Employees { get; set; } = [];
+        public List<EmployeeDto>? Employees { get; set; } = [];
         public string SearchTerm { get; set; } = string.Empty;
         #endregion
 
@@ -23,13 +23,39 @@ namespace AgencyManager.Web.Pages.Employees
         [Inject] public ISnackbar Snackbar { get; set; } = null!;
         [Inject] public IEmployeeHandler Handler { get; set; } = null!;
         [Inject] public IDialogService DialogService { get; set; } = null!;
+        [Inject] public IAgencyHandler AgencyHandler { get; set; } = null!;
+        [Inject] public NavigationManager NavigationManager { get; set; } = null!;
         #endregion
 
         #region Overrides
-
+     
         protected override async Task OnInitializedAsync()
         {
             IsBusy = true;
+
+            try
+            {
+                var request = new GetAgencyByIdRequest { Id = Convert.ToInt32(Id) };
+                var result = await AgencyHandler.GetByIdAsync(request);
+
+                if(result is null)
+                {
+                    Snackbar.Add("Agência inválida", Severity.Error);
+                    NavigationManager.NavigateTo("/agencias");
+                }
+               
+                if(result!.Data!.Positions.Count() == 0)
+                {
+                    Snackbar.Add("Não há cargos cadastrados nesta agência. Não é possível gerenciar colaboradores sem cargos.", Severity.Error);
+                    NavigationManager.NavigateTo($"/agencias/editar/{Id}");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                NavigationManager.NavigateTo("/agencias");
+            }
 
             try
             {
@@ -69,7 +95,7 @@ namespace AgencyManager.Web.Pages.Employees
             try
             {
                 await Handler.DeleteAsync(new DeleteEmployeeRequest { Id = id });
-                Employees.RemoveAll(x => x.Id == id);
+                Employees!.RemoveAll(x => x.Id == id);
                 Snackbar.Add($"Funcionário {description} excluído com sucesso!", Severity.Success);
             }
             catch (Exception ex)

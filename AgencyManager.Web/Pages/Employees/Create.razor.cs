@@ -55,8 +55,9 @@ namespace AgencyManager.Web.Pages.Employees
 
                 if(Agency.Positions is null || !Agency.Positions.Any())
                 {
-                    Snackbar.Add("Agência sem cargos", Severity.Error);
-                    Navigation.NavigateTo("/agencias");
+                    Snackbar.Add("Esta agência não possui cargos cadastrados. Não é possível cadastrar colaborador sem cargo.", Severity.Error);
+                    Navigation.NavigateTo($"/agencias/editar/{Id}");
+                    return;
                 }
 
                 EmployeeInputModel.PositionId = Agency.Positions!.First().Id;
@@ -65,10 +66,10 @@ namespace AgencyManager.Web.Pages.Employees
                 ContactInputModel.ContactType = Core.Enums.EContactType.Celular;
 
             }
-            catch
+            catch(Exception ex) 
             {
-                Snackbar.Add("Agência Inválida", Severity.Error);
-                Navigation.NavigateTo("/agencias");
+                Snackbar.Add(ex.Message, Severity.Error);
+                Navigation.NavigateTo($"/agencias");
             }
         }       
 

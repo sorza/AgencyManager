@@ -20,11 +20,11 @@ else
         Href="@($"/funcionarios/cadastrar/{Id}")">
             NOVO COLABORADOR
         </MudButton>
-    </div>
-
+    </div>  
+   
     <MudDataGrid Items="@Employees"
-    Class="mt-4"   
-    QuickFilter="Filter">
+        Class="mt-4"   
+        QuickFilter="Filter">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Lista de colaboradores</MudText>
             <MudSpacer />
@@ -35,7 +35,7 @@ else
             Immediate="true"
             IconSize="Size.Medium"
             Class="mt-0"></MudTextField>
-        </ToolBarContent>
+        </ToolBarContent>        
         <Columns>
             <PropertyColumn Property="x => x.Name" Title="Nome" />
             <PropertyColumn Property="x => x.Cpf" Title="CPF" />
@@ -44,32 +44,32 @@ else
             <PropertyColumn Property="x => x.DateHire.ToShortDateString()" Title="Admissão" />            
             <TemplateColumn Title="Situação" Context="x">
                 <CellTemplate>
-                    @if(x.Item.Active)
-                    {
-                        <span>Em Atividade</span>
-                    }
-                    else
-                    {
-                        <span>Desligado</span>
-                    }                    
+                @if (x.Item.Active)
+                {
+                    <span>Em Atividade</span>
+                }
+                else
+                {
+                    <span>Desligado</span>
+                }                    
                 </CellTemplate>
             </TemplateColumn>
             <TemplateColumn>
                 <CellTemplate>
                     <MudStack Row Class="d-flex justify-end">
                         <MudIconButton Icon="@Icons.Material.Filled.Edit"
-                                       Href="@($"/funcionarios/editar/{context.Item.Id}")"
-                                       Color="Color.Primary">
+                                        Href="@($"/funcionarios/editar/{context.Item.Id}")"
+                                        Color="Color.Primary">
                         </MudIconButton>
                         <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                       OnClick="@(()=> OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Name))"
-                                       aria-label="Excluir"
-                                       Color="Color.Error">
+                                        OnClick="@(()=> OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Name))"
+                                        aria-label="Excluir"
+                                        Color="Color.Error">
                         </MudIconButton>
                     </MudStack>
                 </CellTemplate>
             </TemplateColumn>
-
         </Columns>
-    </MudDataGrid>
-}
+   </MudDataGrid>
+} 
+

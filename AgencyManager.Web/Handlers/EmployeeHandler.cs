@@ -24,7 +24,7 @@ namespace AgencyManager.Web.Handlers
         }
 
         public async Task<PagedResponse<List<EmployeeDto>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request)
-        => await _client.GetFromJsonAsync<PagedResponse<List<EmployeeDto>?>>($"v1/employees/agency/{request.AgencyId}")
+        => await _client.GetFromJsonAsync<PagedResponse<List<EmployeeDto>?>>($"v1/employees/agency/{request.AgencyId}?pageNumber={request.PageNumber}&pageSize={request.PageSize}")
             ?? new PagedResponse<List<EmployeeDto>?>(null, 400, "Falha ao buscar funcionários da agência.");
 
         public async Task<Response<EmployeeDto?>> GetByIdAsync(GetEmployeeByIdRequest request)
