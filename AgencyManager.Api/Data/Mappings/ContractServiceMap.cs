@@ -44,6 +44,14 @@ namespace AgencyManager.Api.Data.Mappings
                 .WithMany()
                 .HasForeignKey(c => c.AgencyId);
 
+            builder.Property(x => x.DailyPayment)
+                .IsRequired(true)
+                .HasColumnType("BIT");
+
+            builder.Property(x => x.DailyComission)
+                .IsRequired(true)
+                .HasColumnType("BIT");                
+
             builder.HasOne(c => c.Company)
                 .WithMany()
                 .HasForeignKey(c => c.CompanyId);

@@ -26,6 +26,8 @@ namespace AgencyManager.Core.Models.Entities
         public decimal Comission { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime? EndDate { get; private set; }
+        public bool DailyPayment { get; private set; } 
+        public bool DailyComission { get; private set; } 
 
     }
 }

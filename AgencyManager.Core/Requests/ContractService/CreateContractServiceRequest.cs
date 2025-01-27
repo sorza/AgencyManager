@@ -17,5 +17,7 @@ namespace AgencyManager.Core.Requests.ContractService
         [Required(ErrorMessage ="Informe a data de início do contrato")]
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; private set; }       
+        public bool DailyPayment { get; set; }
+        public bool DailyComission { get; set; }
     }
 }
