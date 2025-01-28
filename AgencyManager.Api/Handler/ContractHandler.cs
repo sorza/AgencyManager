@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.ContractService;
@@ -11,7 +12,7 @@ namespace AgencyManager.Api.Handler
 {
     public class ContractHandler(AppDbContext context, IMapper mapper) : IContractHandler
     {
-        public async Task<Response<ContractService?>> CreateAsync(CreateContractServiceRequest request)
+        public async Task<Response<ContractDto?>> CreateAsync(CreateContractServiceRequest request)
         {
             try
             {
@@ -21,7 +22,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<ContractService?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<ContractDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 #endregion
 
                 #region 02. Mapear dados para contrato
@@ -36,17 +37,17 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<ContractService?>(contract, 200, "Contrato registrado com sucesso!");
+                return new Response<ContractDto?>(mapper.Map<ContractDto>(contract), 200, "Contrato registrado com sucesso!");
 
                 #endregion
             }
             catch
             {
-                return new Response<ContractService?>(null, 500, "Não foi possível registrar o contrato");
+                return new Response<ContractDto?>(null, 500, "Não foi possível registrar o contrato");
             }
         }
 
-        public async Task<Response<ContractService?>> DeleteAsync(DeleteContractServiceRequest request)
+        public async Task<Response<ContractDto?>> DeleteAsync(DeleteContractServiceRequest request)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 02. Verificar se é nulo
-                if (contract is null) return new Response<ContractService?>(null, 404, "Contrato não encontrado");
+                if (contract is null) return new Response<ContractDto?>(null, 404, "Contrato não encontrado");
 
                 #endregion
 
@@ -67,17 +68,17 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<ContractService?>(contract, 200, "Contrato excluído com sucesso");
+                return new Response<ContractDto?>(mapper.Map<ContractDto>(contract), 200, "Contrato excluído com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<ContractService?>(null, 500, "Não foi possível excluir o contrato");
+                return new Response<ContractDto?>(null, 500, "Não foi possível excluir o contrato");
             }
         }
 
-        public async Task<PagedResponse<List<ContractService>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request)
+        public async Task<PagedResponse<List<ContractDto>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request)
         {
             try
             {
@@ -104,17 +105,17 @@ namespace AgencyManager.Api.Handler
 
                 #region 04. Retornar Resposta
                 return contracts is null
-                        ? new PagedResponse<List<ContractService>?>(null, 404, "Não foram encontrados contratos para esta agência.")
-                        : new PagedResponse<List<ContractService>?>(contracts, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<ContractDto>?>(null, 404, "Não foram encontrados contratos para esta agência.")
+                        : new PagedResponse<List<ContractDto>?>(mapper.Map<List<ContractDto>>(contracts), count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<ContractService>?>(null, 500, "Não possível consultar os contratos.");
+                return new PagedResponse<List<ContractDto>?>(null, 500, "Não possível consultar os contratos.");
             }
         }
 
-        public async Task<Response<ContractService?>> GetByIdAsync(GetContractByIdRequest request)
+        public async Task<Response<ContractDto?>> GetByIdAsync(GetContractByIdRequest request)
         {
             try
             {
@@ -124,21 +125,21 @@ namespace AgencyManager.Api.Handler
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (contract is null)
-                    return new Response<ContractService?>(null, 404, "Contrato não encontrado");
+                    return new Response<ContractDto?>(null, 404, "Contrato não encontrado");
                 #endregion
 
                 #region 02. Retorna resposta
-                return new Response<ContractService?>(contract, 200);
+                return new Response<ContractDto?>(mapper.Map<ContractDto>(contract), 200);
 
                 #endregion
             }
             catch
             {
-                return new Response<ContractService?>(null, 500, "Não foi possível buscar o contrato");
+                return new Response<ContractDto?>(null, 500, "Não foi possível buscar o contrato");
             }
         }
 
-        public async Task<Response<ContractService?>> UpdateAsync(UpdateContractServiceRequest request)
+        public async Task<Response<ContractDto?>> UpdateAsync(UpdateContractServiceRequest request)
         {
             try
             {
@@ -148,7 +149,7 @@ namespace AgencyManager.Api.Handler
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (contract is null)
-                    return new Response<ContractService?>(null, 404, "Contrato não encontrado.");
+                    return new Response<ContractDto?>(null, 404, "Contrato não encontrado.");
                 #endregion
 
                 #region 02. Validar Contrato
@@ -159,7 +160,7 @@ namespace AgencyManager.Api.Handler
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
                 {
-                    return new Response<ContractService?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<ContractDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 }
 
                 #endregion
@@ -175,13 +176,13 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar Resposta
-                return new Response<ContractService?>(contract, 200, "Contrato atualizado com sucesso!");
+                return new Response<ContractDto?>(mapper.Map<ContractDto>(contract), 200, "Contrato atualizado com sucesso!");
 
                 #endregion
             }
             catch
             {
-                return new Response<ContractService?>(null, 500, "Não foi possível atualizar o contrato");
+                return new Response<ContractDto?>(null, 500, "Não foi possível atualizar o contrato");
             }
         }
     }

@@ -1,4 +1,5 @@
 using AgencyManager.Core.Enums;
+using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
 {
@@ -8,13 +9,22 @@ namespace AgencyManager.Core.Models.Entities
         {
             
         }
-        public ContractService(int agencyId, int companyId, EServiceType serviceType, decimal comission, DateTime? startDate)
+        public ContractService(int agencyId, int companyId, EServiceType serviceType, decimal comission, DateTime startDate, DateTime? endDate, bool dailyPayment, bool boleto, bool dailyComission, bool nfe, NfeData? nfeData )
         {       
             AgencyId = agencyId;           
             CompanyId = companyId;
             ServiceType = serviceType;            
             Comission = comission;
-            StartDate = startDate ?? DateTime.Now;
+            StartDate = startDate;
+            
+            DailyPayment = dailyPayment;
+            DailyComission = dailyComission;
+            Boleto = boleto;
+            Nfe = nfe;
+
+            if(endDate is not null ) EndDate = endDate; 
+            if(nfeData is not null) NfeData = nfeData; 
+
         }
 
         public bool Active { get; private set; } = true;
@@ -26,8 +36,11 @@ namespace AgencyManager.Core.Models.Entities
         public decimal Comission { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime? EndDate { get; private set; }
-        public bool DailyPayment { get; private set; } 
-        public bool DailyComission { get; private set; } 
+        public bool DailyPayment { get; private set; }
+        public bool Boleto { get; private set; } 
+        public bool DailyComission { get; private set; }
+        public bool Nfe { get; private set; }         
+        public virtual NfeData? NfeData { get; private set; }
 
     }
 }

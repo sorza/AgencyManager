@@ -2,3 +2,156 @@
 @inherits ContractsCreatePage
 
 <MudText Typo="Typo.h4" Class="mt-4">Novo Contrato</MudText>
+
+@if (IsBusy)
+{
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+}
+else
+{
+    <MudPaper Class="pa-4 mt-4">
+        <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+            <DataAnnotationsValidator />
+
+            <MudText Typo="Typo.h6">Dados do contrato</MudText>
+            <MudGrid>
+                <MudItem sm="12" md="4" Class="mt-2">
+                    <MudSelect T="int"
+                    Label="Empresa"
+                    Text="Selecione uma empresa"
+                    SelectedValuesChanged="OnCompanySelected"
+                    For="@(() => InputModel.CompanyId)"
+                    @bind-Value="InputModel.CompanyId">
+                        @foreach (var value in Companies)
+                        {
+                            <MudSelectItem Value="@value.Id">@value.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudSelect T="EServiceType"
+                    Label="Tipo de serviço"
+                    For="@(() => InputModel.ServiceType)"
+                    @bind-Value="InputModel.ServiceType">
+                        @foreach (var value in Enum.GetValues(typeof(EServiceType)).Cast<EServiceType>())
+                        {
+                            <MudSelectItem Value="@value">@value</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="2" Class="mt-2">
+                    <MudTextField Label="Comissão (%)"
+                    Placeholder="Ex: 10"
+                    @bind-Value="InputModel.Comission"
+                    For="@(() => InputModel.Comission)" />
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudDatePicker Label="Data de incício"
+                    Mask="@(new DateMask("dd/MM/yyyy"))"
+                    Editable="true"
+                    DateFormat="dd/MM/yyyy"
+                    @bind-Date="InputModel.StartDate"
+                    For="@(() => InputModel.StartDate)" />
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudSwitch @bind-Value="InputModel.DailyPayment" Label="Pagamento Diário" Color="Color.Primary" />
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudSwitch @bind-Value="InputModel.Boleto" Label="Cobrança em boleto" Color="Color.Secondary" />
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudSwitch @bind-Value="InputModel.DailyComission" Label="Comissão Diária" Color="Color.Warning" />
+                </MudItem>
+                <MudItem sm="12" md="3" Class="mt-2">
+                    <MudSwitch @bind-Value="InputModel.Nfe" Label="Emite Nota" Color="Color.Success" />
+                </MudItem>
+            </MudGrid>
+            @if(InputModel.Nfe is true)
+            {
+                <MudText Typo="Typo.h6" Class="mt-2">Dados para NF-e</MudText>
+                <MudGrid>                
+                    <MudItem sm="12" md="4" Class="mt-2">
+                        <MudTextField Label="Razão Social"
+                                      Placeholder="Razão Social"
+                                      @bind-Value="InputModel.NfeData.Name"
+                                      For="@(() => InputModel.NfeData.Name)" />
+                    </MudItem>
+                    <MudItem sm="12" md="4" Class="mt-2">
+                        <MudTextField Label="CNPJ"
+                                      Placeholder="CNPJ"
+                                      @bind-Value="InputModel.NfeData.Cnpj"
+                                      For="@(() => InputModel.NfeData.Cnpj)" />
+                    </MudItem>
+                    <MudItem sm="12" md="4" Class="mt-2">
+                        <MudTextField Label="IE"
+                                      Placeholder="Inscrição Estadual"
+                                      @bind-Value="InputModel.NfeData.Ie"
+                                      For="@(() => InputModel.NfeData.Ie)" />
+                    </MudItem>
+                </MudGrid>
+                <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
+                <MudGrid>
+                    <MudItem sm="12" md="3">
+                        <MudTextField Label="CEP"
+                                      Placeholder="CEP"
+                                      @bind-Value="InputModel.NfeData.Address.ZipCode"
+                                      For="@(() => InputModel.NfeData.Address.ZipCode)" />
+                    </MudItem>
+                    <MudItem sm="12" md="4">
+                        <MudTextField Label="Logradouro"
+                                      Placeholder="Logradouro"
+                                      @bind-Value="InputModel.NfeData.Address.Street"
+                                      For="@(() => InputModel.NfeData.Address.Street)" />
+                    </MudItem>
+                    <MudItem sm="12" md="2">
+                        <MudTextField Label="Número"
+                                      Placeholder="Número"
+                                      @bind-Value="InputModel.NfeData.Address.Number"
+                                      For="@(() => InputModel.NfeData.Address.Number)" />
+                    </MudItem>
+                    <MudItem sm="12" md="3">
+                        <MudTextField Label="Bairro"
+                                      Placeholder="Bairro"
+                                      @bind-Value="InputModel.NfeData.Address.Neighborhood"
+                                      For="@(() => InputModel.NfeData.Address.Neighborhood)" />
+                    </MudItem>
+                </MudGrid>
+                <MudGrid>
+                    <MudItem sm="12" md="5" Class="mt-1">
+                        <MudTextField Label="Cidade"
+                                      Placeholder="Cidade"
+                                      @bind-Value="InputModel.NfeData.Address.City"
+                                      For="@(() => InputModel.NfeData.Address.City)" />
+                    </MudItem>
+                    <MudItem sm="12" md="2">
+                        <MudTextField Label="UF"
+                                      Placeholder="UF"
+                                      @bind-Value="InputModel.NfeData.Address.State"
+                                      For="@(() => InputModel.NfeData.Address.State)" />
+                    </MudItem>
+                    <MudItem sm="12" md="5">
+                        <MudTextField Label="Complemento"
+                                      Placeholder="Complemento"
+                                      @bind-Value="InputModel.NfeData.Address.Complement"
+                                      For="@(() => InputModel.NfeData.Address.Complement)" />
+                    </MudItem>
+                </MudGrid>
+            }        
+            <div class="d-flex justify-end">
+                <MudButton ButtonType="ButtonType.Submit"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           Class="mt-2">
+                    Cadastrar
+                </MudButton>
+            </div>
+        </EditForm>
+    </MudPaper>
+}

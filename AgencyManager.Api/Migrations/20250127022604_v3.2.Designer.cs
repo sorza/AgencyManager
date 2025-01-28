@@ -4,6 +4,7 @@ using AgencyManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgencyManager.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127022604_v3.2")]
+    partial class v32
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -803,79 +806,9 @@ namespace AgencyManager.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("AgencyManager.Core.Models.Entities.ValueObjects.NfeData", "NfeData", b1 =>
-                        {
-                            b1.Property<int>("ContractServiceId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("City");
-
-                            b1.Property<string>("Cnpj")
-                                .HasMaxLength(11)
-                                .HasColumnType("CHAR")
-                                .HasColumnName("CompanyCnpj");
-
-                            b1.Property<string>("Complement")
-                                .HasMaxLength(50)
-                                .HasColumnType("CHAR")
-                                .HasColumnName("Complement");
-
-                            b1.Property<string>("Ie")
-                                .HasMaxLength(15)
-                                .HasColumnType("VARCHAR");
-
-                            b1.Property<string>("Name")
-                                .HasMaxLength(60)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("CompanyName");
-
-                            b1.Property<string>("Neighborhood")
-                                .IsRequired()
-                                .HasMaxLength(70)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Neighborhood");
-
-                            b1.Property<string>("Number")
-                                .IsRequired()
-                                .HasMaxLength(7)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Number");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("CHAR")
-                                .HasColumnName("State");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Street");
-
-                            b1.Property<string>("ZipCode")
-                                .IsRequired()
-                                .HasMaxLength(8)
-                                .HasColumnType("CHAR")
-                                .HasColumnName("ZipCode");
-
-                            b1.HasKey("ContractServiceId");
-
-                            b1.ToTable("Contract");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ContractServiceId");
-                        });
-
                     b.Navigation("Agency");
 
                     b.Navigation("Company");
-
-                    b.Navigation("NfeData");
                 });
 
             modelBuilder.Entity("AgencyManager.Core.Models.Entities.Employee", b =>

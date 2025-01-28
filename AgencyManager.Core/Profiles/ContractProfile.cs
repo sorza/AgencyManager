@@ -1,4 +1,7 @@
-﻿using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.DTOs;
+using AgencyManager.Core.Models.Entities;
+using AgencyManager.Core.Models.Entities.ValueObjects;
+using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.ContractService;
 using AutoMapper;
 
@@ -8,8 +11,15 @@ namespace AgencyManager.Core.Profiles
     {
         public ContractProfile()
         {
-            CreateMap<CreateContractServiceRequest, ContractService>();
-            CreateMap<UpdateContractServiceRequest, ContractService>();
+
+            CreateMap<CreateContractServiceRequest, ContractService>()
+                 .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData));
+
+            CreateMap<UpdateContractServiceRequest, ContractService>()
+                .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData))
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<ContractService, ContractDto>();
         }
     }
 }

@@ -1,3 +1,4 @@
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.ContractService;
 using AgencyManager.Core.Responses;
@@ -6,10 +7,10 @@ namespace AgencyManager.Core.Handlers
 {
     public interface IContractHandler
     {
-        Task<Response<ContractService?>> CreateAsync(CreateContractServiceRequest request);
-        Task<Response<ContractService?>> DeleteAsync(DeleteContractServiceRequest request);
-        Task<PagedResponse<List<ContractService>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request);
-        Task<Response<ContractService?>> UpdateAsync(UpdateContractServiceRequest request);
-        Task<Response<ContractService?>> GetByIdAsync(GetContractByIdRequest request);
+        Task<Response<ContractDto?>> CreateAsync(CreateContractServiceRequest request);
+        Task<Response<ContractDto?>> DeleteAsync(DeleteContractServiceRequest request);
+        Task<PagedResponse<List<ContractDto>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request);
+        Task<Response<ContractDto?>> UpdateAsync(UpdateContractServiceRequest request);
+        Task<Response<ContractDto?>> GetByIdAsync(GetContractByIdRequest request);
     }
 }
