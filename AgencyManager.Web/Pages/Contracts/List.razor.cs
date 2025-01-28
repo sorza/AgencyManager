@@ -2,7 +2,6 @@
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.ContractService;
-using AgencyManager.Core.Requests.Employee;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -74,7 +73,7 @@ namespace AgencyManager.Web.Pages.Contracts
         }
         #endregion
 
-        #region Methods
+        #region Public Methods
         public async void OnDeleteButtonClickedAsync(int id, string description)
         {
             var result = await DialogService.ShowMessageBox(
@@ -89,6 +88,19 @@ namespace AgencyManager.Web.Pages.Contracts
             StateHasChanged();
         }
 
+        public Func<ContractDto, bool> Filter => contract =>
+        {
+            if (string.IsNullOrEmpty(SearchTerm))
+                return true;
+
+            if (contract.Company!.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
+        };
+        #endregion
+
+        #region Private Methods
         private async Task OnDeleteAsync(int id, string description)
         {
             try
@@ -102,17 +114,6 @@ namespace AgencyManager.Web.Pages.Contracts
                 Snackbar.Add(ex.Message!, Severity.Error);
             }
         }
-
-        public Func<ContractDto, bool> Filter => contract =>
-        {
-            if (string.IsNullOrEmpty(SearchTerm))
-                return true;
-
-            if (contract.Company!.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            return false;
-        };
         #endregion
     }
 }

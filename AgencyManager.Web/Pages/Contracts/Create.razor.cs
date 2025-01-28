@@ -1,5 +1,6 @@
 ﻿using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
+using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Requests.ContractService;
@@ -76,12 +77,13 @@ namespace AgencyManager.Web.Pages.Contracts
 
             #endregion
 
-            #region Inicializar campos
+            #region 03. Inicializar campos
             
             InputModel.CompanyId = Companies.First().Id;
             InputModel.Comission = 10;
             InputModel.ServiceType = Core.Enums.EServiceType.Ticket;
             InputModel.StartDate = DateTime.Now;
+            OnCompanySelected();
             #endregion
 
         }
@@ -132,6 +134,20 @@ namespace AgencyManager.Web.Pages.Contracts
                 InputModel.NfeData.Address.Number = company.Address.Number;
                 InputModel.NfeData.Address.Complement = company.Address.Complement ?? string.Empty;
             }
+        }
+
+        public void ClearNfeData()
+        {
+            InputModel.NfeData.Name = string.Empty;
+            InputModel.NfeData.Cnpj = string.Empty;
+
+            InputModel.NfeData.Address.ZipCode = string.Empty;
+            InputModel.NfeData.Address.Neighborhood = string.Empty;
+            InputModel.NfeData.Address.City = string.Empty;
+            InputModel.NfeData.Address.State = string.Empty;
+            InputModel.NfeData.Address.Street = string.Empty;
+            InputModel.NfeData.Address.Number = string.Empty;
+            InputModel.NfeData.Address.Complement = string.Empty;
         }
         #endregion
     }

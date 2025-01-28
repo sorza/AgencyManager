@@ -40,7 +40,7 @@ else
             <PropertyColumn Property="x => x.Company!.Name" Title="Empresa" />
             <PropertyColumn Property="x => x.ServiceType" Title="Tipo de Serviço" />
             <PropertyColumn Property="x => x.Comission" Title="Comissão (%)" />
-            <PropertyColumn Property="x => x.StartDate" Title="Data de contrato" />           
+            <PropertyColumn Property="x => x.StartDate" Format="dd/MM/yyyy" Title="Data de contrato" />           
             <TemplateColumn Title="Situação" Context="x">
                 <CellTemplate>
                     @if (x.Item.Active)
