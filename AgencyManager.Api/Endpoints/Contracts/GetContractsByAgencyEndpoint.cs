@@ -13,7 +13,7 @@ namespace AgencyManager.Api.Endpoints.Contracts
     public class GetContractsByAgencyEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-          => app.MapGet("/", HandleAsync)
+          => app.MapGet("/agency/{id}", HandleAsync)
            .WithName("Contracts: Get By Agency")
            .WithSummary("Recupera os contratos de uma agência")
            .WithDescription("Recupera os contratos de uma agência")
@@ -22,11 +22,13 @@ namespace AgencyManager.Api.Endpoints.Contracts
         private static async Task<IResult> HandleAsync(
              ClaimsPrincipal user,
              IContractHandler handler,
+             int id,
              [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
              [FromQuery] int pageSize = Configuration.DefaultPageSize)
         {
             var request = new GetAllContractsByAgencyRequest
             {
+                AgencyId = id,
                 UserId = user.Identity?.Name ?? string.Empty,
                 PageNumber = pageNumber,
                 PageSize = pageSize

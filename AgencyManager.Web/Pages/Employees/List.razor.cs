@@ -33,6 +33,7 @@ namespace AgencyManager.Web.Pages.Employees
         {
             IsBusy = true;
 
+            #region 01. Validar agência
             try
             {
                 var request = new GetAgencyByIdRequest { Id = Convert.ToInt32(Id) };
@@ -56,7 +57,9 @@ namespace AgencyManager.Web.Pages.Employees
                 Snackbar.Add(ex.Message, Severity.Error);
                 NavigationManager.NavigateTo("/agencias");
             }
+            #endregion
 
+            #region Buscar colaboradores
             try
             {
                 var request = new GetAllEmployeesByAgencyIdRequest { AgencyId = Convert.ToInt32(Id) };
@@ -73,6 +76,7 @@ namespace AgencyManager.Web.Pages.Employees
             {
                 IsBusy = false;
             }
+            #endregion
         }
         #endregion
 
@@ -90,7 +94,7 @@ namespace AgencyManager.Web.Pages.Employees
 
             StateHasChanged();
         }
-        public async Task OnDeleteAsync(int id, string description)
+        private async Task OnDeleteAsync(int id, string description)
         {
             try
             {

@@ -1,5 +1,4 @@
 ﻿using AgencyManager.Api.Common.Api;
-using AgencyManager.Api.Models;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
@@ -24,7 +23,7 @@ namespace AgencyManager.Api.Endpoints.Employees
             var request = new GetEmployeeByIdRequest
             {
                 Id = id,
-                UserId = user.Identity?.Name ?? string.Empty,
+                UserId = user.Identity?.Name ?? string.Empty,                
             };
 
             var result = await handler.GetByIdAsync(request);

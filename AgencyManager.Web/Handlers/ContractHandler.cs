@@ -24,7 +24,7 @@ namespace AgencyManager.Web.Handlers
         }
 
         public async Task<PagedResponse<List<ContractDto>?>> GetByAgencyIdAsync(GetAllContractsByAgencyRequest request)
-        => await _client.GetFromJsonAsync<PagedResponse<List<ContractDto>?>>($"v1/contracts/{request.AgencyId}?pageNumber={request.PageNumber}&pageSize={request.PageSize}")
+        => await _client.GetFromJsonAsync<PagedResponse<List<ContractDto>?>>($"v1/contracts/agency/{request.AgencyId}?pageNumber={request.PageNumber}&pageSize={request.PageSize}")
             ?? new PagedResponse<List<ContractDto>?>(null, 400, "Falha ao retornar contratos da agência");
 
         public async Task<Response<ContractDto?>> GetByIdAsync(GetContractByIdRequest request)

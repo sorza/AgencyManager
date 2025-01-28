@@ -86,6 +86,9 @@ namespace AgencyManager.Api.Handler
                 var query = context
                 .Contracts
                 .Where(x => x.AgencyId == request.AgencyId)
+                .Include(x => x.Agency)
+                .Include(x => x.Company)
+                .Include(x => x.NfeData)
                 .AsNoTracking();
 
                 #endregion
