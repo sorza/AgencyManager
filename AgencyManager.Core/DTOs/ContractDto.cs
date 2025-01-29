@@ -15,6 +15,7 @@ namespace AgencyManager.Core.DTOs
         public decimal Comission { get; set; }      
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public bool Boleto { get; set; }
         public bool DailyPayment { get; set; }
         public bool DailyComission { get; set; }
         public bool Nfe { get; set; }

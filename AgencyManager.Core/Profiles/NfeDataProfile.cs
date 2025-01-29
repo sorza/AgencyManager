@@ -22,6 +22,20 @@ namespace AgencyManager.Core.Profiles
                 src.Address.State,
                 src.Address.Complement
             ));
+
+            CreateMap<UpdateNfeDataRequest, NfeData>()
+            .ConstructUsing(src => new NfeData(
+                src.Name,
+                src.Cnpj,
+                src.Ie,
+                src.Address.ZipCode,
+                src.Address.Street,
+                src.Address.Number,
+                src.Address.Neighborhood,
+                src.Address.City,
+                src.Address.State,
+                src.Address.Complement
+            ));
         }
     }
 }

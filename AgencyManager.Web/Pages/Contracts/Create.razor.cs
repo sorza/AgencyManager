@@ -18,8 +18,7 @@ namespace AgencyManager.Web.Pages.Contracts
 
         #region Properties
         public bool IsBusy { get; set; } = false;
-        public CreateContractServiceRequest InputModel { get; set; } = new();        
-        public AgencyDto Agency { get; set; } = new();
+        public CreateContractServiceRequest InputModel { get; set; } = new();      
         public IList<CompanyDto> Companies { get; set; } = [];
 
         #endregion
@@ -51,9 +50,7 @@ namespace AgencyManager.Web.Pages.Contracts
                     Snackbar.Add("Agência não encontrada", Severity.Error);
                     Navigation.NavigateTo("/agencias");
                     return;
-                }
-
-                Agency = agencyResult.Data!;
+                }               
             }
             catch (Exception ex)
             {

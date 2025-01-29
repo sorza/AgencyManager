@@ -28,7 +28,7 @@ else
                     @bind-Value="InputModel.CompanyId">
                         @foreach (var value in Companies)
                         {
-                            <MudSelectItem Value="@value.Id">@value.Name</MudSelectItem>
+                            <MudSelectItem Value="@value.Id">@value.TradingName</MudSelectItem>
                         }
                     </MudSelect>
                 </MudItem>

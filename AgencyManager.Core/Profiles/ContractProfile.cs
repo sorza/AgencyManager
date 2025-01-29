@@ -16,8 +16,7 @@ namespace AgencyManager.Core.Profiles
                  .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData));
 
             CreateMap<UpdateContractServiceRequest, ContractService>()
-                .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData));
 
             CreateMap<ContractService, ContractDto>();
         }

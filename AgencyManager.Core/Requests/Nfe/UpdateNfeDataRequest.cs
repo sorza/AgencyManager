@@ -16,6 +16,6 @@ namespace AgencyManager.Core.Requests.Nfe
         public string? Ie { get; set; }
 
         [Required]
-        public UpdateAddressRequest? Address { get; set; } = new();
+        public UpdateAddressRequest Address { get; set; } = new();
     }
 }

@@ -39,7 +39,7 @@ else
         <Columns>
             <PropertyColumn Property="x => x.Company!.Name" Title="Empresa" />
             <PropertyColumn Property="x => x.ServiceType" Title="Tipo de Serviço" />
-            <PropertyColumn Property="x => x.Comission" Title="Comissão (%)" />
+            <PropertyColumn Property="x => x.Comission" Format="F2" Title="Comissão (%)" />
             <PropertyColumn Property="x => x.StartDate" Format="dd/MM/yyyy" Title="Data de contrato" />           
             <TemplateColumn Title="Situação" Context="x">
                 <CellTemplate>
