@@ -16,7 +16,8 @@ namespace AgencyManager.Core.Profiles
                  .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData));
 
             CreateMap<UpdateContractServiceRequest, ContractService>()
-                .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData));
+            .ForMember(dest => dest.NfeData, opt => opt.MapFrom(src => src.NfeData))
+            .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.HasValue ? src.StartDate.Value : DateTime.MinValue));
 
             CreateMap<ContractService, ContractDto>();
         }

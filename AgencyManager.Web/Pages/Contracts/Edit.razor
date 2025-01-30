@@ -147,53 +147,9 @@ else
                                       For="@(() => InputModel.NfeData.Ie)" />
                     </MudItem>
                 </MudGrid>
+
                 <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
-                <MudGrid>
-                    <MudItem sm="12" md="3">
-                        <MudTextField Label="CEP"
-                                      Placeholder="CEP"
-                                      @bind-Value="InputModel.NfeData.Address.ZipCode"
-                                      For="@(() => InputModel.NfeData.Address.ZipCode)" />
-                    </MudItem>
-                    <MudItem sm="12" md="4">
-                        <MudTextField Label="Logradouro"
-                                      Placeholder="Logradouro"
-                                      @bind-Value="InputModel.NfeData.Address.Street"
-                                      For="@(() => InputModel.NfeData.Address.Street)" />
-                    </MudItem>
-                    <MudItem sm="12" md="2">
-                        <MudTextField Label="Número"
-                                      Placeholder="Número"
-                                      @bind-Value="InputModel.NfeData.Address.Number"
-                                      For="@(() => InputModel.NfeData.Address.Number)" />
-                    </MudItem>
-                    <MudItem sm="12" md="3">
-                        <MudTextField Label="Bairro"
-                                      Placeholder="Bairro"
-                                      @bind-Value="InputModel.NfeData.Address.Neighborhood"
-                                      For="@(() => InputModel.NfeData.Address.Neighborhood)" />
-                    </MudItem>
-                </MudGrid>
-                <MudGrid>
-                    <MudItem sm="12" md="5" Class="mt-1">
-                        <MudTextField Label="Cidade"
-                                      Placeholder="Cidade"
-                                      @bind-Value="InputModel.NfeData.Address.City"
-                                      For="@(() => InputModel.NfeData.Address.City)" />
-                    </MudItem>
-                    <MudItem sm="12" md="2">
-                        <MudTextField Label="UF"
-                                      Placeholder="UF"
-                                      @bind-Value="InputModel.NfeData.Address.State"
-                                      For="@(() => InputModel.NfeData.Address.State)" />
-                    </MudItem>
-                    <MudItem sm="12" md="5">
-                        <MudTextField Label="Complemento"
-                                      Placeholder="Complemento"
-                                      @bind-Value="InputModel.NfeData.Address.Complement"
-                                      For="@(() => InputModel.NfeData.Address.Complement)" />
-                    </MudItem>
-                </MudGrid>
+                <UpdateAddress AddressModel="InputModel.NfeData.Address" />
             }
             else
             {

@@ -1,0 +1,49 @@
+﻿@inherits CreateAddressComponent
+
+<MudGrid>
+    <MudItem sm="12" md="3">
+        <MudTextField Label="CEP"
+                      Placeholder="CEP"
+                      @bind-Value="AddressModel.ZipCode"
+                      For="@(() => AddressModel.ZipCode)" />
+    </MudItem>
+    <MudItem sm="12" md="4">
+        <MudTextField Label="Logradouro"
+                      Placeholder="Logradouro"
+                      @bind-Value="AddressModel.Street"
+                      For="@(() => AddressModel.Street)" />
+    </MudItem>
+    <MudItem sm="12" md="2">
+        <MudTextField Label="Número"
+                      Placeholder="Número"
+                      @bind-Value="AddressModel.Number"
+                      For="@(() => AddressModel.Number)" />
+    </MudItem>
+    <MudItem sm="12" md="3">
+        <MudTextField Label="Bairro"
+                      Placeholder="Bairro"
+                      @bind-Value="AddressModel.Neighborhood"
+                      For="@(() => AddressModel.Neighborhood)" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem sm="12" md="5" Class="mt-1">
+        <MudTextField Label="Cidade"
+                      Placeholder="Cidade"
+                      @bind-Value="AddressModel.City"
+                      For="@(() => AddressModel.City)" />
+    </MudItem>
+    <MudItem sm="12" md="2">
+        <MudTextField Label="UF"
+                      Placeholder="UF"
+                      @bind-Value="AddressModel.State"
+                      For="@(() => AddressModel.State)" />
+    </MudItem>
+    <MudItem sm="12" md="5">
+        <MudTextField Label="Complemento"
+                      Placeholder="Complemento"
+                      @bind-Value="AddressModel.Complement"
+                      For="@(() => AddressModel.Complement)" />
+    </MudItem>
+</MudGrid>
+

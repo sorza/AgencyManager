@@ -130,53 +130,7 @@ else
             </MudGrid>
 
             <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
-            <MudGrid >
-                <MudItem sm="12" md="3" Class="mt-1">
-                    <MudTextField Label="CEP"
-                    Placeholder="CEP"
-                    @bind-Value="EmployeeInputModel.Address.ZipCode"
-                    For="@(() => EmployeeInputModel.Address.ZipCode)"
-                    @ref="CepInput"/>
-                </MudItem>
-                <MudItem sm="12" md="4" Class="mt-1">
-                    <MudTextField Label="Logradouro"
-                    Placeholder="Logradouro"
-                    @bind-Value="EmployeeInputModel.Address.Street"
-                    For="@(() => EmployeeInputModel.Address.Street)" />
-                </MudItem>
-                <MudItem sm="12" md="2" Class="mt-1">
-                    <MudTextField Label="Número"
-                    Placeholder="Número"
-                    @bind-Value="EmployeeInputModel.Address.Number"
-                    For="@(() => EmployeeInputModel.Address.Number)" />
-                </MudItem>
-                <MudItem sm="12" md="3" Class="mt-1">
-                    <MudTextField Label="Bairro"
-                    Placeholder="Bairro"
-                    @bind-Value="EmployeeInputModel.Address.Neighborhood"
-                    For="@(() => EmployeeInputModel.Address.Neighborhood)" />
-                </MudItem>
-            </MudGrid>
-            <MudGrid>
-                <MudItem sm="12" md="5">
-                    <MudTextField Label="Cidade"
-                    Placeholder="Cidade"
-                    @bind-Value="EmployeeInputModel.Address.City"
-                    For="@(() => EmployeeInputModel.Address.City)" />
-                </MudItem>
-                <MudItem sm="12" md="2">
-                    <MudTextField Label="UF"
-                    Placeholder="UF"
-                    @bind-Value="EmployeeInputModel.Address.State"
-                    For="@(() => EmployeeInputModel.Address.State)" />
-                </MudItem>
-                <MudItem sm="12" md="5">
-                    <MudTextField Label="Complemento"
-                    Placeholder="Complemento"
-                    @bind-Value="EmployeeInputModel.Address.Complement"
-                    For="@(() => EmployeeInputModel.Address.Complement)" />
-                </MudItem>
-            </MudGrid>
+            <UpdateAddress AddressModel="EmployeeInputModel.Address"/>
 
             <MudText Typo="Typo.h6" Class="mt-5">Lista de contatos</MudText>
             <MudGrid>

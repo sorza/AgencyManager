@@ -17,7 +17,7 @@ namespace AgencyManager.Core.Requests.Agency
         public string Cnpj { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O endereço é obrigatório")]
-        public CreateAddressRequest Address { get; set; } = new();
+        public UpdateAddressRequest Address { get; set; } = new();
 
         public List<UpdateContactRequest>? Contacts { get; set; } = [];
 

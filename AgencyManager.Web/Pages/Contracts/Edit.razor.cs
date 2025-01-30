@@ -133,19 +133,7 @@ namespace AgencyManager.Web.Pages.Contracts
             }
         }        
 
-        public void ClearNfeData()
-        {
-            InputModel.NfeData.Name = string.Empty;
-            InputModel.NfeData.Cnpj = string.Empty;
-
-            InputModel.NfeData.Address.ZipCode = string.Empty;
-            InputModel.NfeData.Address.Neighborhood = string.Empty;
-            InputModel.NfeData.Address.City = string.Empty;
-            InputModel.NfeData.Address.State = string.Empty;
-            InputModel.NfeData.Address.Street = string.Empty;
-            InputModel.NfeData.Address.Number = string.Empty;
-            InputModel.NfeData.Address.Complement = string.Empty;
-        }
+        public void ClearNfeData() => InputModel.NfeData = new();
 
         public void ChangeState()
         {
