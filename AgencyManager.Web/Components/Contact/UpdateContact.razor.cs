@@ -44,6 +44,7 @@ namespace AgencyManager.Web.Components.Contact
                 Contact.Description = contact.Description;
                 Contact.Departament = contact.Departament;                
                 Contact.ContactType = contact.ContactType;
+                Contact.Responsible = contact.Responsible;
                 Contact.AgencyId = contact.AgencyId;
                 Contact.CompanyId = contact.CompanyId;
                 Contact.EmployeeId = contact.EmployeeId;
@@ -61,11 +62,13 @@ namespace AgencyManager.Web.Components.Contact
                     ContactType = Contact.ContactType,
                     Description = Contact.Description,
                     Departament = Contact.Departament,
+                    Responsible = Contact.Responsible
                 };
 
                 Contacts?.Add(contact);
                 Contact.Description = string.Empty;
                 Contact.Departament = string.Empty;
+                Contact.Responsible = string.Empty;
 
                 if (IsEditing)
                 {

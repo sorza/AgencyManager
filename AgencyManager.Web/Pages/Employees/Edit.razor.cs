@@ -76,7 +76,8 @@ namespace AgencyManager.Web.Pages.Employees
                             Id = c.Id,
                             Description = c.Description,
                             Departament = c.Departament,
-                            ContactType = c.ContactType
+                            ContactType = c.ContactType,
+                            Responsible = c.Responsible
                         }).ToList()
                     };
 

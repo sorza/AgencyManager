@@ -43,6 +43,7 @@ namespace AgencyManager.Web.Components.Contact
                     ContactType = Contact.ContactType,
                     Description = Contact.Description,
                     Departament = Contact.Departament,
+                    Responsible = Contact.Responsible
                 };
 
                 Contacts.Add(contact);

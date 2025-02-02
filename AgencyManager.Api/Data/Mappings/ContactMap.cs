@@ -25,6 +25,11 @@ namespace AgencyManager.Api.Data.Mappings
                 .IsRequired(true)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(70);
+
+            builder.Property(x => x.Responsible)
+                .IsRequired(true)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(70);
         }
     }
 }
