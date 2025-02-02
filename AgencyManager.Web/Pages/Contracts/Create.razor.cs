@@ -6,6 +6,7 @@ using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Requests.ContractService;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Web.Pages.Contracts
 {
@@ -18,7 +19,7 @@ namespace AgencyManager.Web.Pages.Contracts
 
         #region Properties
         public bool IsBusy { get; set; } = false;
-        public CreateContractServiceRequest InputModel { get; set; } = new();      
+        public CreateContractServiceRequest InputModel { get; set; } = new();
         public IList<CompanyDto> Companies { get; set; } = [];
 
         #endregion
@@ -50,7 +51,7 @@ namespace AgencyManager.Web.Pages.Contracts
                     Snackbar.Add("Agência não encontrada", Severity.Error);
                     Navigation.NavigateTo("/agencias");
                     return;
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -67,7 +68,7 @@ namespace AgencyManager.Web.Pages.Contracts
             var request = new GetAllCompaniesRequest();
             var result = await CompanyHandler.GetAllAsync(request);
 
-            if(result.Data is not null)
+            if (result.Data is not null)
             {
                 Companies = result.Data;
             }
@@ -75,7 +76,7 @@ namespace AgencyManager.Web.Pages.Contracts
             #endregion
 
             #region 03. Inicializar campos
-            
+
             InputModel.CompanyId = Companies.First().Id;
             InputModel.Comission = 10;
             InputModel.ServiceType = Core.Enums.EServiceType.Ticket;
@@ -94,7 +95,29 @@ namespace AgencyManager.Web.Pages.Contracts
 
             try
             {
+                if (InputModel.Nfe)
+                {
+                    bool nfeDataIsValid = Validator.TryValidateObject(
+                        InputModel.NfeData,
+                        new ValidationContext(InputModel.NfeData),
+                        new List<ValidationResult>(),
+                        true);
+
+                    bool enderecoIsValid = Validator.TryValidateObject(
+                        InputModel.NfeData.Address,
+                        new ValidationContext(InputModel.NfeData.Address),
+                        new List<ValidationResult>(),
+                        true);
+
+                    if (nfeDataIsValid is false || enderecoIsValid is false)
+                    {
+                        Snackbar.Add("Preencha corretamente os dados para emissao da Nf-e.", Severity.Error);
+                        return;
+                    }
+                }
+
                 var result = await ContractHandler.CreateAsync(InputModel);
+
                 if (result.IsSuccess)
                 {
                     Snackbar.Add(result.Message!, Severity.Success);
@@ -103,7 +126,7 @@ namespace AgencyManager.Web.Pages.Contracts
                 else
                 {
                     Snackbar.Add(result.Message!, Severity.Error);
-                }
+                }                
             }
             catch (Exception ex)
             {
@@ -132,7 +155,6 @@ namespace AgencyManager.Web.Pages.Contracts
                 InputModel.NfeData.Address.Complement = company.Address.Complement ?? string.Empty;
             }
         }
-
         public void ClearNfeData()
         {
             InputModel.NfeData.Name = string.Empty;

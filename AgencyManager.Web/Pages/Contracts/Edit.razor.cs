@@ -6,6 +6,7 @@ using AgencyManager.Core.Requests.ContractService;
 using AgencyManager.Core.Requests.Nfe;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Web.Pages.Contracts
 {
@@ -112,6 +113,27 @@ namespace AgencyManager.Web.Pages.Contracts
 
             try
             {
+                if (InputModel.Nfe)
+                {                   
+                    bool nfeDataIsValid = Validator.TryValidateObject(
+                        InputModel.NfeData,
+                        new ValidationContext(InputModel.NfeData),
+                        new List<ValidationResult>(), 
+                        true);
+
+                    bool enderecoIsValid = Validator.TryValidateObject(
+                        InputModel.NfeData.Address,
+                        new ValidationContext(InputModel.NfeData.Address),
+                        new List<ValidationResult>(),
+                        true);
+
+                    if (nfeDataIsValid is false || enderecoIsValid is false)
+                    {
+                        Snackbar.Add("Preencha corretamente os dados para emissao da Nf-e.", Severity.Error);
+                        return;
+                    }
+                }
+                
                 var result = await ContractHandler.UpdateAsync(InputModel);
                 if (result.IsSuccess)
                 {
@@ -122,6 +144,7 @@ namespace AgencyManager.Web.Pages.Contracts
                 {
                     Snackbar.Add(result.Message!, Severity.Error);
                 }
+                                  
             }
             catch (Exception ex)
             {
