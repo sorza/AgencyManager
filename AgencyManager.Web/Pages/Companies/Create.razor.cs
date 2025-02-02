@@ -3,6 +3,7 @@ using AgencyManager.Core.Requests.Company;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Web.Pages.Companies
 {
@@ -38,16 +39,28 @@ namespace AgencyManager.Web.Pages.Companies
 
             try
             {
-                var result = await Handler.CreateAsync(InputModel);
-                if (result.IsSuccess)
+                var validationResults = new List<ValidationResult>();
+                var context = new ValidationContext(InputModel.Address);
+
+                bool addressIsValid = Validator.TryValidateObject(InputModel.Address, context, validationResults, true);
+
+                if (addressIsValid == false)
                 {
-                    Snackbar.Add(result.Message!, Severity.Success);
-                    Navigation.NavigateTo("/empresas");
+                    Snackbar.Add("Endereço inválido.", Severity.Error);
                 }
                 else
                 {
-                    Snackbar.Add(result.Message!, Severity.Error);
-                }
+                    var result = await Handler.CreateAsync(InputModel);
+                    if (result.IsSuccess)
+                    {
+                        Snackbar.Add(result.Message!, Severity.Success);
+                        Navigation.NavigateTo("/empresas");
+                    }
+                    else
+                    {
+                        Snackbar.Add(result.Message!, Severity.Error);
+                    }
+                }                    
             }
             catch (Exception ex)
             {
@@ -58,7 +71,6 @@ namespace AgencyManager.Web.Pages.Companies
                 IsBusy = false;
             }
         }
-
         public async Task UploadFile(IBrowserFile file)
         {
             var format = "image/jpeg";

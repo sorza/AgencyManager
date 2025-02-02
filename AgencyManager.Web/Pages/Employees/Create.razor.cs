@@ -21,7 +21,6 @@ namespace AgencyManager.Web.Pages.Employees
         public CreateEmployeeRequest InputModel { get; set; } = new();
         public CreateContactRequest ContactInputModel { get; set; } = new();
         public AgencyDto Agency { get; set; } = new();
-        public MudTextField<string>? CepInput { get; set; }
         
         #endregion
 
@@ -87,8 +86,7 @@ namespace AgencyManager.Web.Pages.Employees
 
                 if (addressIsValid == false)
                 {
-                    Snackbar.Add("Endereço inválido.", Severity.Error);      
-                    CepInput?.FocusAsync();
+                    Snackbar.Add("Endereço inválido.", Severity.Error);                       
                 }
                 else
                 {

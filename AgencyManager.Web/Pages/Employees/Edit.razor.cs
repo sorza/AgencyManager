@@ -5,6 +5,7 @@ using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Requests.Employee;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Web.Pages.Employees
 {
@@ -19,8 +20,7 @@ namespace AgencyManager.Web.Pages.Employees
 
         public bool IsBusy { get; set; } = false;
         public UpdateEmployeeRequest InputModel { get; set; } = new();       
-        public AgencyDto Agency { get; set; } = new();
-        public MudTextField<string>? CepInput { get; set; }
+        public AgencyDto Agency { get; set; } = new();       
 
         #endregion
 
@@ -103,16 +103,28 @@ namespace AgencyManager.Web.Pages.Employees
 
             try
             {
-                var result = await Handler.UpdateAsync(InputModel);
-                if (result.IsSuccess)
+                var validationResults = new List<ValidationResult>();
+                var context = new ValidationContext(InputModel.Address);
+
+                bool addressIsValid = Validator.TryValidateObject(InputModel.Address, context, validationResults, true);
+
+                if (addressIsValid == false)
                 {
-                    Snackbar.Add(result.Message!, Severity.Success);
-                    NavigationManager.NavigateTo($"/funcionarios/{InputModel.AgencyId}");
+                    Snackbar.Add("Endereço inválido.", Severity.Error);
                 }
                 else
                 {
-                    Snackbar.Add(result.Message!, Severity.Error);
-                }
+                    var result = await Handler.UpdateAsync(InputModel);
+                    if (result.IsSuccess)
+                    {
+                        Snackbar.Add(result.Message!, Severity.Success);
+                        NavigationManager.NavigateTo($"/funcionarios/{InputModel.AgencyId}");
+                    }
+                    else
+                    {
+                        Snackbar.Add(result.Message!, Severity.Error);
+                    }
+                }                
             }
             catch (Exception ex)
             {
