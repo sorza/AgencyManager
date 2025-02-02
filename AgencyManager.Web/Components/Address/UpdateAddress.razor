@@ -4,6 +4,7 @@
     <MudItem sm="12" md="3">
         <MudTextField Label="CEP"
                       Placeholder="CEP"
+                      OnBlur="GetAddressAsync"
                       @bind-Value="AddressModel.ZipCode"
                       For="@(() => AddressModel.ZipCode)" />
     </MudItem>
@@ -30,12 +31,14 @@
     <MudItem sm="12" md="5" Class="mt-1">
         <MudTextField Label="Cidade"
                       Placeholder="Cidade"
+                      ReadOnly
                       @bind-Value="AddressModel.City"
                       For="@(() => AddressModel.City)" />
     </MudItem>
     <MudItem sm="12" md="2" Class="mt-1">
         <MudTextField Label="UF"
                       Placeholder="UF"
+                      ReadOnly
                       @bind-Value="AddressModel.State"
                       For="@(() => AddressModel.State)" />
     </MudItem>

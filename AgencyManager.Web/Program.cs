@@ -8,6 +8,8 @@ using AgencyManager.Core.Handlers;
 using AgencyManager.Web.Handlers;
 using System.Globalization;
 using AgencyManager.Core.Profiles;
+using AgencyManager.Core.Services;
+using AgencyManager.Web.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -29,6 +31,11 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
     opt.BaseAddress = new Uri(Configuration.BackendUrl);
 }).AddHttpMessageHandler<CookieHandler>();
 
+builder.Services.AddHttpClient("viacep", c =>
+{
+    c.BaseAddress = new Uri("https://viacep.com.br/ws/");
+});
+
 builder.Services.AddAutoMapper(typeof(AddressProfile).Assembly);
 
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
@@ -42,7 +49,7 @@ builder.Services.AddTransient<ILocalityHandler, LocalityHandler>();
 builder.Services.AddTransient<IPositionHandler, PositionHandler>();
 builder.Services.AddTransient<ISaleHandler, SaleHandler>();
 builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
-builder.Services.AddTransient<IVirtualSaleHandler, VirtualSaleHandler>();
-
+builder.Services.AddTransient<IVirtualSaleHandler, VirtualSaleHandler>(); 
+builder.Services.AddTransient<ICepService, CepService>();
 
 await builder.Build().RunAsync();
