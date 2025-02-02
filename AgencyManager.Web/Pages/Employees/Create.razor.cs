@@ -1,10 +1,8 @@
 ﻿using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
-using AgencyManager.Core.Requests.Address;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Requests.Employee;
-using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;
@@ -20,11 +18,11 @@ namespace AgencyManager.Web.Pages.Employees
 
         #region Properties
         public bool IsBusy { get; set; } = false;
-        public CreateEmployeeRequest EmployeeInputModel { get; set; } = new();
+        public CreateEmployeeRequest InputModel { get; set; } = new();
         public CreateContactRequest ContactInputModel { get; set; } = new();
         public AgencyDto Agency { get; set; } = new();
         public MudTextField<string>? CepInput { get; set; }
-
+        
         #endregion
 
         #region Services
@@ -40,9 +38,9 @@ namespace AgencyManager.Web.Pages.Employees
         {          
             try
             {
-                EmployeeInputModel.AgencyId = int.Parse(Id);
+                InputModel.AgencyId = int.Parse(Id);
 
-                var request = new GetAgencyByIdRequest { Id = EmployeeInputModel.AgencyId };
+                var request = new GetAgencyByIdRequest { Id = InputModel.AgencyId };
                 var result = await AgencyHandler.GetByIdAsync(request);
 
                 if (result.Data is null)
@@ -60,9 +58,9 @@ namespace AgencyManager.Web.Pages.Employees
                     return;
                 }
 
-                EmployeeInputModel.PositionId = Agency.Positions!.First().Id;
-                EmployeeInputModel.DateHire = DateTime.Now;
-                EmployeeInputModel.BirthDay = DateTime.Now.AddYears(-18);
+                InputModel.PositionId = Agency.Positions!.First().Id;
+                InputModel.DateHire = DateTime.Now;
+                InputModel.BirthDay = DateTime.Now.AddYears(-18);
                 ContactInputModel.ContactType = Core.Enums.EContactType.Celular;
 
             }
@@ -83,9 +81,9 @@ namespace AgencyManager.Web.Pages.Employees
             try
             {
                 var validationResults = new List<ValidationResult>();
-                var context = new ValidationContext(EmployeeInputModel.Address);
+                var context = new ValidationContext(InputModel.Address);
 
-                bool addressIsValid = Validator.TryValidateObject(EmployeeInputModel.Address, context, validationResults, true);                               
+                bool addressIsValid = Validator.TryValidateObject(InputModel.Address, context, validationResults, true);                               
 
                 if (addressIsValid == false)
                 {
@@ -94,7 +92,7 @@ namespace AgencyManager.Web.Pages.Employees
                 }
                 else
                 {
-                    var result = await EmployeeHandler.CreateAsync(EmployeeInputModel);
+                    var result = await EmployeeHandler.CreateAsync(InputModel);
                     if (result.IsSuccess)
                     {
                         Snackbar.Add(result.Message!, Severity.Success);
@@ -119,7 +117,7 @@ namespace AgencyManager.Web.Pages.Employees
 
         public void RemoveContact(CreateContactRequest contact)
         {
-            EmployeeInputModel.Contacts.Remove(contact);
+            InputModel.Contacts.Remove(contact);
             StateHasChanged();
         }
         public void AddContact()
@@ -133,7 +131,7 @@ namespace AgencyManager.Web.Pages.Employees
                     Departament = ContactInputModel.Departament,
                 };
 
-                EmployeeInputModel.Contacts.Add(contact);
+                InputModel.Contacts.Add(contact);
             }
             else
             {

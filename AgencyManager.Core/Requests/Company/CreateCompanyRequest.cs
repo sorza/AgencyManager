@@ -1,4 +1,5 @@
 using AgencyManager.Core.Requests.Address;
+using AgencyManager.Core.Requests.Contact;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Company
@@ -17,7 +18,8 @@ namespace AgencyManager.Core.Requests.Company
         public string Cnpj { get; set; } = string.Empty;
 
         [Required(ErrorMessage ="Endereço inválido")]
-        public CreateAddressRequest Address { get; set; }  = new();       
+        public CreateAddressRequest Address { get; set; }  = new();
+        public IList<CreateContactRequest>? Contacts { get; set; } = [];
         public string? Logo { get; set; }
     }
 }
