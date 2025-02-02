@@ -7,6 +7,7 @@ using AgencyManager.Core.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AgencyManager.Api.Handler
 {
@@ -153,6 +154,8 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar colaborador
                 var employee = await context
                 .Employees
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
@@ -169,13 +172,29 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 03. Atualizar dados
+                #region 03. Atualizar lita de contatos
+                if (employee.Contacts is not null && request.Contacts is not null)
+                {
+                    var novaListaContatos = mapper.Map<List<Contact>>(request.Contacts);
+                    var contatosAExcluir = new List<Contact>();
+
+                    foreach (var contact in employee.Contacts)
+                        if (!novaListaContatos.Contains(contact))
+                            contatosAExcluir.Add(contact);
+
+                    foreach (var contact in contatosAExcluir)
+                        context.Contacts.Remove(contact);
+                }
+
+                #endregion
+
+                #region 04. Atualizar dados
                 mapper.Map(request, employee);
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 04. Retornar resposta
+                #region 05. Retornar resposta
                 return new Response<EmployeeDto?>(mapper.Map<EmployeeDto>(employee), 200, "Colaborador atualizado com sucesso!");
                 
                 #endregion

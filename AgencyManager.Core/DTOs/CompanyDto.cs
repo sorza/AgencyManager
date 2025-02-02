@@ -11,6 +11,6 @@ namespace AgencyManager.Core.DTOs
         public string Cnpj { get; set; } = string.Empty;
         public Address Address { get; set; } = null!;
         public string? Logo { get; set; }
-        public List<Contact> Contacts { get; set; } = new();
+        public List<ContactDto> Contacts { get; set; } = new();
     }
 }

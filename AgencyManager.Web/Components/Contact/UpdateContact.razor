@@ -1,4 +1,4 @@
-﻿@inherits CreateContactComponent
+﻿@inherits UpdateContactComponent
 
 <MudGrid>
     <MudItem sm="12" md="3" Class="mt-1">
@@ -27,21 +27,18 @@
                               @bind-Value="Contact.Description"
                               For="@(() => Contact.Description)" />
                 break;
-
             case Core.Enums.EContactType.Celular:
                 <MudTextField Label="Celular"
                               Placeholder="(19)99999-9999"
                               @bind-Value="Contact.Description"
                               For="@(() => Contact.Description)" />
                 break;
-
             default:
                 <MudTextField Label="WhatsApp"
                               Placeholder="(19)99999-9999"
                               @bind-Value="Contact.Description"
                               For="@(() => Contact.Description)" />
                 break;
-
         }
     </MudItem>
     <MudItem sm="12" md="3">
@@ -50,11 +47,24 @@
                       @bind-Value="Contact.Departament"
                       For="@(() => Contact.Departament)" />
     </MudItem>
-    <MudIconButton Icon="@Icons.Material.Filled.Add"
-                   OnClick="AddContact"
-                   Size="Size.Small"
-                   Color="Color.Success">
-    </MudIconButton>
+
+    @if (IsEditing)
+    {
+        <MudIconButton Icon="@Icons.Material.Filled.Save"
+                       OnClick="OnAddButtonClicked"
+                       Size="Size.Small"
+                       Color="Color.Primary">
+        </MudIconButton>
+    }
+    else
+    {
+        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                       OnClick="OnAddButtonClicked"
+                       Size="Size.Small"
+                       Color="Color.Success">
+        </MudIconButton>
+    }
+
 </MudGrid>
 <MudGrid>
     <MudItem sm="12" md="12">
@@ -67,8 +77,12 @@
                 <TemplateColumn>
                     <CellTemplate Context="contato">
                         <MudStack Row Class="d-flex justify-end">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                           OnClick="@(()=> OnEditButtonClicked(contato.Item))"
+                                           Color="Color.Info">
+                            </MudIconButton>
                             <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                           OnClick="() => RemoveContact(contato.Item)"
+                                           OnClick="@(()=> OnDeleteButtonClicked(contato.Item))"
                                            Color="Color.Error">
                             </MudIconButton>
                         </MudStack>

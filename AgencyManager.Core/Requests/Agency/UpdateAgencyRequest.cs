@@ -18,9 +18,7 @@ namespace AgencyManager.Core.Requests.Agency
 
         [Required(ErrorMessage = "O endereço é obrigatório")]
         public UpdateAddressRequest Address { get; set; } = new();
-
         public List<UpdateContactRequest>? Contacts { get; set; } = [];
-
         public string? Photo { get; set; }
     }
 }

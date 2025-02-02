@@ -1,5 +1,8 @@
-﻿using AgencyManager.Core.Handlers;
+﻿using AgencyManager.Core.DTOs;
+using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Company;
+using AgencyManager.Core.Requests.Contact;
+using AgencyManager.Core.Responses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -31,24 +34,24 @@ namespace AgencyManager.Web.Pages.Companies
         protected override async Task OnInitializedAsync()
         {
             GetCompanyByIdRequest? request = null;
+            var response = new Response<CompanyDto?>();
 
             try
             {
                 request = new GetCompanyByIdRequest { Id = Convert.ToInt32(Id) };
+                response = await Handler.GetByIdAsync(request);
             }
             catch
             {
-                Snackbar.Add("Parâmetro inválido", Severity.Error);
+                Snackbar.Add("Empresa inválida.", Severity.Error);
+                NavigationManager.NavigateTo("/empresas");
+                return;
             }
-
-            if (request is null) return;
 
             IsBusy = true;
 
             try
-            {
-                var response = await Handler.GetByIdAsync(request);
-
+            {   
                 if (response is { IsSuccess: true, Data: not null })
                 {
                     InputModel = new UpdateCompanyRequest
@@ -67,11 +70,25 @@ namespace AgencyManager.Web.Pages.Companies
                             State = response.Data.Address.State,
                             ZipCode = response.Data.Address.ZipCode,
                             Neighborhood = response.Data.Address.Neighborhood
-                        }
+                        },
+
+                        Contacts = response.Data.Contacts.Select(c => new UpdateContactRequest
+                        {
+                            Id = c.Id,
+                            Description = c.Description,
+                            Departament = c.Departament,
+                            ContactType = c.ContactType
+                        }).ToList()
                     };
 
                     if (string.IsNullOrEmpty(InputModel.Logo)) FileImage = "imgs/cardAgencia.jpg";
                     else FileImage = $"data:image/jpeg;base64,{InputModel.Logo}";
+                }
+                else
+                {
+                    Snackbar.Add("Empresa inválida.", Severity.Error);
+                    NavigationManager.NavigateTo("/empresas");
+                    return;
                 }
             }
             catch (Exception ex)

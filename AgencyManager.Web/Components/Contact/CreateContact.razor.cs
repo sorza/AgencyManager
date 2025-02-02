@@ -13,7 +13,7 @@ namespace AgencyManager.Web.Components.Contact
         #endregion
         
         #region Properties
-        public CreateContactRequest ContactModel { get; set; } = new();   
+        public CreateContactRequest Contact { get; set; } = new();   
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace AgencyManager.Web.Components.Contact
         #region Overrides
         protected override void OnInitialized()
         {
-            ContactModel.ContactType = Core.Enums.EContactType.Celular;
+            Contact.ContactType = Core.Enums.EContactType.Celular;
         }
         #endregion
 
@@ -36,13 +36,13 @@ namespace AgencyManager.Web.Components.Contact
         }
         public void AddContact()
         {
-            if (IsValid(ContactModel))
+            if (IsValid(Contact))
             {
                 var contact = new CreateContactRequest
                 {
-                    ContactType = ContactModel.ContactType,
-                    Description = ContactModel.Description,
-                    Departament = ContactModel.Departament,
+                    ContactType = Contact.ContactType,
+                    Description = Contact.Description,
+                    Departament = Contact.Departament,
                 };
 
                 Contacts.Add(contact);

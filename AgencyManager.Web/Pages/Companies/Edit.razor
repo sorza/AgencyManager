@@ -1,4 +1,5 @@
 ﻿@page "/empresas/editar/{id}"
+@using AgencyManager.Web.Components.Contact
 @inherits EditCompanyPage
 
 <MudText Typo="Typo.h4" Class="mt-4">Editar Empresa</MudText>
@@ -59,6 +60,9 @@ else
 
                     <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
                     <UpdateAddress AddressModel="InputModel.Address" />
+
+                    <MudText Typo="Typo.h6" Class="mt-6">Lista de contatos</MudText>
+                    <UpdateContact Contacts="InputModel.Contacts" />
 
                     <div class="d-flex justify-end">
                         <MudButton ButtonType="ButtonType.Submit"

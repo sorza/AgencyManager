@@ -12,6 +12,6 @@ namespace AgencyManager.Core.Handlers
         Task<PagedResponse<List<Contact>?>> GetAllByAgencyAsync(GetContactsByAgencyId request);
         Task<PagedResponse<List<Contact>?>> GetAllByCompanyAsync(GetContactsByCompanyId request);
         Task<PagedResponse<List<Contact>?>> GetAllByEmployeeAsync(GetContactsByEmployeeId request);
-        Task<Response<Contact>> UpdateAsync(UpdateContactRequest request);
+        Task<Response<Contact>> UpdateAsync(UpdateContactRequest request);      
     }
 }

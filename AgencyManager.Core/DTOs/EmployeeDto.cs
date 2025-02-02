@@ -1,6 +1,4 @@
-﻿using AgencyManager.Core.Models.Entities;
-using AgencyManager.Core.Models.Entities.ValueObjects;
-using AgencyManager.Core.Requests.Address;
+﻿using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.DTOs
 {

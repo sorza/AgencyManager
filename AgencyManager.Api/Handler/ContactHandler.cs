@@ -247,6 +247,7 @@ namespace AgencyManager.Api.Handler
             {
                 return new Response<Contact>(null, 500, "Não possível recuperar o contato.");
             }
-        }
+        }        
+        
     }
 }

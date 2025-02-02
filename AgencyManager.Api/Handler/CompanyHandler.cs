@@ -155,17 +155,33 @@ namespace AgencyManager.Api.Handler
 
                 #endregion               
 
-                #region 03. Mapear dados e atualizar dados
+                #region 03. Atualizar lita de contatos
+                if (company.Contacts is not null && request.Contacts is not null)
+                {
+                    var novaListaContatos = mapper.Map<List<Contact>>(request.Contacts);
+                    var contatosAExcluir = new List<Contact>();
+
+                    foreach (var contact in company.Contacts)
+                        if (!novaListaContatos.Contains(contact))
+                            contatosAExcluir.Add(contact);
+
+                    foreach (var contact in contatosAExcluir)
+                        context.Contacts.Remove(contact);
+                }
+
+                #endregion
+
+                #region 04. Mapear dados e atualizar dados
                 mapper.Map(request, company);
 
                 #endregion
 
-                #region 04. Salvar alterações
+                #region 05. Salvar alterações
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 05. Retornar Resposta
+                #region 06. Retornar Resposta
                 var companyDto = mapper.Map<CompanyDto>(company);
                 return new Response<CompanyDto?>(companyDto, 200, "Empresa atualizada com sucesso");
 

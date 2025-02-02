@@ -38,7 +38,7 @@ namespace AgencyManager.Core.Requests.Employee
         public DateTime? DateHire { get; set; }
 
         public DateTime? DateDismiss { get; set; }
-        public List<UpdateContactRequest>? Contacts { get; set; } = [];
+        public IList<UpdateContactRequest>? Contacts { get; set; } = [];
 
     }
 }

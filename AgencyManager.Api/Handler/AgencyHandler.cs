@@ -3,6 +3,7 @@ using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
+using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Api.Handler
 {
-    public class AgencyHandler(AppDbContext context, IMapper mapper) : IAgencyHandler
+    public class AgencyHandler(AppDbContext context, IMapper mapper, IContactHandler contactHandler) : IAgencyHandler
     {
         public async Task<Response<AgencyDto?>> CreateAsync(CreateAgencyRequest request)
         {
@@ -148,6 +149,7 @@ namespace AgencyManager.Api.Handler
                 #region 01. Buscar agência
                 var agency = await context.Agencies
                    .Include(a => a.Address)
+                   .Include(a => a.Contacts)
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (agency is null)
@@ -165,17 +167,33 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 03. Mapear dados de Request para a Entidade
+                #region 03. Atualizar lita de contatos
+                if (agency.Contacts is not null && request.Contacts is not null)
+                {                    
+                    var novaListaContatos = mapper.Map<List<Contact>>(request.Contacts);
+                    var contatosAExcluir = new List<Contact>();
+
+                    foreach (var contact in agency.Contacts)
+                        if (!novaListaContatos.Contains(contact))
+                            contatosAExcluir.Add(contact);
+
+                    foreach (var contact in contatosAExcluir)
+                        context.Contacts.Remove(contact);                  
+                }                    
+
+                #endregion
+
+                #region 04. Mapear dados de Request para a Entidade
                 mapper.Map(request, agency);
 
                 #endregion
 
-                #region 04. Salvar alterações
+                #region 05. Salvar alterações
                 await context.SaveChangesAsync();
 
                 #endregion
 
-                #region 05. Retornar Resposta
+                #region 06. Retornar Resposta
                 var agencyDto = mapper.Map<AgencyDto>(agency);
                 return new Response<AgencyDto?>(agencyDto, 200, "Agência atualizada com sucesso");
 
