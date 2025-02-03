@@ -1,0 +1,67 @@
+﻿@inherits UpdateDialogForm
+
+<MudDialog>
+    <DialogContent>       
+        <MudGrid>
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudSelect T="EContactType"
+                           Label="Tipo de contato"
+                           For="@(() => InputModel.ContactType)"
+                           @bind-Value="InputModel.ContactType">
+                    @foreach (var value in Enum.GetValues(typeof(EContactType)).Cast<EContactType>())
+                    {
+                        <MudSelectItem Value="@value">@value</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem sm="12" md="6" Class="mt-2">
+                @switch (InputModel.ContactType)
+                {
+                    case Core.Enums.EContactType.Email:
+                        <MudTextField Label="E-mail"
+                                      Placeholder="exemplo@exemplo.com"
+                                      @bind-Value="InputModel.Description"
+                                      For="@(() => InputModel.Description)" />
+                        break;
+                    case Core.Enums.EContactType.Fixo:
+                        <MudTextField Label="Telefone Fixo"
+                                      Placeholder="(19)3333-4444"
+                                      @bind-Value="InputModel.Description"
+                                      For="@(() => InputModel.Description)" />
+                        break;
+                    case Core.Enums.EContactType.Celular:
+                        <MudTextField Label="Celular"
+                                      Placeholder="(19)99999-9999"
+                                      @bind-Value="InputModel.Description"
+                                      For="@(() => InputModel.Description)" />
+                        break;
+                    default:
+                        <MudTextField Label="WhatsApp"
+                                      Placeholder="(19)99999-9999"
+                                      @bind-Value="InputModel.Description"
+                                      For="@(() => InputModel.Description)" />
+                        break;
+                }
+            </MudItem>
+        </MudGrid>
+        <MudGrid>           
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudTextField Label="Departamento"
+                              Placeholder="Ex: Financeiro"
+                              @bind-Value="InputModel.Departament"
+                              For="@(() => InputModel.Departament)" />
+            </MudItem>      
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudTextField Label="Responsável"
+                              Placeholder="Ex: Fulano"
+                              @bind-Value="InputModel.Responsible"
+                              For="@(() => InputModel.Responsible)" />
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Text" OnClick="Submit">SALVAR MUDANÇAS</MudButton>
+        <MudButton Color="Color.Secondary" Variant="Variant.Text" OnClick="Cancel">Cancelar</MudButton>
+    </DialogActions>
+</MudDialog>

@@ -1,0 +1,62 @@
+﻿@page "/contatos"
+@inherits ContactsPageList
+
+<MudText Typo="Typo.h4" Class="mt-4">Contatos por empresa</MudText>
+    
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Add"
+               OnClick="OpenCreateContactDialog">
+               NOVO CONTATO
+    </MudButton>
+</div>
+
+<MudDataGrid Items="@Contacts"
+             Class="mt-4"             
+             QuickFilter="Filter">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Lista de contatos</MudText>
+        <MudSpacer />
+        <MudSelect T="CompanyDto"
+                   Label="Empresa"
+                   Text="Selecione uma empresa"
+                   @bind-Value="Company"
+                   SelectedValuesChanged="LoadContactsAsync">
+            @foreach (var value in Companies)
+            {
+                <MudSelectItem Value="@value">@value.TradingName</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSpacer />
+        <MudTextField @bind-Value="SearchTerm"
+                      Placeholder="Filtrar..."
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      Immediate="true"
+                      IconSize="Size.Medium"
+                      Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Description" Title="Contato" />
+        <PropertyColumn Property="x => x.ContactType" Title="Tipo" />
+        <PropertyColumn Property="x => x.Departament" Title="Departamento" />
+        <PropertyColumn Property="x => x.Responsible" Title="Responsável" />
+        <TemplateColumn>
+            <CellTemplate>
+                <MudStack Row Class="d-flex justify-end">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   OnClick="@(() => OpenUpdateContactDialog(context.Item))"
+                                   Color="Color.Primary">
+                    </MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   OnClick="@(() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Description))"
+                                   Color="Color.Error">
+                    </MudIconButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+
+    </Columns>
+</MudDataGrid>
+

@@ -1,4 +1,5 @@
 ﻿using AgencyManager.Api.Data;
+using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Contact;
@@ -11,7 +12,7 @@ namespace AgencyManager.Api.Handler
 {
     public class ContactHandler(AppDbContext context, IMapper mapper) : IContactHandler
     {
-        public async Task<Response<Contact>> CreateAsync(CreateContactRequest request)
+        public async Task<Response<ContactDto?>> CreateAsync(CreateContactRequest request)
         {
             try
             {                
@@ -20,7 +21,7 @@ namespace AgencyManager.Api.Handler
                 var validationResults = new List<ValidationResult>();               
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))                                    
-                    return new Response<Contact>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                
+                    return new Response<ContactDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));                
 
                 #endregion
 
@@ -36,16 +37,16 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 04. Retornar resposta
-                return new Response<Contact>(contact, 201, "Contato criado com sucesso!");
+                return new Response<ContactDto?>(mapper.Map<ContactDto?>(contact), 201, "Contato criado com sucesso!");
 
                 #endregion
             }
             catch 
             {
-                return new Response<Contact>(null, 500, "Não foi possível criar o contato.");
+                return new Response<ContactDto?>(null, 500, "Não foi possível criar o contato.");
             }
         }
-        public async Task<Response<Contact>> UpdateAsync(UpdateContactRequest request)
+        public async Task<Response<ContactDto?>> UpdateAsync(UpdateContactRequest request)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace AgencyManager.Api.Handler
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (contact is null)
-                    return new Response<Contact>(null, 404, "Contato não encontrado");
+                    return new Response<ContactDto?>(null, 404, "Contato não encontrado");
                 #endregion
 
                 #region 02. Validar Contato
@@ -65,7 +66,7 @@ namespace AgencyManager.Api.Handler
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
                 {
-                    return new Response<Contact>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<ContactDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
                 }
 
                 #endregion
@@ -81,16 +82,16 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 05. Retornar Resposta
-                return new Response<Contact>(contact, 200, "Contato atualizado com sucesso");
+                return new Response<ContactDto?>(mapper.Map<ContactDto?>(contact), 200, "Contato atualizado com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Contact>(null, 500, "Não foi possível atualizar o contato");
+                return new Response<ContactDto?>(null, 500, "Não foi possível atualizar o contato");
             }
         }
-        public async Task<Response<Contact>> DeleteAsync(DeleteContactRequest request)
+        public async Task<Response<ContactDto?>> DeleteAsync(DeleteContactRequest request)
         {
             try
             {
@@ -99,7 +100,7 @@ namespace AgencyManager.Api.Handler
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (contact is null)
-                    return new Response<Contact>(null, 404, "Contato não encontrado");
+                    return new Response<ContactDto?>(null, 404, "Contato não encontrado");
                 #endregion
 
                 #region 02. Remover Contato
@@ -109,16 +110,16 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 03. Retornar Resposta
-                return new Response<Contact>(contact, 200, "Contato removido com sucesso");
+                return new Response<ContactDto?>(mapper.Map<ContactDto?>(contact), 200, "Contato removido com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Contact>(null, 500, "Não foi possível remover o contato");
+                return new Response<ContactDto?>(null, 500, "Não foi possível remover o contato");
             }
         }
-        public async Task<PagedResponse<List<Contact>?>> GetAllByAgencyAsync(GetContactsByAgencyId request)
+        public async Task<PagedResponse<List<ContactDto>?>> GetAllByAgencyAsync(GetContactsByAgencyId request)
         {
             try
             {
@@ -145,23 +146,23 @@ namespace AgencyManager.Api.Handler
 
                 #region 04. Retornar Resposta
                 return contacts.Count == 0
-                        ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
-                        : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<ContactDto>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
+                        : new PagedResponse<List<ContactDto>?>(mapper.Map<List<ContactDto>?>(contacts), count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos desta agência.");
+                return new PagedResponse<List<ContactDto>?>(null, 500, "Não possível consultar os contatos desta agência.");
             }
         }
-        public async Task<PagedResponse<List<Contact>?>> GetAllByCompanyAsync(GetContactsByCompanyId request)
+        public async Task<PagedResponse<List<ContactDto>?>> GetAllByCompanyAsync(GetContactsByCompanyId request)
         {
             try
             {
-                #region 01. Buscar contatos por compania
+                #region 01. Buscar contatos por empresa
                 var query = context
                 .Contacts
-                .Where(x => x.AgencyId == request.CompanyId)
+                .Where(x => x.CompanyId == request.CompanyId)
                 .AsNoTracking();
 
                 #endregion
@@ -181,23 +182,23 @@ namespace AgencyManager.Api.Handler
 
                 #region 04. Retornar Resposta
                 return contacts.Count == 0
-                        ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
-                        : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<ContactDto>?>(null, 404, "Não foram encontrados contatos para esta agencia.")
+                        : new PagedResponse<List<ContactDto>?>(mapper.Map<List<ContactDto>?>(contacts), count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos desta empresa.");
+                return new PagedResponse<List<ContactDto>?>(null, 500, "Não possível consultar os contatos desta empresa.");
             }
         }
-        public async Task<PagedResponse<List<Contact>?>> GetAllByEmployeeAsync(GetContactsByEmployeeId request)
+        public async Task<PagedResponse<List<ContactDto>?>> GetAllByEmployeeAsync(GetContactsByEmployeeId request)
         {
             try
             {
                 #region 01. Buscar contatos por colaborador
                 var query = context
                 .Contacts
-                .Where(x => x.AgencyId == request.EmployeeId)
+                .Where(x => x.EmployeeId == request.EmployeeId)
                 .AsNoTracking();
 
                 #endregion
@@ -217,16 +218,16 @@ namespace AgencyManager.Api.Handler
 
                 #region 04. Retornar Resposta
                 return contacts.Count == 0
-                        ? new PagedResponse<List<Contact>?>(null, 404, "Não foram encontrados contatos para este colaborador.")
-                        : new PagedResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
+                        ? new PagedResponse<List<ContactDto>?>(null, 404, "Não foram encontrados contatos para este colaborador.")
+                        : new PagedResponse<List<ContactDto>?>(mapper.Map<List<ContactDto>?>(contacts), count, request.PageNumber, request.PageSize);
                 #endregion
             }
             catch
             {
-                return new PagedResponse<List<Contact>?>(null, 500, "Não possível consultar os contatos deste colaborador.");
+                return new PagedResponse<List<ContactDto>?>(null, 500, "Não possível consultar os contatos deste colaborador.");
             }
         }
-        public async Task<Response<Contact>> GetByIdAsync(GetContactByIdRequest request)
+        public async Task<Response<ContactDto?>> GetByIdAsync(GetContactByIdRequest request)
         {
             try
             {
@@ -235,17 +236,17 @@ namespace AgencyManager.Api.Handler
                    .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (contact is null)
-                    return new Response<Contact>(null, 404, "Contato não encontrado");
+                    return new Response<ContactDto?>(null, 404, "Contato não encontrado");
                 #endregion
 
                 #region 02. Retornar Resposta
-                return new Response<Contact>(contact, 200);
+                return new Response<ContactDto?>(mapper.Map<ContactDto?>(contact), 200);
 
                 #endregion
             }
             catch
             {
-                return new Response<Contact>(null, 500, "Não possível recuperar o contato.");
+                return new Response<ContactDto?>(null, 500, "Não possível recuperar o contato.");
             }
         }        
         

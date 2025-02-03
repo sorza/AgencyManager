@@ -1,0 +1,67 @@
+﻿@inherits CreateDialogForm
+
+<MudDialog>
+    <DialogContent>       
+        <MudGrid>
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudSelect T="EContactType"
+                           Label="Tipo de contato"
+                           For="@(() => Contact.ContactType)"
+                           @bind-Value="Contact.ContactType">
+                    @foreach (var value in Enum.GetValues(typeof(EContactType)).Cast<EContactType>())
+                    {
+                        <MudSelectItem Value="@value">@value</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem sm="12" md="6" Class="mt-2">
+                @switch (Contact.ContactType)
+                {
+                    case Core.Enums.EContactType.Email:
+                        <MudTextField Label="E-mail"
+                                      Placeholder="exemplo@exemplo.com"
+                                      @bind-Value="Contact.Description"
+                                      For="@(() => Contact.Description)" />
+                        break;
+                    case Core.Enums.EContactType.Fixo:
+                        <MudTextField Label="Telefone Fixo"
+                                      Placeholder="(19)3333-4444"
+                                      @bind-Value="Contact.Description"
+                                      For="@(() => Contact.Description)" />
+                        break;
+                    case Core.Enums.EContactType.Celular:
+                        <MudTextField Label="Celular"
+                                      Placeholder="(19)99999-9999"
+                                      @bind-Value="Contact.Description"
+                                      For="@(() => Contact.Description)" />
+                        break;
+                    default:
+                        <MudTextField Label="WhatsApp"
+                                      Placeholder="(19)99999-9999"
+                                      @bind-Value="Contact.Description"
+                                      For="@(() => Contact.Description)" />
+                        break;
+                }
+            </MudItem>
+        </MudGrid>
+        <MudGrid>           
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudTextField Label="Departamento"
+                              Placeholder="Ex: Financeiro"
+                              @bind-Value="Contact.Departament"
+                              For="@(() => Contact.Departament)" />
+            </MudItem>      
+            <MudItem sm="12" md="6" Class="mt-2">
+                <MudTextField Label="Responsável"
+                              Placeholder="Ex: Fulano"
+                              @bind-Value="Contact.Responsible"
+                              For="@(() => Contact.Responsible)" />
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Text" OnClick="Submit">Criar</MudButton>
+        <MudButton Color="Color.Secondary" Variant="Variant.Text" OnClick="Cancel">Cancelar</MudButton>
+    </DialogActions>
+</MudDialog>

@@ -20,7 +20,11 @@ namespace AgencyManager.Core.Requests.Contact
         [MaxLength(70, ErrorMessage = "O departamento/setor deve ter no máximo 70 caracteres")]
         [MinLength(2, ErrorMessage = "O departamento/setor deve ter no mínimo 2 caracteres")]
         public string Departament { get; set; } = string.Empty;
-        public string? Responsible { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "O responsável é obrigatório")]
+        [MaxLength(70, ErrorMessage = "O campo responsável deve ter no máximo 70 caracteres")]
+        [MinLength(2, ErrorMessage = "O campo responsável deve ter no mínimo 2 caracteres")]
+        public string Responsible { get; set; } = string.Empty;
         public int? AgencyId { get; set; }
         public int? CompanyId { get; set; }
         public int? EmployeeId { get; set; }
