@@ -1,7 +1,7 @@
 ﻿@inherits UpdateContactComponent
 
-<MudGrid>
-    <MudItem sm="12" md="3" Class="mt-1">
+<MudGrid Justify="Justify.Center">
+    <MudItem sm="12" md="2" Class="mt-1">
         <MudSelect T="EContactType"
                    Label="Tipo de contato"
                    For="@(() => Contact.ContactType)"
@@ -12,7 +12,7 @@
             }
         </MudSelect>
     </MudItem>
-    <MudItem sm="12" md="2">
+    <MudItem sm="12" md="3">
         @switch (Contact.ContactType)
         {
             case Core.Enums.EContactType.Email:
