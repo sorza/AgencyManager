@@ -1,0 +1,33 @@
+﻿@inherits CreateUserDialogForm
+
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+            <MudItem sm="12" md="4" Class="mt-2">
+                <MudTextField Label="E-mail"                                
+                              Placeholder="exemplo@exemplo.com"
+                              @bind-Value="UserRequest.Email"
+                              For="@(() => UserRequest.Email )"/>
+            </MudItem>
+            <MudItem sm="12" md="4" Class="mt-2">
+                <MudTextField Label="Senha"
+                              Placeholder="Informe a senha"
+                              InputType="InputType.Password"
+                              @bind-Value="UserRequest.Password"
+                              For="@(() => UserRequest.Password )" />
+            </MudItem>
+            <MudItem sm="12" md="4" Class="mt-2">
+                <MudTextField Label="Repetir Senha"
+                              Placeholder="Repita a senha"
+                              InputType="InputType.Password"
+                              @bind-Value="UserRequest.RePassword"
+                              For="@(() => UserRequest.RePassword)" />
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Text" OnClick="Submit">Criar</MudButton>
+        <MudButton Color="Color.Secondary" Variant="Variant.Text" OnClick="Cancel">Cancelar</MudButton>
+    </DialogActions>
+</MudDialog>

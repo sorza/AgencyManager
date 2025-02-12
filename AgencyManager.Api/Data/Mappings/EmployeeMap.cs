@@ -39,6 +39,11 @@ namespace AgencyManager.Api.Data.Mappings
                 .IsRequired(true)
                 .HasColumnType("INT");
 
+            builder.Property(x => x.UserLogin)
+                .IsRequired(false)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(180);
+
             builder.Property(x => x.DateHire)
                 .IsRequired(true)
                 .HasColumnType("DATETIME2");

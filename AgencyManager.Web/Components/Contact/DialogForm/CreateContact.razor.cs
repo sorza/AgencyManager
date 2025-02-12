@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
-namespace AgencyManager.Web.Components.Contact
+namespace AgencyManager.Web.Components.Contact.DialogForm
 {
-    public partial class CreateDialogForm : ComponentBase
+    public partial class CreateContactDialogForm : ComponentBase
     {
         #region Parameters        
 

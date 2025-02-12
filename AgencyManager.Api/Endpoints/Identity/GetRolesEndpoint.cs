@@ -1,7 +1,5 @@
 ﻿using AgencyManager.Api.Common.Api;
-using AgencyManager.Api.Models;
 using AgencyManager.Core.Models.Account;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace AgencyManager.Api.Endpoints.Identity

@@ -40,7 +40,8 @@ else
             <PropertyColumn Property="x => x.Name" Title="Nome" />
             <PropertyColumn Property="x => x.Cpf" Title="CPF" />
             <PropertyColumn Property="x => DateTime.Now.Year - x.BirthDay.Year" Title="Idade" />
-            <PropertyColumn Property="x => x.Position!.Description" Title="Cargo" />            
+            <PropertyColumn Property="x => x.Position!.Description" Title="Cargo" />     
+            <PropertyColumn Property="x => x.UserLogin" Title="Usuário"/>
             <PropertyColumn Property="x => x.DateHire.ToShortDateString()" Title="Admissão" />            
             <TemplateColumn Title="Situação" Context="x">
                 <CellTemplate>

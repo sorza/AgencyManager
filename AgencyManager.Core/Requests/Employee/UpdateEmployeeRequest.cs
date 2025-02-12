@@ -31,6 +31,8 @@ namespace AgencyManager.Core.Requests.Employee
         [Required(ErrorMessage = "Cargo inválido")]
         public int PositionId { get; set; }
 
+        public string? UserLogin { get; set; }
+
         [AgeToHire]
         public DateTime? BirthDay { get; set; }
 

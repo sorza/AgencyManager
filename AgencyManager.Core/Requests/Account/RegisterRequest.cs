@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AgencyManager.Core.Common.CustomDataValidations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgencyManager.Core.Requests.Account
 {
@@ -8,7 +10,11 @@ namespace AgencyManager.Core.Requests.Account
         [EmailAddress(ErrorMessage = "E-mail inválido.")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Senha inválida.")]
+        [PasswordPropertyText]
+        [Required(ErrorMessage = "Senha inválida.")]        
         public string Password { get; set; } = string.Empty;
+
+        [ComparePasswords("Password")]
+        public string RePassword { get; set; } = string.Empty;
     }
 }

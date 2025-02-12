@@ -1,7 +1,7 @@
 ﻿@inherits UpdateContactComponent
 
-<MudGrid Justify="Justify.Center">
-    <MudItem sm="12" md="2" Class="mt-1">
+<MudGrid>
+    <MudItem sm="12" md="3" Class="mt-1">
         <MudSelect T="EContactType"
                    Label="Tipo de contato"
                    For="@(() => Contact.ContactType)"
@@ -47,7 +47,7 @@
                       @bind-Value="Contact.Departament"
                       For="@(() => Contact.Departament)" />
     </MudItem>
-    <MudItem sm="12" md="3">
+    <MudItem sm="12" md="2">
         <MudTextField Label="Responsável"
                       Placeholder="Ex: Fulano"
                       @bind-Value="Contact.Responsible"

@@ -24,33 +24,33 @@ else
                 <MudItem md="6" sm="12" Class="d-flex justify-end">
                     @if (InputModel.Active is true)
                     {
-                        <MudSwitch ReadOnly @bind-Value="InputModel.Active" Label="Em atividade" Color="Color.Success" />
+                        <MudSwitch @bind-Value="InputModel.Active" onclick="ChangeState" Label="Em atividade" Color="Color.Success" />
                     }
                     else
                     {
-                        <MudSwitch ReadOnly @bind-Value="InputModel.Active" Label="Desligado" UncheckedColor="Color.Error" />
+                        <MudSwitch @bind-Value="InputModel.Active" onclick="ChangeState" Label="Desligado" UncheckedColor="Color.Error" />
                     }
                 </MudItem>
             </MudGrid>
             <MudGrid>
                 <MudItem sm="12" md="6" Class="mt-1">
                     <MudTextField Label="Nome Completo"
-                                  Placeholder="Ex: José da Silva"
-                                  @bind-Value="InputModel.Name"
-                                  For="@(() => InputModel.Name)" />
+                    Placeholder="Ex: José da Silva"
+                    @bind-Value="InputModel.Name"
+                    For="@(() => InputModel.Name)" />
                 </MudItem>
                 <MudItem sm="12" md="3" Class="mt-1">
                     <MudTextField Label="CPF"
-                                  Placeholder="CPF"
-                                  MaxLength="11"
-                                  @bind-Value="InputModel.Cpf"
-                                  For="@(() => InputModel.Cpf)" />
+                    Placeholder="CPF"
+                    MaxLength="11"
+                    @bind-Value="InputModel.Cpf"
+                    For="@(() => InputModel.Cpf)" />
                 </MudItem>
                 <MudItem sm="12" md="3" Class="mt-1">
                     <MudTextField Label="RG"
-                                  Placeholder="RG"
-                                  @bind-Value="InputModel.Rg"
-                                  For="@(() => InputModel.Rg)" />
+                    Placeholder="RG"
+                    @bind-Value="InputModel.Rg"
+                    For="@(() => InputModel.Rg)" />
                 </MudItem>
             </MudGrid>
 
@@ -59,10 +59,10 @@ else
                 {
                     <MudItem sm="12" md="4" Class="mt-1">
                         <MudSelect T="int"
-                                   Label="Selecione um cargo"
-                                   Text="Selecione um cargo"
-                                   For="@(() => InputModel.PositionId)"
-                                   @bind-Value="InputModel.PositionId">
+                        Label="Selecione um cargo"
+                        Text="Selecione um cargo"
+                        For="@(() => InputModel.PositionId)"
+                        @bind-Value="InputModel.PositionId">
                             @foreach (var value in Agency.Positions)
                             {
                                 <MudSelectItem Value="@value.Id">@value.Description</MudSelectItem>
@@ -71,30 +71,30 @@ else
                     </MudItem>
                     <MudItem sm="12" md="4" Class="mt-1">
                         <MudDatePicker Label="Data de nascimento"
-                                       Mask="@(new DateMask("dd/MM/yyyy"))"
-                                       Editable="true"
-                                       DateFormat="dd/MM/yyyy"
-                                       @bind-Date="InputModel.BirthDay"
-                                       For="@(() => InputModel.BirthDay)" />
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        Editable="true"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="InputModel.BirthDay"
+                        For="@(() => InputModel.BirthDay)" />
 
                     </MudItem>
                     <MudItem sm="12" md="4" Class="mt-1">
                         <MudDatePicker Label="Data de contratação"
-                                       Editable="true"
-                                       Mask="@(new DateMask("dd/MM/yyyy"))"
-                                       DateFormat="dd/MM/yyyy"
-                                       @bind-Date="InputModel.DateHire"
-                                       For="@(() => InputModel.DateHire)" />
+                        Editable="true"
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="InputModel.DateHire"
+                        For="@(() => InputModel.DateHire)" />
                     </MudItem>
                 }
                 else
                 {
                     <MudItem sm="12" md="3" Class="mt-1">
                         <MudSelect T="int"
-                                   Label="Selecione um cargo"
-                                   Text="Selecione um cargo"
-                                   For="@(() => InputModel.PositionId)"
-                                   @bind-Value="InputModel.PositionId">
+                        Label="Selecione um cargo"
+                        Text="Selecione um cargo"
+                        For="@(() => InputModel.PositionId)"
+                        @bind-Value="InputModel.PositionId">
                             @foreach (var value in Agency.Positions)
                             {
                                 <MudSelectItem Value="@value.Id">@value.Description</MudSelectItem>
@@ -103,74 +103,62 @@ else
                     </MudItem>
                     <MudItem sm="12" md="3" Class="mt-1">
                         <MudDatePicker Label="Data de nascimento"
-                                       Mask="@(new DateMask("dd/MM/yyyy"))"
-                                       Editable="true"
-                                       DateFormat="dd/MM/yyyy"
-                                       @bind-Date="InputModel.BirthDay"
-                                       For="@(() => InputModel.BirthDay)" />
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        Editable="true"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="InputModel.BirthDay"
+                        For="@(() => InputModel.BirthDay)" />
 
                     </MudItem>
                     <MudItem sm="12" md="3" Class="mt-1">
                         <MudDatePicker Label="Data de contratação"
-                                       Editable="true"
-                                       Mask="@(new DateMask("dd/MM/yyyy"))"
-                                       DateFormat="dd/MM/yyyy"
-                                       @bind-Date="InputModel.DateHire"
-                                       For="@(() => InputModel.DateHire)" />
+                        Editable="true"
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="InputModel.DateHire"
+                        For="@(() => InputModel.DateHire)" />
                     </MudItem>
                     <MudItem sm="12" md="3" Class="mt-1">
                         <MudDatePicker Label="Data de demissão"
-                                       Editable="true"
-                                       Mask="@(new DateMask("dd/MM/yyyy"))"
-                                       DateFormat="dd/MM/yyyy"
-                                       @bind-Date="InputModel.DateDismiss"
-                                       For="@(() => InputModel.DateDismiss)" />
+                        Editable="true"
+                        Mask="@(new DateMask("dd/MM/yyyy"))"
+                        DateFormat="dd/MM/yyyy"
+                        @bind-Date="InputModel.DateDismiss"
+                        For="@(() => InputModel.DateDismiss)" />
                     </MudItem>
                 }
-
             </MudGrid>
-
+            @if (string.IsNullOrEmpty(InputModel.UserLogin))
+            {
+                <MudGrid>
+                    <MudItem>
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Dark"
+                                   Size="Size.Small"
+                                   OnClick="OnCreateUserButtonClickedAsync"
+                                   StartIcon="@Icons.Material.Filled.Key"
+                                   Class="mt-2">
+                            Criar Usuário
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            }          
             <MudText Typo="Typo.h6" Class="mt-6">Endereço</MudText>
             <UpdateAddress AddressModel="InputModel.Address" />
 
             <MudText Typo="Typo.h6" Class="mt-5">Lista de contatos</MudText>
             <UpdateContact Contacts="InputModel.Contacts" />
+            
+            <div class="d-flex justify-end">
+                <MudButton ButtonType="ButtonType.Submit"
+                            Variant="Variant.Filled"
+                            Color="Color.Primary"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Class="mt-2">
+                    Salvar Alterações
+                </MudButton>
+            </div>
 
-            <MudGrid>
-                <MudItem md="6" sm="12">
-                    @if (InputModel.Active is true)
-                    {
-                        <MudButton Variant="Variant.Filled"
-                                   Color="Color.Error"
-                                   OnClick="ChangeState"
-                                   StartIcon="@Icons.Material.Filled.Block"
-                                   Class="mt-2">
-                            Desativar
-                        </MudButton>
-                    }
-                    else
-                    {
-                        <MudButton Variant="Variant.Filled"
-                                   Color="Color.Success"
-                                   OnClick="@(ChangeState)"
-                                   StartIcon="@Icons.Material.Filled.NotificationsActive"
-                                   Class="mt-2">
-                            Reativar
-                        </MudButton>
-                    }
-                </MudItem>
-                <MudItem md="6" sm="12">
-                    <div class="d-flex justify-end">
-                        <MudButton ButtonType="ButtonType.Submit"
-                                   Variant="Variant.Filled"
-                                   Color="Color.Primary"
-                                   StartIcon="@Icons.Material.Filled.Save"
-                                   Class="mt-2">
-                            Salvar
-                        </MudButton>
-                    </div>
-                </MudItem>
-            </MudGrid>
         </MudPaper>
     </EditForm>
 }

@@ -70,7 +70,7 @@ namespace AgencyManager.Web.Pages.Contacts
                 var parameters = new DialogParameters { ["CompanyId"] = Company.Id };
                 var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
 
-                var dialog = DialogService.Show<CreateContactDialogForm>("NOVO CONTATO", parameters, options);
+                var dialog = DialogService.Show<Components.Contact.DialogForm.CreateContact>("NOVO CONTATO", parameters, options);
                 var result = await dialog.Result;
 
                 if (result is null) return;
@@ -91,7 +91,7 @@ namespace AgencyManager.Web.Pages.Contacts
                 var parameters = new DialogParameters { ["Contact"] = contact };
                 var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
 
-                var dialog = DialogService.Show<UpdateContactDialogForm>("ATUALIZAR CONTATO", parameters, options);
+                var dialog = DialogService.Show<Components.Contact.DialogForm.UpdateContact>("ATUALIZAR CONTATO", parameters, options);
                 var result = await dialog.Result;
 
                 if (result is null) return;

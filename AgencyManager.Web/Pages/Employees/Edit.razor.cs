@@ -3,6 +3,7 @@ using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Requests.Employee;
+using AgencyManager.Web.Components.Identity;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,7 @@ namespace AgencyManager.Web.Pages.Employees
         #region Properties
 
         public bool IsBusy { get; set; } = false;
-        public UpdateEmployeeRequest InputModel { get; set; } = new();       
+        public UpdateEmployeeRequest InputModel { get; set; } = new();        
         public AgencyDto Agency { get; set; } = new();       
 
         #endregion
@@ -29,6 +30,7 @@ namespace AgencyManager.Web.Pages.Employees
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
         [Inject] IEmployeeHandler Handler { get; set; } = null!;
         [Inject] IAgencyHandler AgencyHandler { get; set; } = null!;
+        [Inject] IDialogService DialogService { get; set; } = null!;
 
         #endregion
 
@@ -67,6 +69,7 @@ namespace AgencyManager.Web.Pages.Employees
                         Cpf = result.Data.Cpf,
                         Rg = result.Data.Rg,
                         PositionId = result.Data.PositionId,
+                        UserLogin = result.Data.UserLogin,
                         DateHire = result.Data.DateHire,
                         DateDismiss = result.Data.DateDismiss,
                         Active = result.Data.Active,
@@ -97,7 +100,6 @@ namespace AgencyManager.Web.Pages.Employees
         #endregion
 
         #region Methods
-
         public async Task OnValidSubmitAsync()
         {
             IsBusy = true;
@@ -152,7 +154,22 @@ namespace AgencyManager.Web.Pages.Employees
                 }
             }
         }      
-        
+        public async Task OnCreateUserButtonClickedAsync()
+        {           
+            var parameters = new DialogParameters { ["InputModel"] = InputModel};
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+
+            var dialog = DialogService.Show<CreateUserDialog>("NOVO USUÁRIO", parameters, options);
+            var result = await dialog.Result;
+                 
+            if (result is null) return;
+
+            if (!result.Canceled && result.Data is not null)
+            {
+                InputModel = (UpdateEmployeeRequest)result.Data;                   
+            }           
+        }
+
         #endregion
        
     }

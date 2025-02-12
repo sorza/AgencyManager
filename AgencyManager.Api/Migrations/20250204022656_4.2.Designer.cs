@@ -4,6 +4,7 @@ using AgencyManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgencyManager.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204022656_4.2")]
+    partial class _42
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,7 +332,7 @@ namespace AgencyManager.Api.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<string>("UserLogin")
+                    b.Property<string>("Username")
                         .HasMaxLength(180)
                         .HasColumnType("VARCHAR");
 

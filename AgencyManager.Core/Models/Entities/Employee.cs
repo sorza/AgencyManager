@@ -1,3 +1,4 @@
+using AgencyManager.Core.Models.Account;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 
 namespace AgencyManager.Core.Models.Entities
@@ -35,6 +36,7 @@ namespace AgencyManager.Core.Models.Entities
         public virtual Agency? Agency { get; private set; }
         public int PositionId { get; private set; }
         public virtual Position? Position { get; private set; }
+        public string? UserLogin { get; private set; }
         public DateTime DateHire { get; private set; }
         public DateTime DateDismiss { get; private set; }
         public List<Contact>? Contacts { get; set; } = [];
