@@ -82,7 +82,11 @@ namespace AgencyManager.Web.Pages.Cashs
 
                 if (result.Data is not null)
                 {
-                    Snackbar.Add(result.Message!, Severity.Success);                  
+                    Snackbar.Add(result.Message!, Severity.Success);        
+                    
+                    await LoadCashs();
+
+                    StateHasChanged();
                 }
                 else
                 {
