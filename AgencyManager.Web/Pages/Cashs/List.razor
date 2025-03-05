@@ -1,0 +1,155 @@
+﻿@page "/caixas"
+@inherits ListCashsPage
+
+@if(IsBusy)
+{
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+    <MudSkeleton Height="110px" />
+    <MudSkeleton Height="55px" />
+}
+else
+{
+    <MudGrid>
+        <MudItem md="4" sm="12">
+            <MudPaper Class="mt-4 pa-4">
+                <MudText style="text-align:center" Class="mb-1" Typo="Typo.h6">Resumo do Período</MudText>
+                <MudGrid Justify="Justify.Center">
+                    <MudItem md="5" sm="12">
+                        <MudDatePicker Label="De"
+                                       Mask="@(new DateMask("dd/MM/yyyy"))"
+                                       Editable="true"                                       
+                                       DateFormat="dd/MM/yyyy"
+                                       @bind-Date="StartDate" />
+                    </MudItem>
+                    <MudItem md="5" sm="12">
+                        <MudDatePicker Label="Até"
+                                       Mask="@(new DateMask("dd/MM/yyyy"))"
+                                       Editable="true"
+                                       DateFormat="dd/MM/yyyy"
+                                       @bind-Date="EndDate" />
+                    </MudItem>
+                    <MudItem md="1">
+                        <MudIconButton Icon="fas fa-search"
+                                OnClick="LoadCashs"
+                                Class="mt-3"
+                                Size="Size.Small"
+                                Color="Color.Secondary"/>
+                    </MudItem>
+                </MudGrid>      
+                <MudGrid Class="mt-1">
+                    <MudItem md="6" sm="12">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Style="font-size:medium; font-weight: bold;">Vendas Presenciais</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Storefront" Color="Color.Default" />
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Style="font-size:medium">@Cashs.Sum(x =>  x.TotalSalesAmount - x.VirtualSalesAmount).ToString("C")</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                    <MudItem md="6" sm="12">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Style="font-size:medium; font-weight: bold;">Vendas Virtuais</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Wifi" Color="Color.Default" />
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Style="font-size:medium">@Cashs.Sum(x => x.VirtualSalesAmount).ToString("C")</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                </MudGrid>
+
+                <MudGrid Class="mt-1">
+                    <MudItem md="6" sm="12">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Style="font-size:medium;font-weight: bold;">Vendas Totais</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Default" />
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Style="font-size:medium">@Cashs.Sum(x => x.TotalSalesAmount).ToString("C")</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                    <MudItem md="6" sm="12">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Style="font-size:medium;font-weight: bold;">Saldo do Agente</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.AccountBalance" Color="Color.Default" />
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Style="font-size:medium">@Cashs.Sum(x => x.Balance).ToString("C")</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>            
+        </MudItem>
+        <MudItem md="8" sm="12">
+            <MudPaper>
+                <MudDataGrid Items="@Cashs"
+                             Class="mt-4">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Caixas de @Employee.Name.Split(' ')[0] </MudText>
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   OnClick="NewCash"
+                                   StartIcon="@Icons.Material.Filled.Add">
+                            NOVO CAIXA
+                        </MudButton>
+                    </ToolBarContent>
+                    <Columns>
+                        <PropertyColumn Property="x => x.Date" Format="dd/MM/yyyy" Title="Data" />
+                        <TemplateColumn Title="Situação" Context="C">
+                            <CellTemplate>
+                                @if (C.Item.Status)
+                                {
+                                    <strong><span style="color:green">Aberto</span></strong>
+                                }
+                                else
+                                {
+                                    <strong><span style="color:red">Fechado</span></strong>
+                                }
+                            </CellTemplate>
+                        </TemplateColumn>
+                        <PropertyColumn Property="x => x.TotalSalesAmount" Format="C" Title="Vendas" />
+                        <PropertyColumn Property="x => x.Balance" Title="Saldo" Format="C" />
+                        <TemplateColumn>
+                            <CellTemplate>
+                                <MudStack Row Class="d-flex justify-end">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                                   Href="@($"/caixas/editar/{context.Item.Id}")"
+                                                   Color="Color.Primary">
+                                    </MudIconButton>
+                                </MudStack>
+                            </CellTemplate>
+                        </TemplateColumn>
+
+                    </Columns>
+                </MudDataGrid>
+            </MudPaper>            
+        </MudItem>
+    </MudGrid>    
+}
+

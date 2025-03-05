@@ -1,8 +1,8 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.ContractService;
+using AgencyManager.Core.Responses.DTOs;
 using AutoMapper;
 
 namespace AgencyManager.Core.Profiles

@@ -4,6 +4,7 @@ using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Cash;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace AgencyManager.Api.Handler
 {
     public class CashHandler(AppDbContext context, IMapper mapper) : ICashHandler
     {
-        public async Task<Response<Cash?>> CreateAsync(CreateCashRequest request)
+        public async Task<Response<CashDto?>> CreateAsync(CreateCashRequest request)
         {
             #region 01. Validar requisição
 
@@ -21,11 +22,21 @@ namespace AgencyManager.Api.Handler
             string errors = string.Empty;
 
             if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                return new Response<Cash?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                return new Response<CashDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
             #endregion
 
-            #region 02. Mapear propriedades e criar caixa
+            #region 02. Verificar se há caixas abertos para este usuário
+
+            var openedCash = context.Cash
+                .Any(x => x.UserId.Equals(request.UserId) && x.AgencyId == request.AgencyId && x.Status == true);
+
+            if (openedCash is true)
+                return new Response<CashDto?>(null, 400, "Já existe um caixa aberto para este usuário.");
+
+            #endregion
+
+            #region 03. Mapear propriedades e criar caixa
             try
             {
                 var cash = mapper.Map<Cash>(request);
@@ -33,19 +44,20 @@ namespace AgencyManager.Api.Handler
                 await context.Cash.AddAsync(cash);
                 await context.SaveChangesAsync();
 
-                return new Response<Cash?>(cash, 201, "Caixa aberto com sucesso.");
+                return new Response<CashDto?>(mapper.Map<CashDto>(cash), 201, "Caixa aberto com sucesso.");
             }
             catch
             {
-                return new Response<Cash?>(null, 500, "Não foi possível abrir caixa");
+                return new Response<CashDto?>(null, 500, "Não foi possível abrir caixa");
             }
             #endregion
         }
-        public async Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
+        public async Task<Response<CashDto?>> DeleteAsync(DeleteCashRequest request)
         {
             try
             {
                 #region 01. Buscar caixa
+
                 var cash = await context.Cash
                   .Include(x => x.Sales)
                   .Include(x => x.Transactions)
@@ -53,7 +65,7 @@ namespace AgencyManager.Api.Handler
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (cash is null)
-                    return new Response<Cash?>(null, 404, "Caixa não encontrada");
+                    return new Response<CashDto?>(null, 404, "Caixa não encontrada");
 
                 #endregion
                 /*
@@ -86,16 +98,16 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 07. Retornar resposta
-                return new Response<Cash?>(cash, 204, "Caixa excluído com sucesso");
+                return new Response<CashDto?>(mapper.Map<CashDto>(cash), 204, "Caixa excluído com sucesso");
                 #endregion
 
             }
             catch
             {
-                return new Response<Cash?>(null, 500, "Não foi possível excluir o caixa");
+                return new Response<CashDto?>(null, 500, "Não foi possível excluir o caixa");
             }
         }
-        public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
+        public async Task<Response<CashDto?>> UpdateAsync(UpdateCashRequest request)
         {
             try
             {
@@ -104,7 +116,7 @@ namespace AgencyManager.Api.Handler
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (cash is null)
-                    return new Response<Cash?>(null, 404, "Caixa não encontrado");
+                    return new Response<CashDto?>(null, 404, "Caixa não encontrado");
 
                 #endregion
 
@@ -114,7 +126,7 @@ namespace AgencyManager.Api.Handler
                 string errors = string.Empty;
 
                 if (!Validator.TryValidateObject(request, validationContext, validationResults, true))
-                    return new Response<Cash?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
+                    return new Response<CashDto?>(null, 400, string.Join(". ", validationResults.Select(r => r.ErrorMessage)));
 
                 #endregion
 
@@ -125,16 +137,16 @@ namespace AgencyManager.Api.Handler
                 #endregion  
 
                 #region 04. Retornar Resposta
-                return new Response<Cash?>(cash, 200, "Caixa atualizado com sucesso");
+                return new Response<CashDto?>(mapper.Map<CashDto>(cash), 200, "Caixa atualizado com sucesso");
 
                 #endregion
             }
             catch
             {
-                return new Response<Cash?>(null, 500, "Não foi possível alterar o caixa");
+                return new Response<CashDto?>(null, 500, "Não foi possível alterar o caixa");
             }
         }
-        public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
+        public async Task<Response<CashDto?>> GetByIdAsync(GetCashByIdRequest request)
         {
             try
             {
@@ -146,15 +158,15 @@ namespace AgencyManager.Api.Handler
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 return cash is null
-                    ? new Response<Cash?>(null, 404, "Caixa não encontrado")
-                    : new Response<Cash?>(cash);
+                    ? new Response<CashDto?>(null, 404, "Caixa não encontrado")
+                    : new Response<CashDto?>(mapper.Map<CashDto>(cash));
             }
             catch
             {
-                return new Response<Cash?>(null, 500, "Não foi possível recuperar o caixa.");
+                return new Response<CashDto?>(null, 500, "Não foi possível recuperar o caixa.");
             }
         }
-        public async Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
+        public async Task<PagedResponse<List<CashDto>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
         {
             #region 01. Determinar o mês corrente como padrão
             try
@@ -164,7 +176,7 @@ namespace AgencyManager.Api.Handler
             }
             catch
             {
-                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível determinar a data de início ou término.");
+                return new PagedResponse<List<CashDto>?>(null, 500, "Não foi possível determinar a data de início ou término.");
             }
             #endregion
 
@@ -192,8 +204,8 @@ namespace AgencyManager.Api.Handler
                 #endregion
 
                 #region 03. Retornar resposta
-                return new PagedResponse<List<Cash>?>(
-                    cashs,
+                return new PagedResponse<List<CashDto>?>(
+                    mapper.Map<List<CashDto>?>(cashs),
                     count,
                     request.PageNumber,
                     request.PageSize);
@@ -202,26 +214,14 @@ namespace AgencyManager.Api.Handler
             }
             catch
             {
-                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível obter os caixas da agência.");
+                return new PagedResponse<List<CashDto>?>(null, 500, "Não foi possível obter os caixas da agência.");
             }
         }       
-        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
-        {
-            #region 01. Determinar o mês corrente como padrão
+        public async Task<PagedResponse<List<CashDto>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
+        {            
             try
             {
-                request.StartDate ??= DateTime.Now.GetFirstDay();
-                request.EndDate ??= DateTime.Now.GetLastDay();
-            }
-            catch
-            {
-                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível determinar a data de início ou término.");
-            }
-            #endregion
-
-            try
-            {
-                #region 02. Buscar caixas do usuário informado para o período definido
+                #region 01. Buscar caixas do usuário informado para o período definido
                 var query = context.Cash
                 .Include(x => x.Sales)
                 .Include(x => x.Transactions)
@@ -241,9 +241,9 @@ namespace AgencyManager.Api.Handler
 
                 #endregion
 
-                #region 03. Retornar resposta
-                return new PagedResponse<List<Cash>?>(
-                    cashs,
+                #region 02. Retornar resposta
+                return new PagedResponse<List<CashDto>?>(
+                    mapper.Map<List<CashDto>?>(cashs),
                     count,
                     request.PageNumber,
                     request.PageSize);
@@ -252,7 +252,7 @@ namespace AgencyManager.Api.Handler
             }
             catch
             {
-                return new PagedResponse<List<Cash>?>(null, 500, "Não foi possível obter os caixas do usuário.");
+                return new PagedResponse<List<CashDto>?>(null, 500, "Não foi possível obter os caixas do usuário.");
             }
         }
        

@@ -1,7 +1,7 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Handlers;
+﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Requests.Contact;
+using AgencyManager.Core.Responses.DTOs;
 using AgencyManager.Web.Components.Contact;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;

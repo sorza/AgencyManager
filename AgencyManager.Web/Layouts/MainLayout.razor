@@ -10,21 +10,21 @@
         <MudLayout>
             <MudAppBar>
                 <MudIconButton 
-                    Icon="@Icons.Material.Filled.Menu" 
-                    Color="Color.Inherit"
-                    Edge="Edge.Start"
-                    OnClick="ToggleDrawer" />
+                Icon="@Icons.Material.Filled.Menu" 
+                Color="Color.Inherit"
+                Edge="Edge.Start"
+                OnClick="ToggleDrawer" />
                 Gestão de Agências
                 <MudSpacer />
                 <MudText Typo="Typo.caption">
                     @context.User.Identity?.Name
                 </MudText>
                 <MudSwitch 
-                    Color="Color.Inherit"
-                    Class="ma-4"
-                    @bind-Value="@_isDarkMode" 
-                    T="bool"
-                    ThumbIcon="@Icons.Material.Filled.Lightbulb"/>
+                Color="Color.Inherit"
+                Class="ma-4"
+                @bind-Value="@_isDarkMode" 
+                T="bool"
+                ThumbIcon="@Icons.Material.Filled.Lightbulb"/>
             </MudAppBar>
             <MudDrawer @bind-Open="@_isDrawerOpened">
                 <NavMenu />
@@ -52,7 +52,7 @@
         if(firstRender)
         {
             _isDarkMode = await _mudThemeProvider.GetSystemPreference();
-            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);            
             StateHasChanged();
         }
     }

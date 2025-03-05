@@ -36,7 +36,7 @@ namespace AgencyManager.Core.Models.Entities
         public IReadOnlyCollection<VirtualSale>? VirtualSales { get { return _virtualSales.ToArray(); }}
 
         private decimal GetBalance() =>        
-            StartValue + _transactions.Sum(x => x.Amount) + _sales.Sum(x => x.Money) - VirtualSalesAmount - EndValue;
+            EndValue + _transactions.Sum(x => x.Amount) + _sales.Sum(x => x.Money) - VirtualSalesAmount - StartValue;
         
     }
 }

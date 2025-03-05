@@ -1,7 +1,7 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Handlers;
+﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.ContractService;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using System.Net.Http.Json;
 
 namespace AgencyManager.Web.Handlers

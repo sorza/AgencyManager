@@ -1,13 +1,12 @@
 ﻿using AgencyManager.Api.Data;
-using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AgencyManager.Api.Handler
 {
@@ -146,6 +145,28 @@ namespace AgencyManager.Api.Handler
             {
                 return new Response<EmployeeDto?>(null, 500, "Não foi possível buscar colaborador");
             }            
+        }
+
+        public async Task<Response<EmployeeDto?>> GetByUsernameAsync(GetEmployeeByUsernameRequest request)
+        {
+            try
+            {
+                var employee = await context
+                .Employees
+                .AsNoTracking()
+                .Include(a => a.Address)
+                .Include(a => a.Contacts)
+                .Include(a => a.Position)
+                .FirstOrDefaultAsync(x => x.UserLogin == request.Username);
+
+                if (employee is null) return new Response<EmployeeDto?>(null, 404, "Colaborador não encontrado");
+
+                return new Response<EmployeeDto?>(mapper.Map<EmployeeDto?>(employee), 200);
+            }
+            catch
+            {
+                return new Response<EmployeeDto?>(null, 500, "Não foi possível buscar colaborador");
+            }
         }
         public async Task<Response<EmployeeDto?>> UpdateAsync(UpdateEmployeeRequest request)
         {

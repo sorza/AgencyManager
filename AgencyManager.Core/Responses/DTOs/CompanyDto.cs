@@ -1,7 +1,7 @@
 ﻿using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Models.Entities.ValueObjects;
 
-namespace AgencyManager.Core.DTOs
+namespace AgencyManager.Core.Responses.DTOs
 {
     public class CompanyDto
     {

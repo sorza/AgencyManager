@@ -1,9 +1,9 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Handlers;
+﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Requests.ContractService;
+using AgencyManager.Core.Responses.DTOs;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;

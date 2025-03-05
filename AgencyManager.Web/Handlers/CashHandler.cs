@@ -1,8 +1,8 @@
 ﻿using AgencyManager.Core.Common.Extensions;
 using AgencyManager.Core.Handlers;
-using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Cash;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using System.Net.Http.Json;
 
 namespace AgencyManager.Web.Handlers
@@ -10,21 +10,21 @@ namespace AgencyManager.Web.Handlers
     public class CashHandler(IHttpClientFactory httpClientFactory) : ICashHandler
     {
         private readonly HttpClient _client = httpClientFactory.CreateClient(Configuration.HttpClientName);
-        public async Task<Response<Cash?>> CreateAsync(CreateCashRequest request)
+        public async Task<Response<CashDto?>> CreateAsync(CreateCashRequest request)
         {
             var result = await _client.PostAsJsonAsync("v1/cashs", request);
-            return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
-                ?? new Response<Cash?>(null, 400, "Falha ao criar caixa");
+            return await result.Content.ReadFromJsonAsync<Response<CashDto?>>()
+                ?? new Response<CashDto?>(null, 400, "Falha ao criar caixa");
         }
 
-        public async Task<Response<Cash?>> DeleteAsync(DeleteCashRequest request)
+        public async Task<Response<CashDto?>> DeleteAsync(DeleteCashRequest request)
         {
            var result = await _client.DeleteAsync($"v1/cashs/{request.Id}");
-            return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
-                ?? new Response<Cash?>(null, 400, "Falha ao deletar caixa");
+            return await result.Content.ReadFromJsonAsync<Response<CashDto?>>()
+                ?? new Response<CashDto?>(null, 400, "Falha ao deletar caixa");
         }
 
-        public async Task<PagedResponse<List<Cash>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
+        public async Task<PagedResponse<List<CashDto>?>> GetByAgencyByPeriodAsync(GetCashsByAgencyByPeriodRequest request)
         {
             const string format = "yyyy-MM-dd";
             var startDate = request.StartDate is not null
@@ -37,15 +37,15 @@ namespace AgencyManager.Web.Handlers
 
             var url = $"v1/cashs/agencyByPeriod/{request.AgencyId}?startDate={startDate}&endDate={endDate}";
 
-            return await _client.GetFromJsonAsync<PagedResponse<List<Cash>?>>(url)
-                ?? new PagedResponse<List<Cash>?>(null, 400, "Falha ao buscar caixas");
+            return await _client.GetFromJsonAsync<PagedResponse<List<CashDto>?>>(url)
+                ?? new PagedResponse<List<CashDto>?>(null, 400, "Falha ao buscar caixas");
         }
 
-        public async Task<Response<Cash?>> GetByIdAsync(GetCashByIdRequest request)
-        => await _client.GetFromJsonAsync<Response<Cash?>>($"v1/cashs/{request.Id}")
-            ?? new Response<Cash?>(null, 400, "Falha ao buscar caixa");
+        public async Task<Response<CashDto?>> GetByIdAsync(GetCashByIdRequest request)
+        => await _client.GetFromJsonAsync<Response<CashDto?>>($"v1/cashs/{request.Id}")
+            ?? new Response<CashDto?>(null, 400, "Falha ao buscar caixa");
 
-        public async Task<PagedResponse<List<Cash>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
+        public async Task<PagedResponse<List<CashDto>?>> GetByUserByPeriodAsync(GetCashsByUserByPeriodRequest request)
         {
             const string format = "yyyy-MM-dd";
             var startDate = request.StartDate is not null
@@ -56,17 +56,17 @@ namespace AgencyManager.Web.Handlers
                 ? request.EndDate.Value.ToString(format)
                 : DateTime.Now.GetLastDay().ToString(format);
 
-            var url = $"v1/cashs/userByPeriod/{request.Id}?startDate={startDate}&endDate={endDate}";
+            var url = $"v1/cashs/userByPeriod/{request.UserId}?startDate={startDate}&endDate={endDate}";
 
-            return await _client.GetFromJsonAsync<PagedResponse<List<Cash>?>>(url)
-                ?? new PagedResponse<List<Cash>?>(null, 400, "Falha ao buscar caixas");
+            return await _client.GetFromJsonAsync<PagedResponse<List<CashDto>?>>(url)
+                ?? new PagedResponse<List<CashDto>?>(null, 400, "Falha ao buscar caixas");
         }
 
-        public async Task<Response<Cash?>> UpdateAsync(UpdateCashRequest request)
+        public async Task<Response<CashDto?>> UpdateAsync(UpdateCashRequest request)
         {
            var result = await _client.PutAsJsonAsync("v1/cashs", request);
-            return await result.Content.ReadFromJsonAsync<Response<Cash?>>()
-                ?? new Response<Cash?>(null, 400, "Falha ao atualizar caixa");
+            return await result.Content.ReadFromJsonAsync<Response<CashDto?>>()
+                ?? new Response<CashDto?>(null, 400, "Falha ao atualizar caixa");
         }
     }
 }

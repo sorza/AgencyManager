@@ -1,10 +1,9 @@
 ﻿using AgencyManager.Api.Data;
-using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Agency;
-using AgencyManager.Core.Requests.Contact;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;

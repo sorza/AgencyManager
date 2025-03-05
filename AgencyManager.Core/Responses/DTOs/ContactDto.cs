@@ -1,6 +1,6 @@
 ﻿using AgencyManager.Core.Enums;
 
-namespace AgencyManager.Core.DTOs
+namespace AgencyManager.Core.Responses.DTOs
 {
     public class ContactDto
     {

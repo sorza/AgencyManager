@@ -1,7 +1,7 @@
-using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.ContractService;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 
 namespace AgencyManager.Core.Handlers
 {

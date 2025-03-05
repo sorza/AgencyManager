@@ -52,7 +52,9 @@ namespace AgencyManager.Api.Endpoints
                 .MapEndpoint<DeleteEmployeeEndpoint>()
                 .MapEndpoint<GetAllEmployeesByAgencyEndpoint>()
                 .MapEndpoint<GetEmployeeByIdEndpoint>()
-                .MapEndpoint<UpdateEmployeeEndpoint>();
+                .MapEndpoint<UpdateEmployeeEndpoint>()
+                .MapEndpoint<GetEmployeeByUsernameEndpoint>();
+            
 
             endpoints.MapGroup("/v1/positions")
                 .WithTags("Positions")

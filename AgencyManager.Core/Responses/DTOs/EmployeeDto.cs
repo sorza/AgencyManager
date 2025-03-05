@@ -1,7 +1,6 @@
-﻿using AgencyManager.Core.Models.Account;
-using AgencyManager.Core.Models.Entities.ValueObjects;
+﻿using AgencyManager.Core.Models.Entities.ValueObjects;
 
-namespace AgencyManager.Core.DTOs
+namespace AgencyManager.Core.Responses.DTOs
 {
     public class EmployeeDto
     {

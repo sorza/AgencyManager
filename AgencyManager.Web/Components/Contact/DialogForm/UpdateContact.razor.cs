@@ -1,5 +1,5 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Requests.Contact;
+﻿using AgencyManager.Core.Requests.Contact;
+using AgencyManager.Core.Responses.DTOs;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;

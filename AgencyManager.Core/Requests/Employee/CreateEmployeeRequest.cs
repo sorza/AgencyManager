@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using AgencyManager.Core.Common.CustomValidations;
-using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Requests.Address;
 using AgencyManager.Core.Requests.Contact;
 

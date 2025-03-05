@@ -1,7 +1,7 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Handlers;
+﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Employee;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using System.Net.Http.Json;
 
 namespace AgencyManager.Web.Handlers
@@ -29,6 +29,10 @@ namespace AgencyManager.Web.Handlers
 
         public async Task<Response<EmployeeDto?>> GetByIdAsync(GetEmployeeByIdRequest request)
         => await _client.GetFromJsonAsync<Response<EmployeeDto?>>($"v1/employees/{request.Id}")
+            ?? new Response<EmployeeDto?>(null, 400, "Falha ao buscar funcionário.");
+
+        public async Task<Response<EmployeeDto?>> GetByUsernameAsync(GetEmployeeByUsernameRequest request)
+        => await _client.GetFromJsonAsync<Response<EmployeeDto?>>($"v1/employees")
             ?? new Response<EmployeeDto?>(null, 400, "Falha ao buscar funcionário.");
 
         public async Task<Response<EmployeeDto?>> UpdateAsync(UpdateEmployeeRequest request)

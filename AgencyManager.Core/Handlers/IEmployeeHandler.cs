@@ -1,7 +1,6 @@
-using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Models.Entities;
 using AgencyManager.Core.Requests.Employee;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 
 namespace AgencyManager.Core.Handlers
 {
@@ -11,6 +10,7 @@ namespace AgencyManager.Core.Handlers
         Task<Response<EmployeeDto?>> DeleteAsync(DeleteEmployeeRequest request);        
         Task<PagedResponse<List<EmployeeDto>?>> GetAllByAgencyIdAsync(GetAllEmployeesByAgencyIdRequest request);
         Task<Response<EmployeeDto?>> GetByIdAsync(GetEmployeeByIdRequest request);
+        Task<Response<EmployeeDto?>> GetByUsernameAsync(GetEmployeeByUsernameRequest request);
         Task<Response<EmployeeDto?>> UpdateAsync(UpdateEmployeeRequest request);
 
     }

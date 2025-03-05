@@ -1,6 +1,6 @@
-using AgencyManager.Core.DTOs;
 using AgencyManager.Core.Requests.Agency;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 
 namespace AgencyManager.Core.Handlers
 {

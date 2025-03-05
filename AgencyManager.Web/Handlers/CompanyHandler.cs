@@ -1,10 +1,8 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Handlers;
-using AgencyManager.Core.Models.Entities;
+﻿using AgencyManager.Core.Handlers;
 using AgencyManager.Core.Requests.Company;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace AgencyManager.Web.Handlers
 {

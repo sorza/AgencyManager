@@ -1,6 +1,6 @@
-﻿using AgencyManager.Core.DTOs;
-using AgencyManager.Core.Models.Entities.ValueObjects;
+﻿using AgencyManager.Core.Models.Entities.ValueObjects;
 using AgencyManager.Core.Responses;
+using AgencyManager.Core.Responses.DTOs;
 using AgencyManager.Core.Services;
 using AutoMapper;
 using Newtonsoft.Json;
